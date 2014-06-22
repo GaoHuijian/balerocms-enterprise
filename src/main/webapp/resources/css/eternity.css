@@ -1,0 +1,38 @@
+/**
+*
+* Balero CMS: Eternity Generic Template
+*
+* Main CSS Styles
+*
+* http://www.balerocms.com/
+*
+**/
+
+body {
+    margin: 0;
+    padding: 0;
+}
+.menu {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    position:absolute;
+    top:0;
+    right:0;
+    width: 100%;
+}
+.toolbox {
+	margin-top: 5px;
+}
+#site-name {
+    margin-top: 100px;
+    position:absolute;
+    top:0;
+    left: 0;
+    right:0;
+	text-align: center;
+	color: white;
+}
+.logo-btn {
+	padding-top: 10px;
+}
