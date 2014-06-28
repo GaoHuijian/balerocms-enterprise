@@ -18,12 +18,15 @@
 </head>
 <body>
 
+<!-- Slider Headers -->
 <ul class="bxslider">
-    <li><img src="<c:url value="/resources/images/pic1.jpg" />"></li>
-    <li><img src="<c:url value="/resources/images/pic2.jpg" />"></li>
-    <li><img src="<c:url value="/resources/images/pic3.jpg" />"></li>
-    <li><img src="<c:url value="/resources/images/pic4.jpg" />"></li>
+    <li><img src="<c:url value="/resources/images/eternity.png" />"></li>
+    <c:if test="${admin == true}">
+        <!-- /media/uploads/ -->
+        ${files}
+    </c:if>
 </ul>
+<!-- /Slider Headers -->
 
 <div class="menu">
 
@@ -40,13 +43,50 @@
                 <a class="navbar-brand" href="#">Menu</a>
             </div>
 
+            <c:if test="${message != null}">
+                <!-- Message Center -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <div class="modal-body">
+                                <p class="message-center">
+                                ${message}
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#" id="add" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
+                    <c:if test="${admin == true}">
+
+                        <li><a href="#" id="add" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Media Repository</a></li>
+                                <li><a href="#">Password Setup</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/logout" id="logout">Logout</a></li>
+                            </ul>
+                        </li>
+
+                    </c:if>
+                    <c:if test="${admin == false}">
+                        <li><a href="#" id="login" data-toggle="modal" data-target="#LoginModal">Login</a></li>
+                    </c:if>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -56,20 +96,55 @@
 
 <!-- Site name and slogan -->
 <div id="site-name">
+
+    <c:if test="${admin == true}">
+        <!-- Upload And Delete Headers -->
+        <p align="right" class="right">
+                <!-- Edit header background -->
+                <button type="button" class="btn btn-default btn-lg inverse" data-toggle="modal" data-target="#UploadModal">
+                    <span class="glyphicon glyphicon-upload"></span>
+                </button>
+        <button type="button" class="btn btn-default btn-lg inverse">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        </p>
+    </c:if>
+
     <h1>Balero CMS</h1>
     <h5>Simple is powerful</h5>
+
 </div>
 
-    <div class="logo-wrapper">
-        <img class="img-responsive" src="http://placehold.it/200x200&text=Logo" />
+
+<!-- Login Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/login">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Admin Login</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputUsername">Username</label>
+                    <input type="text" name="inputUsername" class="form-control" id="inputUsername" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="inputPassword" class="form-control" id="inputPassword" placeholder="Enter password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            </form>
+        </div>
     </div>
+</div>
 
-    <!-- Admin edit button -->
-    <button class="btn btn-default btn-lg pull-right toolbox" data-toggle="modal" data-target="#myModal">
-        <span class="glyphicon glyphicon-pencil"></span> Edit
-    </button>
-
-<!-- Logo Image Modal -->
+<!-- New Page Modal -->
 <div class="modal fade" id="NewPageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -84,6 +159,30 @@
                 <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Add</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Upload Modal -->
+<div class="modal fade" id="UploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" action="/upload" enctype="multipart/form-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Upload Header</h4>
+            </div>
+            <div class="modal-body">
+                Name: <input type="text" name="name">
+                <br />
+                <input type="file" name="file">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
+                <button type="input" class="btn btn-primary">Add</button>
+            </div>
+            </div>
+         </form>
         </div>
     </div>
 </div>
@@ -108,6 +207,10 @@
             $("#site-name").show();
             flag = 0;
         }
+    });
+    // Message center
+    $(window).load(function(){
+        $('#myModal').modal('show');
     });
 </script>
 

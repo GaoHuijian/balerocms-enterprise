@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Repository
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class TestDAO {
+public class UsersDAO {
     @Autowired private SessionFactory sessionFactory;
 
     /**
@@ -21,33 +21,10 @@ public class TestDAO {
      * a hibernate session. See src/main/webapp/WEB-INF/servlet-context.xml
      */
     @Transactional
-    public List<Test> findAll() {
+    public List<Users> administrator() {
         Session session = sessionFactory.getCurrentSession();
-        List users = session.createQuery("from Test").list();
+        List users = session.createQuery("from Users where auth = 'god'").list();
         return users;
-    }
-
-    @Transactional
-    public void add() {
-        Session session = sessionFactory.openSession();
-        Test test = new Test();
-        Double n = Math.random();
-        test.setName("user_" + n.toString());
-        test.setEmail("user@" + n.toString());
-        session.save(test);
-        session.flush();
-        session.close();
-    }
-
-    @Transactional
-    public void delete(int id) {
-        Session session = sessionFactory.openSession();
-        Test test = new Test();
-        Double n = Math.random();
-        test.setId(id);
-        session.delete(test);
-        session.flush();
-        session.close();
     }
 
 }

@@ -59,4 +59,13 @@
   <mvc:resources mapping="/resources/**" location="/resources/" />
   <mvc:annotation-driven />
 
+    <!-- Image Uploader -->
+    <beans:bean id="multipartResolver"
+                class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+        <!-- setting maximum upload size -->
+        <beans:property name="maxUploadSize" value="10000000" />
+
+    </beans:bean>
+
 </beans>

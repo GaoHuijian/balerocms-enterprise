@@ -18,3 +18,11 @@ Upcoming Technologies
 Under development
 
 * balerocms.com
+
+Deploying from IntelliJ IDE
+===========================
+
+Go to Servers list -> Edit Configuration...
+
+Server Tab -> Check option "Deploy applications configure in Tomcat instance"
+
