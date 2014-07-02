@@ -25,6 +25,8 @@ public class IndexController {
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
 
+    private boolean adminElements = false;
+
     /**
      * Front-end Main Controller
      *
@@ -61,8 +63,14 @@ public class IndexController {
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
 
+        /**
+         * Enable or Disable and
+         * Check if Admin Elements will
+         * be displayed
+         */
         model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
+
 		return "index";
 	}
 
