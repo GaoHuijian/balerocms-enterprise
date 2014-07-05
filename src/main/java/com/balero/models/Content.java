@@ -7,21 +7,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Unit Test Model Class
+ * Content Class
+ *
+ * Getters and Setters Methods
  */
 @Entity
 @Table(name = "content")
 public class Content {
 
-    @Id @GeneratedValue private long id;
+    @Id @GeneratedValue private int id;
     private String content;
+    private String fullcontent;
     private String body;
     private String lang;
 
     public long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getContent() {
@@ -29,6 +32,12 @@ public class Content {
     }
     public void setContent(String content) {
         this.content = content;
+    }
+    public String getFullContent() {
+        return fullcontent;
+    }
+    public void setFullContent(String fullcontent) {
+        this.fullcontent = fullcontent;
     }
     public String getBody() {
         return body;

@@ -1,5 +1,6 @@
 package com.balero.controllers;
 
+import com.balero.models.Content;
 import com.balero.models.Users;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
@@ -25,7 +26,11 @@ public class IndexController {
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
 
+    @Autowired
+    private com.balero.models.ContentDAO ContentDAO;
+
     private boolean adminElements = false;
+    private int i = 0;
 
     /**
      * Front-end Main Controller
@@ -64,12 +69,19 @@ public class IndexController {
         String files = listFilesUtil.listFiles();
 
         /**
+         * Home Post's
+         */
+        List<Content> rows = ContentDAO.findAll();
+
+        /**
          * Enable or Disable and
          * Check if Admin Elements will
          * be displayed
          */
         model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
+        model.addAttribute("rows", rows);
+        model.addAttribute("i", i++);
 
 		return "index";
 	}

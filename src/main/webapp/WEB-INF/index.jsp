@@ -42,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Menu</a>
+                <a class="navbar-brand" href="./">Home</a>
             </div>
 
             <c:if test="${message != null}">
@@ -70,7 +70,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <c:if test="${admin == true}">
 
-                        <li><a href="#" id="add" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
+                        <li><a href="/add" id="add"><span class="glyphicon glyphicon-pencil"></span></a></li>
+                        <li><a href="#" id="new" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
@@ -117,26 +118,34 @@
 
 </div>
 
-<!-- loop -->
-<div class="type1" contenteditable="${admin}">
-    <h1>
-        <img alt="Saturn V carrying Apollo 11" class="left" src="<c:url value="/resources/images/nopic.png"/> "/>
-        Title
-    </h1>
-    <hr />
-    <h3>SubTitle</h3>
-    <p>
-        Content
-    </p>
-</div>
-<!-- loop -->
+<!-- Loop -->
+<form method="post" action="/save">
+<c:forEach var="p" items="${rows}">
+    <div id="editable-${p.id}" class="type1" contenteditable="${admin}">
+        ${p.content}
+    </div>
 
-    <form method="post" action="/save">
-        <input type="hidden" name="postContainer" id="postContainer">
-        <button type="submit" class="btn btn-default btn-lg pull-right" onclick="javascript:content('editable')">
-            <span class="glyphicon glyphicon-floppy-disk"></span>
-        </button>
-    </form>
+    <c:if test="${admin == true}">
+        <div class="pull-left">
+            <button type="submit" class="btn btn-default btn-lg" onclick="javascript:content('editable-${p.id}', '${p.id}')">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+            </button>
+        </div>
+
+        <!-- btn -dlete -->
+        <div class="add-button">
+            <a href="/delete?id=${p.id}" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
+
+    </c:if>
+</c:forEach>
+<input type="hidden" name="dataContainer" id="dataContainer">
+<input type="hidden" name="id" id="id">
+</form>
+
+
 <!-- /Loop -->
 
 <!-- Modals -->
@@ -215,15 +224,20 @@
 <script>
     // Save CKE Editor Content
     // InTo Server Data
-    function content(divName)  {
+    function content(divName, id) {
         // Save Div Content into Hidden Field
         // 'postContainer'
         var editor = CKEDITOR.instances[divName];
         // CKE Editor Method
         var data = editor.getData();
         // Variable Datas Has Content
-        document.getElementById("postContainer").value = data;
-        alert(data);
+        document.getElementById("dataContainer").value = data;
+        document.getElementById("id").value = id;
+        var x = document.getElementById("dataContainer").value;
+        var y = document.getElementById("id").value;
+        alert('start');
+        alert('data: ' + x);
+        alert('id: ' + y);
     }
     // Bxslider
     // Load Slider and settiings
