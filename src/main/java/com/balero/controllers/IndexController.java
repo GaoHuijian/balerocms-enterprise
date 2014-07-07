@@ -1,6 +1,7 @@
 package com.balero.controllers;
 
 import com.balero.models.Content;
+import com.balero.models.Footer;
 import com.balero.models.Users;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
@@ -28,6 +29,9 @@ public class IndexController {
 
     @Autowired
     private com.balero.models.ContentDAO ContentDAO;
+
+    @Autowired
+    private com.balero.models.FooterDAO FooterDAO;
 
     private boolean adminElements = false;
     private int i = 0;
@@ -74,6 +78,11 @@ public class IndexController {
         List<Content> rows = ContentDAO.findAll();
 
         /**
+         * Footer content
+         */
+        List<Footer> footer = FooterDAO.findAll();
+
+        /**
          * Enable or Disable and
          * Check if Admin Elements will
          * be displayed
@@ -81,7 +90,7 @@ public class IndexController {
         model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
         model.addAttribute("rows", rows);
-        model.addAttribute("i", i++);
+        model.addAttribute("footer", footer);
 
 		return "index";
 	}

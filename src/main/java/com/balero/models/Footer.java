@@ -7,17 +7,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Content Class
+ * Footer Class
  *
  * Getters and Setters Methods
  */
 @Entity
-@Table(name = "content")
-public class Content {
+@Table(name = "footer")
+public class Footer {
 
     @Id @GeneratedValue private int id;
     private String content;
-    private String fullcontent;
     private String lang;
 
     public long getId() {
@@ -31,12 +30,6 @@ public class Content {
     }
     public void setContent(String content) {
         this.content = content;
-    }
-    public String getFullContent() {
-        return fullcontent;
-    }
-    public void setFullContent(String fullcontent) {
-        this.fullcontent = fullcontent;
     }
     public String getLang() {
         return lang;

@@ -33,16 +33,14 @@ public class ContentDAO {
      *
      * @param postContainer
      * @param fullcontent
-     * @param body
      * @param lang
      */
     @Transactional
-    public void addPost(String postContainer, String fullcontent, String body, String lang) {
+    public void addPost(String postContainer, String fullcontent, String lang) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setContent(postContainer);
         content.setFullContent(fullcontent);
-        content.setBody(body);
         content.setLang(lang);
         session.save(content);
         session.flush();
@@ -54,17 +52,15 @@ public class ContentDAO {
      *
      * @param postContainer
      * @param fullcontent
-     * @param body
      * @param lang
      */
     @Transactional
-    public void updatePost(int id, String postContainer, String fullcontent, String body, String lang) {
+    public void updatePost(int id, String postContainer, String fullcontent, String lang) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setId(id);
         content.setContent(postContainer);
         content.setFullContent(fullcontent);
-        content.setBody(body);
         content.setLang(lang);
         session.update(content);
         session.flush();

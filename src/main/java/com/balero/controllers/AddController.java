@@ -28,7 +28,7 @@ public class AddController {
                 "    Content\n" +
                 "</p>";
 
-        ContentDAO.addPost(html, "content", "", "en");
+        ContentDAO.addPost(html, "fullcontent", "en");
 
         return "redirect:/";
 

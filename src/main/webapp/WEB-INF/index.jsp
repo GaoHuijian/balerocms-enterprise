@@ -126,6 +126,7 @@
     </div>
 
     <c:if test="${admin == true}">
+
         <div class="pull-left">
             <button type="submit" class="btn btn-default btn-lg" onclick="javascript:content('editable-${p.id}', '${p.id}')">
                 <span class="glyphicon glyphicon-floppy-disk"></span>
@@ -140,13 +141,40 @@
         </div>
 
     </c:if>
+
 </c:forEach>
+<!-- Data Container -->
 <input type="hidden" name="dataContainer" id="dataContainer">
 <input type="hidden" name="id" id="id">
 </form>
-
-
 <!-- /Loop -->
+
+<!-- Footer -->
+<div id="footer">
+
+        <c:forEach var="p" items="${footer}">
+
+            <c:if test="${admin == true}">
+                <form method="post" action="/footer">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-default btn-sm" onclick="javascript:footer('${p.id}')">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                        </button>
+                        <!-- Footer Hidden Container -->
+                        <input type="hidden" name="fContainer" id="fContainer">
+                        <input type="hidden" name="fid" id="fid">
+                    </div>
+                </form>
+            </c:if>
+
+            <div id="editable-footer" contenteditable="${admin}">
+                ${p.content}
+            </div>
+
+        </c:forEach>
+
+</div>
+<!-- /Footer -->
 
 <!-- Modals -->
 
@@ -233,11 +261,17 @@
         // Variable Datas Has Content
         document.getElementById("dataContainer").value = data;
         document.getElementById("id").value = id;
-        var x = document.getElementById("dataContainer").value;
-        var y = document.getElementById("id").value;
-        alert('start');
-        alert('data: ' + x);
-        alert('id: ' + y);
+    }
+    // Footer container
+    function footer(fid) {
+        // Save Div Content into Hidden Field
+        // 'postContainer'
+        var editor = CKEDITOR.instances["editable-footer"];
+        // CKE Editor Method
+        var data = editor.getData();
+        // Variable Datas Has Content
+        document.getElementById("fContainer").value = data;7
+        document.getElementById("fid").value = fid;
     }
     // Bxslider
     // Load Slider and settiings
@@ -268,7 +302,7 @@
     // Remove one plugin.
     // http://docs.ckeditor.com/#!/
     // guide/dev_howtos_basic_configuration
-    CKEDITOR.config.removePlugins = 'about, pastefromword, pastetext, undo, clipboard, scayt, wsc, table, tab, tabletools, removeformat';
+    CKEDITOR.config.removePlugins = 'about, pastefromword, pastetext, undo, clipboard, scayt, wsc, removeformat';
 </script>
 
 </body>

@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-@RequestMapping("/save")
-public class SaveController {
+@RequestMapping("/footer")
+public class FooterController {
 
     @Autowired
-    private com.balero.models.ContentDAO ContentDAO;
+    private com.balero.models.FooterDAO FooterDAO;
 
     @RequestMapping(method = RequestMethod.POST)
     public String save(HttpServletRequest request,
-            @RequestParam("id") String id,
-            @RequestParam("dataContainer") String dataContainer)  {
+            @RequestParam("fid") String id,
+            @RequestParam("fContainer") String dataContainer)  {
 
-        String body = request.getParameter("body");
         int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, dataContainer, "fullpost", "en");
+        FooterDAO.updateFooter(intId, dataContainer, "en");
 
         return "redirect:/";
 
