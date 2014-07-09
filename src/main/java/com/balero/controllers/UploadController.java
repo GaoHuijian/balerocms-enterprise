@@ -1,5 +1,6 @@
 package com.balero.controllers;
 
+import com.balero.services.ListFilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,17 +30,18 @@ public class UploadController {
     @Autowired
     private ServletContext servletContext;
 
+
     /**
      * Upload file on server
      *
-     * @param name
      * @param file
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String upload(@RequestParam("name") String name,
-                         @RequestParam("file") MultipartFile file) {
+    public String upload(@RequestParam("file") MultipartFile file) {
 
+
+        String inputFileName = file.getOriginalFilename();
 
         if (!file.isEmpty()) {
             try {
@@ -51,23 +53,77 @@ public class UploadController {
                 if (!dir.exists())
                     dir.mkdirs();
 
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + name);
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
+                String[] ext = new String[9];
+                // Add your extension here
+                ext[0] = ".jpg";
+                ext[1] = ".png";
+                ext[2] = ".bmp";
+                ext[3] = ".jpeg";
 
-                System.out.println("Server File Location="
-                        + serverFile.getAbsolutePath() + "You successfully uploaded file=" + name);
+                int intIndex = inputFileName.indexOf("jpg");
+
+                for(int i = 0; i < ext.length; i++) {
+                    if(intIndex == -1) {
+                        System.out.println("File extension is not valid");
+                    } else {
+                        // Create the file on server
+                        File serverFile = new File(dir.getAbsolutePath()
+                                + File.separator + inputFileName);
+                        BufferedOutputStream stream = new BufferedOutputStream(
+                                new FileOutputStream(serverFile));
+                        stream.write(bytes);
+                        stream.close();
+                    }
+                }
+
+                System.out.println("You successfully uploaded file");
 
             } catch (Exception e) {
-                System.out.println("You failed to upload " + name + " => " + e.getMessage());
+                System.out.println("You failed to upload => " + e.getMessage());
             }
         } else {
-            System.out.println("You failed to upload " + name
-                    + " because the file was empty.");
+            System.out.println("You failed to upload because the file was empty.");
+        }
+
+        return "redirect:/";
+
+    }
+
+    /**
+     * This method loop containing file headers files
+     * and then delete the selected file by number.
+     * Example:
+     *
+     * Loop
+     *      if sliderContainer = 2 Then
+     *          Delete File Numer 2
+     *      End if
+     * End Loop
+     *
+     * @param sliderContainer
+     * @return
+     */
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public String remove(@RequestParam String sliderContainer) {
+
+        // sliderContairner is a String, so convert to int
+        int sliderContainerToInt = Integer.parseInt(sliderContainer);
+        String rootPath = System.getProperty("catalina.home");
+
+        int i = 0;
+        ListFilesUtil listFilesUtil = new ListFilesUtil();
+        File[] fList = listFilesUtil.listFilesInArray();
+
+        for (File file : fList){
+            i++;
+            if (sliderContainerToInt == i) {
+                // Delete Header File
+                new File(rootPath + File.separator + "webapps/media/uploads"
+                        + File.separator + file.delete());
+                // Debug
+                System.out.println("Loop: " + i + " corresponding to file: " + file.getName());
+                System.out.println("Finding:" + sliderContainer);
+            }
         }
 
         return "redirect:/";
