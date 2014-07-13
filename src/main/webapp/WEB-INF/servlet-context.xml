@@ -15,11 +15,13 @@
     <property name="prefix" value="/WEB-INF/" />
     <property name="suffix" value=".jsp" />
   </bean>
-  
-  <!--
-  Scan classpath for annotations (eg: @Service, @Repository etc)
-  Read all packages inside 'com.balero.x'
-  -->
+
+    <context:property-placeholder location="classpath:database.properties" />
+
+    <!--
+    Scan classpath for annotations (eg: @Service, @Repository etc)
+    Read all packages inside 'com.balero.x'
+    -->
   <context:component-scan base-package="com.balero" />
   
   <!-- JDBC Data Source. It is assumed you have MySQL running on localhost port 3306 with 
@@ -27,8 +29,8 @@
   <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://localhost:3306/balero_cms"/>
-    <property name="username" value="root"/>
-    <property name="password" value="root"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
     <property name="validationQuery" value="SELECT 1"/>
   </bean>
   

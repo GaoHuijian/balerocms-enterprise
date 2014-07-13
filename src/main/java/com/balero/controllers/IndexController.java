@@ -1,5 +1,11 @@
 package com.balero.controllers;
 
+/**
+ * Balero CMS Enterprise Edition
+ * Java <3
+ * @author Anibal Gomez <anibalgomez@icloud.com>
+ */
+
 import com.balero.models.Content;
 import com.balero.models.Footer;
 import com.balero.models.Users;

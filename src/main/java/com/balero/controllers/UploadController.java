@@ -60,9 +60,8 @@ public class UploadController {
                 ext[2] = ".bmp";
                 ext[3] = ".jpeg";
 
-                int intIndex = inputFileName.indexOf("jpg");
-
                 for(int i = 0; i < ext.length; i++) {
+                    int intIndex = inputFileName.indexOf(ext[i]);
                     if(intIndex == -1) {
                         System.out.println("File extension is not valid");
                     } else {

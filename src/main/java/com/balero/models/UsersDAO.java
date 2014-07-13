@@ -27,4 +27,18 @@ public class UsersDAO {
         return users;
     }
 
+    @Transactional
+    public void make() {
+        String query;
+        Session session = sessionFactory.getCurrentSession();
+        query = "create table if not exists test (" +
+                "id int not null auto_increment," +
+                "username varchar (250) not null," +
+                "password varchar (250) not null," +
+                "auth varchar (250) not null," +
+                "PRIMARY KEY (id)" +
+                ");";
+        session.createSQLQuery(query).executeUpdate();
+    }
+
 }

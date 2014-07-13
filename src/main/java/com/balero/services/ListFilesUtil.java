@@ -19,6 +19,7 @@ public class ListFilesUtil {
     public String listFiles(){
 
         String headers = "";
+        int i = 0;
 
         String rootPath = System.getProperty("catalina.home");
         File directory = new File(rootPath + File.separator + "webapps/media/uploads");
@@ -27,13 +28,26 @@ public class ListFilesUtil {
         File[] fList = directory.listFiles();
 
         for (File file : fList){
+            i++;
             if (file.isFile()){
                 System.out.println(file.getName());
-                headers += "<li><img src=\"/media/uploads/" + file.getName() + "\"></li>\n";
+                headers += i + "<li><img src=\"/media/uploads/" + file.getName() + "\"></li>\n";
             }
         }
 
         return headers;
+
+    }
+
+    public File[] listFilesInArray(){
+
+        String rootPath = System.getProperty("catalina.home");
+        File directory = new File(rootPath + File.separator + "webapps/media/uploads");
+
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+
+        return fList;
 
     }
 

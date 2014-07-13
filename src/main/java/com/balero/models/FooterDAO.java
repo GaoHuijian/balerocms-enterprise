@@ -40,4 +40,17 @@ public class FooterDAO {
         session.close();
     }
 
+    @Transactional
+    public void make() {
+        String query;
+        Session session = sessionFactory.getCurrentSession();
+        query = "create table if not exists footer (" +
+                "id int not null auto_increment," +
+                "content longtext not null," +
+                "lang varchar (250) not null," +
+                "PRIMARY KEY (id)" +
+                ");";
+        session.createSQLQuery(query).executeUpdate();
+    }
+
 }

@@ -9,8 +9,6 @@
 package org.apache.jsp;
 
 import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.jsp.*;
 
 public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -89,7 +87,7 @@ request.setAttribute("tomcatExamplesUrl", "/examples/");
       out.write("\">Documentation</a></span>\n");
       out.write("                <span id=\"nav-config\"><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tomcatDocUrl}", java.lang.String.class, (javax.servlet.jsp.PageContext)_jspx_page_context, null, false));
-      out.write("config/\">Configuration</a></span>\n");
+      out.write("com/balero/config/\">Configuration</a></span>\n");
       out.write("                <span id=\"nav-examples\"><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tomcatExamplesUrl}", java.lang.String.class, (javax.servlet.jsp.PageContext)_jspx_page_context, null, false));
       out.write("\">Examples</a></span>\n");
@@ -213,7 +211,7 @@ request.setAttribute("tomcatExamplesUrl", "/examples/");
       out.write("\">Tomcat 7.0 Documentation</a></h4>\n");
       out.write("                        <h4><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tomcatDocUrl}", java.lang.String.class, (javax.servlet.jsp.PageContext)_jspx_page_context, null, false));
-      out.write("config/\">Tomcat 7.0 Configuration</a></h4>\n");
+      out.write("com/balero/config/\">Tomcat 7.0 Configuration</a></h4>\n");
       out.write("                        <h4><a href=\"http://wiki.apache.org/tomcat/FrontPage\">Tomcat Wiki</a></h4>\n");
       out.write("                        <p>Find additional important configuration information in:</p>\n");
       out.write("                        <pre>$CATALINA_HOME/RUNNING.txt</pre>\n");

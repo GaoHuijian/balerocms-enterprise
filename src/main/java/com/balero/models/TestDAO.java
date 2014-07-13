@@ -50,4 +50,34 @@ public class TestDAO {
         session.close();
     }
 
+    @Transactional
+    public void make() {
+        String query;
+        Session session = sessionFactory.getCurrentSession();
+        query = "create table if not exists test (" +
+                "id int not null auto_increment," +
+                "name varchar (250) not null," +
+                "email varchar (250) not null," +
+                "PRIMARY KEY (id)" +
+                ");";
+        session.createSQLQuery(query).executeUpdate();
+    }
+
+
+    @Transactional
+    public void makedb() {
+        String query;
+        Session session = sessionFactory.getCurrentSession();
+        query = "create database if not exists balero_cms";
+        session.createSQLQuery(query).executeUpdate();
+    }
+
+    @Transactional
+    public void usedb() {
+        String query;
+        Session session = sessionFactory.getCurrentSession();
+        query = "use balero_cms";
+        session.createSQLQuery(query).executeUpdate();
+    }
+
 }

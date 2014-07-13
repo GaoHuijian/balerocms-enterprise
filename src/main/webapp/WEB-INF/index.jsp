@@ -71,13 +71,11 @@
                     <c:if test="${admin == true}">
 
                         <li><a href="/add" id="add"><span class="glyphicon glyphicon-pencil"></span></a></li>
-                        <li><a href="#" id="new" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
+                        <li><a href="/new" id="new"><span class="glyphicon glyphicon-plus"></span></a></li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Media Repository</a></li>
                                 <li><a href="#">Password Setup</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Settings</a></li>
@@ -102,15 +100,20 @@
 
     <c:if test="${admin == true}">
         <!-- Upload And Delete Headers -->
-        <p align="right" class="right">
-                <!-- Edit header background -->
-                <button type="button" class="btn btn-default btn-lg inverse" data-toggle="modal" data-target="#UploadModal">
-                    <span class="glyphicon glyphicon-upload"></span>
-                </button>
-        <button type="button" class="btn btn-default btn-lg inverse">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-        </p>
+        <div class="pull-right">
+        <form method="post" action="/upload/remove" class="pull-right">
+            <!-- Edit header background (Modal) -->
+            <button type="button" class="btn btn-default btn-lg inverse" data-toggle="modal" data-target="#UploadModal">
+                <span class="glyphicon glyphicon-upload"></span>
+            </button>
+            <!-- Submit -->
+            <button type="submit" class="btn btn-default btn-lg inverse" onclick="javascript:getSlider()">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <!-- Data Container -->
+            <input type="hidden" id="sliderContainer" name="sliderContainer">
+        </form>
+        </div>
     </c:if>
 
     <h1>Balero CMS</h1>
@@ -206,25 +209,6 @@
     </div>
 </div>
 
-<!-- New Page Modal -->
-<div class="modal fade" id="NewPageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add New Page</h4>
-            </div>
-            <div class="modal-body">
-                <input class="form-control input-lg" type="text" placeholder="Title">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Image Upload Modal -->
 <div class="modal fade" id="UploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -235,8 +219,6 @@
                 <h4 class="modal-title" id="myModalLabel">Upload Header</h4>
             </div>
             <div class="modal-body">
-                Name: <input type="text" name="name">
-                <br />
                 <input type="file" name="file">
             </div>
             <div class="modal-footer">
@@ -270,18 +252,22 @@
         // CKE Editor Method
         var data = editor.getData();
         // Variable Datas Has Content
-        document.getElementById("fContainer").value = data;7
+        document.getElementById("fContainer").value = data;
         document.getElementById("fid").value = fid;
     }
     // Bxslider
     // Load Slider and settiings
-    $('.bxslider').bxSlider({
+    slider = $('.bxslider').bxSlider({
         pager: ${admin},
         infiniteLoop: false,
         hideControlOnEnd: true,
         controls: true,
         adaptiveHeight: true
     });
+    function getSlider() {
+        var current = slider.getCurrentSlide();
+        document.getElementById("sliderContainer").value = current;
+    }
     // Hide and show Site Name because slider
     // divs are disabled When menu's show,
     // so it will fix the issue
