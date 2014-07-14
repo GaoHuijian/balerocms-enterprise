@@ -90,14 +90,14 @@ public class PagesDAO {
     public void make() {
         String query;
         Session session = sessionFactory.getCurrentSession();
-        query = "create table if not exists pages (" +
-                "id int not null auto_increment," +
-                "content longtext not null," +
-                "slug varchar (250) not null," +
-                "lang varchar (250) not null," +
-                "PRIMARY KEY (id)" +
-                ");";
-        session.createSQLQuery(query).executeUpdate();
+//        query = "create table if not exists pages (" +
+//                "id int not null auto_increment," +
+//                "content longtext not null," +
+//                "slug varchar (250) not null," +
+//                "lang varchar (250) not null," +
+//                "PRIMARY KEY (id)" +
+//                ");";
+//        session.createSQLQuery(query).executeUpdate();
         Pages pages = new Pages();
         pages.setId(1);
         pages.setContent("<h1><img alt=\"Image\" class=\"left\" src=\"/resources/images/nopic.png\" />&nbsp;Welcome</h1>\n" +

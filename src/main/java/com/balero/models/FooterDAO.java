@@ -44,13 +44,13 @@ public class FooterDAO {
     public void make() {
         String query;
         Session session = sessionFactory.getCurrentSession();
-        query = "create table if not exists footer (" +
-                "id int not null auto_increment," +
-                "content longtext not null," +
-                "lang varchar (250) not null," +
-                "PRIMARY KEY (id)" +
-                ");";
-        session.createSQLQuery(query).executeUpdate();
+//        query = "create table if not exists footer (" +
+//                "id int not null auto_increment," +
+//                "content longtext not null," +
+//                "lang varchar (250) not null," +
+//                "PRIMARY KEY (id)" +
+//                ");";
+//        session.createSQLQuery(query).executeUpdate();
         Footer footer = new Footer();
         footer.setId(1);
         footer.setContent("Copyright (c) 2013-2014 <a href=\"http://www.balerocms.com/\">BaleroCMS Enterprise</a>.");

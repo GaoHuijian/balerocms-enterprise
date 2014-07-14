@@ -88,14 +88,14 @@ public class ContentDAO {
     public void make() {
         String query;
         Session session = sessionFactory.getCurrentSession();
-        query = "create table if not exists content (" +
-                "id int not null auto_increment," +
-                "content longtext not null," +
-                "fullcontent longtext not null," +
-                "lang varchar (250) not null," +
-                "PRIMARY KEY (id)" +
-                ");";
-        session.createSQLQuery(query).executeUpdate();
+//        query = "create table if not exists content (" +
+//                "id int not null auto_increment," +
+//                "content longtext not null," +
+//                "fullcontent longtext not null," +
+//                "lang varchar (250) not null," +
+//                "PRIMARY KEY (id)" +
+//                ");";
+//        session.createSQLQuery(query).executeUpdate();
         Content content = new Content();
         content.setId(1);
         content.setContent("<h1><img alt=\"Image\" class=\"left\" src=\"/resources/images/nopic.png\" />&nbsp;Welcome</h1>\n" +

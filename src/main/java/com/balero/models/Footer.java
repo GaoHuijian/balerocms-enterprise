@@ -1,10 +1,7 @@
 package com.balero.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Footer Class
@@ -15,7 +12,9 @@ import javax.persistence.Table;
 @Table(name = "footer")
 public class Footer {
 
-    @Id @GeneratedValue private int id;
+    @Id @GeneratedValue
+    private int id;
+    @Column(columnDefinition="longtext")
     private String content;
     private String lang;
 

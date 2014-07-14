@@ -1,10 +1,7 @@
 package com.balero.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Content Class
@@ -15,8 +12,11 @@ import javax.persistence.Table;
 @Table(name = "content")
 public class Content {
 
-    @Id @GeneratedValue private int id;
+    @Id @GeneratedValue
+    private int id;
+    @Column(columnDefinition="longtext")
     private String content;
+    @Column(columnDefinition="longtext")
     private String fullcontent;
     private String lang;
 

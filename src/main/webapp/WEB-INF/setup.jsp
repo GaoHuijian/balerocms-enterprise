@@ -42,34 +42,13 @@
     <c:if test="${sucess == false}">
 
     <div class="alert alert-info" role="alert">
-        Step 1:
-        Create a database called 'balero_cms'
-        in your Database Manager.
-    </div>
-
-    <div class="alert alert-info" role="alert">
-        Step 2:
-        Provide your MySQL database username
-        and password in the Tomcat 7 directory:
-        <br>
-        Tomcat7-*/conf/database.properties
+        Setup Wizard:
+        Balero CMS will configure your system.
     </div>
 
     <form method="post" action="/setup/install" class="form-horizontal" role="form">
-        <div class="form-group form-group-lg">
-            <label class="col-sm-2 control-label" for="formGroupInputLarge">Username</label>
-            <div class="col-sm-10">
-                <input name="dbuser" value="${dbuser}" class="form-control" type="text" id="formGroupInputLarge" disabled>
-            </div>
-        </div>
         <div class="form-group form-group-sm">
-            <label class="col-sm-2 control-label" for="formGroupInputSmall">Password</label>
-            <div class="col-sm-10">
-                <input name="dbpass" value="${dbpass}" class="form-control" type="text" id="formGroupInputSmall" disabled>
-            </div>
-        </div>
-        <div class="form-group form-group-sm">
-            <button type="submit" class="btn btn-primary pull-right">Install And Insert Data Sample</button>
+            <button type="submit" class="btn btn-primary pull-right">Setup And Insert Data Sample</button>
         </div>
     </form>
     </c:if>

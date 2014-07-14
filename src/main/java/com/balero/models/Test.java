@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Table(name = "test")
 public class Test {
 
-    @Id @GeneratedValue private long id;
+    @Id @GeneratedValue
+    private long id;
     private String name;
     private String email;
 

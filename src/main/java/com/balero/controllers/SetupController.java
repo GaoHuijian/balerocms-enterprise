@@ -1,5 +1,6 @@
 package com.balero.controllers;
 
+import com.balero.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 
 /**
@@ -66,7 +69,24 @@ public class SetupController {
         model.addAttribute("dbpass", jdbcPassword);
         model.addAttribute("CATAINA_HOME", env.getProperty("CATALINA_HOME"));
 
-        return "setup";
+        try {
+
+            List<Test> users = TestDAO.findAll();
+            model.addAttribute("users", users);
+
+            if(users.isEmpty()) {
+                throw new Exception();
+            } else {
+                return "installed";
+            }
+
+
+        } catch (Exception e) {
+
+            return "setup";
+
+        }
+
 
     }
 
@@ -74,15 +94,11 @@ public class SetupController {
     @RequestMapping(value = "/install", method = RequestMethod.POST)
     public String install(Model model) {
 
-        System.out.println("creating table test");
+        System.out.println("Inseting data sample...");
         TestDAO.make();
-        System.out.println("creating table content");
         ContentDAO.make();
-        System.out.println("creating table footer");
         FooterDAO.make();
-        System.out.println("creating tables pages");
         PagesDAO.make();
-        System.out.println("creating table users");
         UsersDAO.make();
 
         model.addAttribute("sucess", true);

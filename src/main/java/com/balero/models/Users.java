@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class Users {
 
-    @Id @GeneratedValue private long id;
+    @Id @GeneratedValue
+    private long id;
     private String username;
     private String password;
     private String auth;
