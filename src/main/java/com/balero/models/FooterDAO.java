@@ -51,6 +51,12 @@ public class FooterDAO {
                 "PRIMARY KEY (id)" +
                 ");";
         session.createSQLQuery(query).executeUpdate();
+        Footer footer = new Footer();
+        footer.setId(1);
+        footer.setContent("Copyright (c) 2013-2014 <a href=\"http://www.balerocms.com/\">BaleroCMS Enterprise</a>.");
+        footer.setLang("en");
+        session.save(footer);
+        session.flush();
     }
 
 }

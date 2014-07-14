@@ -31,7 +31,7 @@ public class UsersDAO {
     public void make() {
         String query;
         Session session = sessionFactory.getCurrentSession();
-        query = "create table if not exists test (" +
+        query = "create table if not exists users (" +
                 "id int not null auto_increment," +
                 "username varchar (250) not null," +
                 "password varchar (250) not null," +
@@ -39,6 +39,13 @@ public class UsersDAO {
                 "PRIMARY KEY (id)" +
                 ");";
         session.createSQLQuery(query).executeUpdate();
+        Users users = new Users();
+        users.setId(1);
+        users.setUsername("demo");
+        users.setPassword("demo");
+        users.setAuth("god");
+        session.save(users);
+        session.flush();
     }
 
 }

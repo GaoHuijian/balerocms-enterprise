@@ -61,9 +61,18 @@ public class TestDAO {
                 "PRIMARY KEY (id)" +
                 ");";
         session.createSQLQuery(query).executeUpdate();
+        Test test = new Test();
+        test.setId(1);
+        test.setName("Anibal Gomez");
+        test.setEmail("anibalgomez@balerocms.com");
+        session.save(test);
+        session.flush();
     }
 
 
+    /**
+     * @deprecated makedb
+     */
     @Transactional
     public void makedb() {
         String query;
@@ -72,6 +81,9 @@ public class TestDAO {
         session.createSQLQuery(query).executeUpdate();
     }
 
+    /**
+     * @deprecated musedb
+     */
     @Transactional
     public void usedb() {
         String query;

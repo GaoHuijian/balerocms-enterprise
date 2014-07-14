@@ -18,7 +18,6 @@ import javax.persistence.Table;
 public class Pages {
 
     @Id @GeneratedValue private int id;
-    private String name;
     private String content;
     private String slug;
     private String lang;
@@ -28,12 +27,6 @@ public class Pages {
     }
     public void setId(int id) {
         this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     public String getContent() {
         return content;

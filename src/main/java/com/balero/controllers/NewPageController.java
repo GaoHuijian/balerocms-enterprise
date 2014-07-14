@@ -28,7 +28,7 @@ public class NewPageController {
                 "    Content\n" +
                 "</p>";
 
-        PagesDAO.addPage("page1", "test", "test-page", "en");
+        PagesDAO.addPage(html, "test-page", "en");
 
         return "redirect:/";
 

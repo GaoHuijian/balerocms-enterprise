@@ -16,7 +16,8 @@
     <property name="suffix" value=".jsp" />
   </bean>
 
-    <context:property-placeholder location="classpath:database.properties" />
+
+    <context:property-placeholder location="file:${CATALINA_HOME}/conf/database.properties" />
 
     <!--
     Scan classpath for annotations (eg: @Service, @Repository etc)

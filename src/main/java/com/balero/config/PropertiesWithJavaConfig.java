@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@PropertySource("classpath:database.properties")
+@PropertySource("file:${CATALINA_HOME}/conf/database.properties")
 public class PropertiesWithJavaConfig {
 
     @Bean

@@ -1,6 +1,5 @@
 package com.balero.controllers;
 
-import com.balero.config.MyDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -8,11 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
- * Logout controller
+ * Setup Controller
  *
  * @author Anibal Gomez
  * @version 1.0
@@ -40,20 +38,33 @@ public class SetupController {
     @Value( "${jdbc.username}" )
     private String jdbcUsername;
 
+    @Value( "${jdbc.password}" )
+    private String jdbcPassword;
+
     @Autowired
     private Environment env;
 
+    private int step = 1;
+    private int installed = 0;
+
+    /**
+     * Only the installer can change the
+     * database properties connection
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String setup(Model model) {
 
-        MyDataSource dataSource = new MyDataSource();
-
-        dataSource.setUsername(env.getProperty("jdbc.username"));
-        dataSource.setUsername("newValue");
+        // get dbuser and dbname
+        jdbcUsername = env.getProperty("jdbc.username");
+        jdbcPassword = env.getProperty("jdbc.password");
 
         model.addAttribute("sucess", false);
-        model.addAttribute("jdbc.username", dataSource.getUsername());
-        model.addAttribute("jdbc.password", dataSource.getPassword());
+        model.addAttribute("dbuser", jdbcUsername);
+        model.addAttribute("dbpass", jdbcPassword);
+        model.addAttribute("CATAINA_HOME", env.getProperty("CATALINA_HOME"));
 
         return "setup";
 
@@ -61,18 +72,7 @@ public class SetupController {
 
 
     @RequestMapping(value = "/install", method = RequestMethod.POST)
-    public String install(@RequestParam("dbuser") String dbuser,
-                          @RequestParam("dbpass") String dbpass,
-                          Model model) {
-
-        MyDataSource dataSource = new MyDataSource();
-
-        // data from form
-        //dataSource.setUsername(dbuser);
-        //dataSource.setPassword(dbpass);
-
-        System.out.println("connecting username: " + dataSource.getUsername());
-        System.out.println("connecting password: " + dataSource.getPassword());
+    public String install(Model model) {
 
         System.out.println("creating table test");
         TestDAO.make();

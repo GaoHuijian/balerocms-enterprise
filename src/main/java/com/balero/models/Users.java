@@ -33,13 +33,13 @@ public class Users {
     public String getPassword() {
         return password;
     }
-    public void setPassword(String email) {
+    public void setPassword(String password) {
         this.password = password;
     }
     public String getAuth() {
         return auth;
     }
-    public void setAuth(String email) {
+    public void setAuth(String auth) {
         this.auth = auth;
     }
 }
