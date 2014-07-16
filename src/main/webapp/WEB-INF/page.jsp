@@ -69,6 +69,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
 
+                    <!-- Pages Menu -->
                     <c:forEach var="p" items="${pages}">
                         <li><a href="/page/${p.id}">${p.name}</a></li>
                     </c:forEach>
@@ -129,33 +130,40 @@
 </div>
 
 <!-- Loop -->
-<form method="post" action="/save">
-<c:forEach var="p" items="${rows}">
-    <div id="editable-${p.id}" class="type1" contenteditable="${admin}">
+<form method="post" action="/page/edit">
+<c:forEach var="p" items="${page}">
+
+    <h1 id="editableTitle" class="type1" contenteditable="${admin}">
+        ${p.name}
+    </h1>
+
+    <div id="editableContent" class="type1" contenteditable="${admin}">
         ${p.content}
     </div>
 
     <c:if test="${admin == true}">
 
         <div class="pull-left">
-            <button type="submit" class="btn btn-default btn-lg" onclick="javascript:content('editable-${p.id}', '${p.id}')">
+            <button type="submit" class="btn btn-default btn-lg" onclick="Content_Click()">
                 <span class="glyphicon glyphicon-floppy-disk"></span>
             </button>
         </div>
 
         <!-- btn -dlete -->
         <div class="add-button">
-            <a href="/delete?id=${p.id}" class="btn btn-default btn-lg">
+            <a href="/page/delete?id=${p.id}" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
         </div>
 
     </c:if>
 
+    <!-- Data Container -->
+    <input type="hidden" name="id" id="id" value="${p.id}">
+    <input type="hidden" name="name" id="name" value="init">
+    <input type="hidden" name="content" id="content" value="init">
+
 </c:forEach>
-<!-- Data Container -->
-<input type="hidden" name="dataContainer" id="dataContainer">
-<input type="hidden" name="id" id="id">
 </form>
 <!-- /Loop -->
 
@@ -261,20 +269,23 @@
     </div>
 </div>
 
+
 <script>
     // Save CKE Editor Content
     // InTo Server Data
-    function content(divName, id) {
+    function Content_Click() {
+//       alert("funciona");
         // Save Div Content into Hidden Field
         // 'postContainer'
-        var editor = CKEDITOR.instances[divName];
+        var editorTitle = CKEDITOR.instances["editableTitle"];
         // CKE Editor Method
-        var data = editor.getData();
-        // Variable Datas Has Content
-        document.getElementById("dataContainer").value = data;
-        document.getElementById("id").value = id;
+        var dataTitle = editorTitle.getData();
+        var editorContent = CKEDITOR.instances["editableContent"];
+        // CKE Editor Method
+        var dataContent = editorContent.getData();
+        document.getElementById("name").value = dataTitle;
+        document.getElementById("content").value = dataContent;
     }
-    // Footer container
     function footer(fid) {
         // Save Div Content into Hidden Field
         // 'postContainer'

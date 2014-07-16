@@ -1,13 +1,8 @@
 package com.balero.controllers;
 
-/**
- * Balero CMS Enterprise Edition
- * Java <3
- * @author Anibal Gomez <anibalgomez@icloud.com>
- */
-
 import com.balero.models.Content;
 import com.balero.models.Footer;
+import com.balero.models.Pages;
 import com.balero.models.Users;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
@@ -21,10 +16,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 /**
- * Front-end controller
+ * <pre>
+ * Balero CMS Enterprise Edition is free and open source software under MIT License.
  *
- * @author Anibal Gomez
- * @version 1.0
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2013-2014 <Balero CMS All Rights Reserved>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * <a href="http://www.balerocms.com">BaleroCMS.com</a>
+ * </pre>
+ *
+ * @author      Anibal Gomez
+ * @version     1.0
+ * @since       1.0
  */
 @Controller
 @RequestMapping("/")
@@ -38,6 +60,9 @@ public class IndexController {
 
     @Autowired
     private com.balero.models.FooterDAO FooterDAO;
+
+    @Autowired
+    private com.balero.models.PagesDAO PagesDAO;
 
     private boolean adminElements = false;
     private int i = 0;
@@ -78,15 +103,14 @@ public class IndexController {
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
 
-        /**
-         * Home Post's
-         */
+        // Home Post's
         List<Content> rows = ContentDAO.findAll();
 
-        /**
-         * Footer content
-         */
+        // Footer content
         List<Footer> footer = FooterDAO.findAll();
+
+        // Footer content
+        List<Pages> pages  = PagesDAO.findAll();
 
         /**
          * Enable or Disable and
@@ -94,8 +118,13 @@ public class IndexController {
          * be displayed
          */
         model.addAttribute("admin", admin.getAccess());
+
+        /**
+         * System variables
+         */
         model.addAttribute("files", files);
         model.addAttribute("rows", rows);
+        model.addAttribute("pages", pages);
         model.addAttribute("footer", footer);
 
 		return "index";

@@ -68,10 +68,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav navbar-right">
+
+                    <c:forEach var="p" items="${pages}">
+                        <li><a href="/page/${p.id}">${p.name}</a></li>
+                    </c:forEach>
+
                     <c:if test="${admin == true}">
 
                         <li><a href="/add" id="add"><span class="glyphicon glyphicon-pencil"></span></a></li>
-                        <li><a href="/new" id="new"><span class="glyphicon glyphicon-plus"></span></a></li>
+                        <li><a href="#" id="new" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
@@ -85,9 +90,11 @@
                         </li>
 
                     </c:if>
+
                     <c:if test="${admin == false}">
                         <li><a href="#" id="login" data-toggle="modal" data-target="#LoginModal">Login</a></li>
                     </c:if>
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -227,6 +234,29 @@
             </div>
             </div>
          </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Page Modal -->
+<div class="modal fade" id="NewPageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/new">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Create New Page</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Title">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

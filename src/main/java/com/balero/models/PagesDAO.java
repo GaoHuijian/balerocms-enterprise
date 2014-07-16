@@ -29,6 +29,18 @@ public class PagesDAO {
     }
 
     /**
+     * SELECT * FROM 'pages' where id = '{id}'
+     *
+     * @return rows
+     */
+    @Transactional
+    public List<Pages> findPage(int pageId) {
+        Session session = sessionFactory.getCurrentSession();
+        List rows = session.createQuery("from Pages where id = '" + pageId + "'").list();
+        return rows;
+    }
+
+    /**
      * INSERT INTO TABLE pages VALUES name, conteny, slug, lang
      *
      * @param content
@@ -36,9 +48,10 @@ public class PagesDAO {
      * @param lang
      */
     @Transactional
-    public void addPage(String content, String slug, String lang) {
+    public void addPage(String name, String content, String slug, String lang) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
+        pages.setName(name);
         pages.setContent(content);
         pages.setSlug(slug);
         pages.setLang(lang);
@@ -56,10 +69,11 @@ public class PagesDAO {
      * @param lang
      */
     @Transactional
-    public void updatePage(int id, String content, String slug, String lang) {
+    public void updatePage(int id, String name, String content, String slug, String lang) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setId(id);
+        pages.setName(name);
         pages.setContent(content);
         pages.setSlug(slug);
         pages.setLang(lang);
@@ -100,6 +114,7 @@ public class PagesDAO {
 //        session.createSQLQuery(query).executeUpdate();
         Pages pages = new Pages();
         pages.setId(1);
+        pages.setName("Welcome");
         pages.setContent("<h1><img alt=\"Image\" class=\"left\" src=\"/resources/images/nopic.png\" />&nbsp;Welcome</h1>\n" +
                 "\n" +
                 "<hr />\n" +
