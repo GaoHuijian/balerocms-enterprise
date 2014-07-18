@@ -139,6 +139,7 @@
         ${p.content}
 
         <c:if test="${not empty p.full && admin != true}">
+            <!-- Read More -->
             <a href="/full/${p.id}" class="badge badge-info">More...</a>
         </c:if>
 
