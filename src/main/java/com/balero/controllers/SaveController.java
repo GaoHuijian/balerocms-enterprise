@@ -23,7 +23,7 @@ public class SaveController {
 
         String body = request.getParameter("body");
         int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, dataContainer, "fullpost", "en");
+        ContentDAO.updatePost(intId, dataContainer, "fullpost", "welcome-test-post", "en");
 
         return "redirect:/";
 

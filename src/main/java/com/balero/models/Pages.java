@@ -19,7 +19,6 @@ public class Pages {
     private String name;
     @Column(columnDefinition="longtext")
     private String content;
-    private String slug;
     private String lang;
 
     public long getId() {
@@ -39,12 +38,6 @@ public class Pages {
     }
     public void setContent(String content) {
         this.content = content;
-    }
-    public String getSlug() {
-        return slug;
-    }
-    public void setSlug(String slug) {
-        this.slug = slug;
     }
     public String getLang() {
         return lang;

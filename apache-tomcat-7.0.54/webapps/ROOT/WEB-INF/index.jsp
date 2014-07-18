@@ -42,7 +42,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Home</a>
+                <a class="navbar-brand" href="/">
+                    <span class="glyphicon glyphicon-home"></span>
+                </a>
             </div>
 
             <c:if test="${message != null}">
@@ -131,11 +133,33 @@
 <!-- Loop -->
 <form method="post" action="/save">
 <c:forEach var="p" items="${rows}">
+
     <div id="editable-${p.id}" class="type1" contenteditable="${admin}">
+
         ${p.content}
+
+        <c:if test="${not empty p.full && admin != true}">
+            <a href="/full/${p.id}" class="badge badge-info">More...</a>
+        </c:if>
+
     </div>
 
     <c:if test="${admin == true}">
+
+        <c:if test="${empty p.full}">
+            <div class="div-center">
+                <a href="/full/${p.id}?more=1" class="badge badge-info pull-right">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </c:if>
+        <c:if test="${not empty p.full}">
+            <div class="div-center">
+                <a href="/full/${p.id}?more=0" class="badge badge-info pull-right">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+            </div>
+        </c:if>
 
         <div class="pull-left">
             <button type="submit" class="btn btn-default btn-lg" onclick="javascript:content('editable-${p.id}', '${p.id}')">

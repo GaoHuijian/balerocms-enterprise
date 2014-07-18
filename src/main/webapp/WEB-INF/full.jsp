@@ -132,28 +132,33 @@
 </div>
 
 <!-- Loop -->
-<form method="post" action="/page/edit">
-<c:forEach var="p" items="${page}">
-
-    <h1 id="editableTitle" class="type1" contenteditable="${admin}">
-        ${p.name}
-    </h1>
+<form method="post" action="/full/edit">
+<c:forEach var="p" items="${content}">
 
     <div id="editableContent" class="type1" contenteditable="${admin}">
         ${p.content}
     </div>
 
+    <hr class="div-center" contenteditable="false">
+
+    <div id="editableFull" class="type1" contenteditable="${admin}">
+        ${p.full}
+        <c:if test="${more == 1}">
+            (Full Post...)
+        </c:if>
+    </div>
+
     <c:if test="${admin == true}">
 
         <div class="pull-left">
-            <button type="submit" class="btn btn-default btn-lg" onclick="Content_Click()">
+            <button type="submit" class="btn btn-default btn-lg" onclick="Full_Click()">
                 <span class="glyphicon glyphicon-floppy-disk"></span>
             </button>
         </div>
 
         <!-- btn -dlete -->
         <div class="add-button">
-            <a href="/page/delete?id=${p.id}" class="btn btn-default btn-lg">
+            <a href="/full/delete?id=${p.id}" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
         </div>
@@ -162,8 +167,8 @@
 
     <!-- Data Container -->
     <input type="hidden" name="id" id="id" value="${p.id}">
-    <input type="hidden" name="name" id="name" value="init">
     <input type="hidden" name="content" id="content" value="init">
+    <input type="hidden" name="full" id="full" value="">
 
 </c:forEach>
 </form>
@@ -275,18 +280,18 @@
 <script>
     // Save CKE Editor Content
     // InTo Server Data
-    function Content_Click() {
+    function Full_Click() {
 //       alert("funciona");
         // Save Div Content into Hidden Field
         // 'postContainer'
-        var editorTitle = CKEDITOR.instances["editableTitle"];
-        // CKE Editor Method
-        var dataTitle = editorTitle.getData();
         var editorContent = CKEDITOR.instances["editableContent"];
         // CKE Editor Method
         var dataContent = editorContent.getData();
-        document.getElementById("name").value = dataTitle;
+        var editorFull = CKEDITOR.instances["editableFull"];
+        // CKE Editor Method
+        var dataFull = editorFull.getData();
         document.getElementById("content").value = dataContent;
+        document.getElementById("full").value = dataFull;
     }
     function footer(fid) {
         // Save Div Content into Hidden Field

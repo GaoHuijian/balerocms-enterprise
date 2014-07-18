@@ -17,7 +17,7 @@ public class DeleteController {
     public String delete(@RequestParam int id) {
 
         System.out.println("id: " + id);
-        ContentDAO.deletePost(id, "en");
+        ContentDAO.deletePost(id);
 
         return "redirect:/";
 

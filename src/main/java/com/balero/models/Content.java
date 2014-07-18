@@ -17,7 +17,8 @@ public class Content {
     @Column(columnDefinition="longtext")
     private String content;
     @Column(columnDefinition="longtext")
-    private String fullcontent;
+    private String full;
+    private String slug;
     private String lang;
 
     public long getId() {
@@ -32,11 +33,17 @@ public class Content {
     public void setContent(String content) {
         this.content = content;
     }
-    public String getFullContent() {
-        return fullcontent;
+    public String getFull() {
+        return full;
     }
-    public void setFullContent(String fullcontent) {
-        this.fullcontent = fullcontent;
+    public void setFull(String full) {
+        this.full = full;
+    }
+    public String getSlug() {
+        return slug;
+    }
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
     public String getLang() {
         return lang;

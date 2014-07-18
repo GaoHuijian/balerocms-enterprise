@@ -28,6 +28,13 @@ public class ContentDAO {
         return rows;
     }
 
+    @Transactional
+    public List<Content> findContent(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        List rows = session.createQuery("from Content where id = '" + id +"'").list();
+        return rows;
+    }
+
     /**
      * INSERT INTO TABLE content VALUES content, body, lang
      *
@@ -36,11 +43,12 @@ public class ContentDAO {
      * @param lang
      */
     @Transactional
-    public void addPost(String postContainer, String fullcontent, String lang) {
+    public void addPost(String postContainer, String fullcontent, String slug, String lang) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setContent(postContainer);
-        content.setFullContent(fullcontent);
+        content.setFull(fullcontent);
+        content.setSlug(slug);
         content.setLang(lang);
         session.save(content);
         session.flush();
@@ -55,12 +63,13 @@ public class ContentDAO {
      * @param lang
      */
     @Transactional
-    public void updatePost(int id, String postContainer, String fullcontent, String lang) {
+    public void updatePost(int id, String postContainer, String fullcontent, String slug, String lang) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setId(id);
         content.setContent(postContainer);
-        content.setFullContent(fullcontent);
+        content.setFull(fullcontent);
+        content.setSlug(slug);
         content.setLang(lang);
         session.update(content);
         session.flush();
@@ -74,11 +83,10 @@ public class ContentDAO {
      * @param lang
      */
     @Transactional
-    public void deletePost(int id, String lang) {
+    public void deletePost(int id) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setId(id);
-        content.setLang(lang);
         session.delete(content);
         session.flush();
         session.close();
@@ -108,7 +116,8 @@ public class ContentDAO {
                 "<p>Aunque no posee actualmente fuentes para justificar sus hip&oacute;tesis, el profesor de filolog&iacute;a cl&aacute;sica Richard McClintock asegura que su uso se remonta a los impresores de comienzos del siglo XVI.1 Su uso en algunos editores de texto muy conocidos en la actualidad ha dado al texto lorem ipsum nueva popularidad.</p>\n" +
                 "\n" +
                 "<p>El texto en s&iacute; no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicer&oacute;n en lengua latina, a cuyas palabras se les han eliminado s&iacute;labas o letras. El significado del texto no tiene importancia, ya que solo es una demostraci&oacute;n o prueba,</p>\n");
-        content.setFullContent("");
+        content.setFull(null);
+        content.setSlug("welcome-test-post");
         content.setLang("en");
         session.save(content);
         session.flush();

@@ -74,7 +74,7 @@ public class IndexController {
      * @param model Model Layout
      * @return String
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, Model model) {
         String background = "eternity.png";
 		model.addAttribute("background", background);

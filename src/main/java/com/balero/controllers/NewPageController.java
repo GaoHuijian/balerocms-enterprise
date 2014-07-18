@@ -31,7 +31,7 @@ public class NewPageController {
                 "El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras.\n" +
                 "</p>";
 
-        PagesDAO.addPage(name, html, "test-page", "en");
+        PagesDAO.addPage(name, html, "en");
 
         return "redirect:/";
 

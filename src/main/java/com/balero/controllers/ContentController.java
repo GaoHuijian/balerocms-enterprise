@@ -1,5 +1,6 @@
 package com.balero.controllers;
 
+import com.balero.models.Content;
 import com.balero.models.Footer;
 import com.balero.models.Pages;
 import com.balero.models.Users;
@@ -14,10 +15,13 @@ import java.util.List;
 
 
 @Controller
-public class PageController {
+public class ContentController {
 
     @Autowired
     private com.balero.models.PagesDAO PagesDAO;
+
+    @Autowired
+    private com.balero.models.ContentDAO ContentDAO;
 
     @Autowired
     private com.balero.models.FooterDAO FooterDAO;
@@ -25,8 +29,8 @@ public class PageController {
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
 
-    @RequestMapping(value = "/page/{id}", method = RequestMethod.GET)
-    public String showPage(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, @PathVariable int id, Model model) {
+    @RequestMapping(value = "/full/{id}", method = RequestMethod.GET)
+    public String showFull(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, @PathVariable int id, Model model, @RequestParam(value = "more", required = false) Integer more) {
 
         String background = "eternity.png";
         model.addAttribute("background", background);
@@ -58,47 +62,53 @@ public class PageController {
         // Footer content
         List<Footer> footer = FooterDAO.findAll();
 
-        // Pages
-        List<Pages> page = PagesDAO.findPage(id);
+        List<Content> content = ContentDAO.findContent(id);
         List<Pages> pages = PagesDAO.findAll();
+
+        if(more == null || more != 1) {
+            more = 0;
+        } else {
+            more = 1;
+        }
 
         /**
          * Variables
          */
         model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
-        model.addAttribute("page", page);
+        model.addAttribute("content", content);
+        model.addAttribute("more", more);
         model.addAttribute("pages", pages);
         model.addAttribute("footer", footer);
 
-        return "page";
+        return "full";
 
     }
 
-    @RequestMapping(value = "/page/edit", method = RequestMethod.POST)
-    public String editPage(@RequestParam String id,
-                           @RequestParam String name,
-                           @RequestParam String content) {
-                           //@RequestParam String slug,
-                           //@RequestParam String lang) {
+    @RequestMapping(value = "/full/edit", method = RequestMethod.POST)
+    public String editFull(@RequestParam String id,
+                           @RequestParam String content,
+                           @RequestParam String full) {
+        //@RequestParam String slug,
+        //@RequestParam String lang) {
 
-        if(name.isEmpty()) {
-            name = "(No Title)";
+        if(full.isEmpty()) {
+            full = "";
         }
 
         int intId = Integer.parseInt(id);
-        PagesDAO.updatePage(intId, name, content, "en");
+        ContentDAO.updatePost(intId, content, full, "welcome-test-post-slug", "en");
 
-        return "redirect:/page/" + id;
+        return "redirect:/full/" + id;
 
     }
 
 
-    @RequestMapping(value = "/page/delete", method = RequestMethod.GET)
-    public String deletePage(@RequestParam String id) {
+    @RequestMapping(value = "/full/delete", method = RequestMethod.GET)
+    public String deleteFull(@RequestParam String id) {
 
         int intId = Integer.parseInt(id);
-        PagesDAO.deletePage(intId);
+        ContentDAO.deletePost(intId);
 
         return "redirect:/";
 

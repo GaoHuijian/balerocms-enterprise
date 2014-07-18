@@ -48,12 +48,11 @@ public class PagesDAO {
      * @param lang
      */
     @Transactional
-    public void addPage(String name, String content, String slug, String lang) {
+    public void addPage(String name, String content, String lang) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setName(name);
         pages.setContent(content);
-        pages.setSlug(slug);
         pages.setLang(lang);
         session.save(pages);
         session.flush();
@@ -65,17 +64,15 @@ public class PagesDAO {
      *
      * @param id
      * @param content
-     * @param slug
      * @param lang
      */
     @Transactional
-    public void updatePage(int id, String name, String content, String slug, String lang) {
+    public void updatePage(int id, String name, String content, String lang) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setId(id);
         pages.setName(name);
         pages.setContent(content);
-        pages.setSlug(slug);
         pages.setLang(lang);
         session.update(pages);
         session.flush();
@@ -89,12 +86,10 @@ public class PagesDAO {
      * @param lang
      */
     @Transactional
-    public void deletePage(int id, String slug, String lang) {
+    public void deletePage(int id) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setId(id);
-        pages.setSlug(slug);
-        pages.setLang(lang);
         session.delete(pages);
         session.flush();
         session.close();
@@ -114,18 +109,13 @@ public class PagesDAO {
 //        session.createSQLQuery(query).executeUpdate();
         Pages pages = new Pages();
         pages.setId(1);
-        pages.setName("Welcome");
-        pages.setContent("<h1><img alt=\"Image\" class=\"left\" src=\"/resources/images/nopic.png\" />&nbsp;Welcome</h1>\n" +
-                "\n" +
-                "<hr />\n" +
-                "<h3>Lorem ipsum</h3>\n" +
-                "\n" +
+        pages.setName("Example");
+        pages.setContent("\n" +
                 "<p>Lorem ipsum es el texto que se usa habitualmente en dise&ntilde;o gr&aacute;fico en demostraciones de tipograf&iacute;as o de borradores de dise&ntilde;o para probar el dise&ntilde;o visual antes de insertar el texto final.</p>\n" +
                 "\n" +
                 "<p>Aunque no posee actualmente fuentes para justificar sus hip&oacute;tesis, el profesor de filolog&iacute;a cl&aacute;sica Richard McClintock asegura que su uso se remonta a los impresores de comienzos del siglo XVI.1 Su uso en algunos editores de texto muy conocidos en la actualidad ha dado al texto lorem ipsum nueva popularidad.</p>\n" +
                 "\n" +
                 "<p>El texto en s&iacute; no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicer&oacute;n en lengua latina, a cuyas palabras se les han eliminado s&iacute;labas o letras. El significado del texto no tiene importancia, ya que solo es una demostraci&oacute;n o prueba,</p>\n");
-        pages.setSlug("welcome-test-page");
         pages.setLang("en");
         session.save(pages);
         session.flush();
