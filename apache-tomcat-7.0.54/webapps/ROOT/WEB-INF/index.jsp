@@ -1,3 +1,10 @@
+<%--
+  Created for BaleroCMS.
+  User: Anibal Gomez
+  Date: 18/07/14
+  Time: 01:20 PM
+  Eternity Template (balerocms.com).
+--%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -139,6 +146,7 @@
         ${p.content}
 
         <c:if test="${not empty p.full && admin != true}">
+            <!-- Read More -->
             <a href="/full/${p.id}" class="badge badge-info">More...</a>
         </c:if>
 

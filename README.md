@@ -1,6 +1,11 @@
 Balero CMS Enterprise Edition
 =============================
 
+The first CMS fully optimized for mobiles and tablets.
+
+Technologies under Balero CMS
+=============================
+
 Balero CMS is an Enterprise Application developed
 under technologies:
 

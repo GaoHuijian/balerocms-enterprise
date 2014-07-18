@@ -1,20 +1,3 @@
-package com.balero.controllers;
-
-import com.balero.models.Content;
-import com.balero.models.Footer;
-import com.balero.models.Pages;
-import com.balero.models.Users;
-import com.balero.services.Administrator;
-import com.balero.services.ListFilesUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
-
 /**
  * <pre>
  * Balero CMS Enterprise Edition is free and open source software under MIT License.
@@ -48,6 +31,24 @@ import java.util.List;
  * @version     1.0
  * @since       1.0
  */
+
+package com.balero.controllers;
+
+import com.balero.models.Content;
+import com.balero.models.Footer;
+import com.balero.models.Pages;
+import com.balero.models.Users;
+import com.balero.services.Administrator;
+import com.balero.services.ListFilesUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class IndexController {

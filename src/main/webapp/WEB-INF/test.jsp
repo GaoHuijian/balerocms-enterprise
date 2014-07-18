@@ -1,3 +1,10 @@
+<%--
+  Created for BaleroCMS.
+  User: Anibal Gomez
+  Date: 18/07/14
+  Time: 01:20 PM
+  Eternity Template (balerocms.com).
+--%>
 <!--
 Unit Test View Page
 -->
