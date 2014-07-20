@@ -34,10 +34,7 @@
 
 package com.balero.controllers;
 
-import com.balero.models.Content;
-import com.balero.models.Footer;
-import com.balero.models.Pages;
-import com.balero.models.Users;
+import com.balero.models.*;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +61,9 @@ public class IndexController {
 
     @Autowired
     private com.balero.models.PagesDAO PagesDAO;
+
+    @Autowired
+    private com.balero.models.SettingsDAO SettingsDAO;
 
     private boolean adminElements = false;
     private int i = 0;
@@ -110,7 +110,6 @@ public class IndexController {
         // Footer content
         List<Footer> footer = FooterDAO.findAll();
 
-        // Footer content
         List<Pages> pages  = PagesDAO.findAll();
 
         /**
@@ -123,6 +122,10 @@ public class IndexController {
         /**
          * System variables
          */
+        model.addAttribute("settingsId", SettingsDAO.settingsId());
+        model.addAttribute("sitename", SettingsDAO.siteName());
+        model.addAttribute("slogan", SettingsDAO.siteSlogan());
+        model.addAttribute("url", SettingsDAO.siteURL());
         model.addAttribute("files", files);
         model.addAttribute("rows", rows);
         model.addAttribute("pages", pages);

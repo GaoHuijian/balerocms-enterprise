@@ -63,6 +63,9 @@ public class ContentController {
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
 
+    @Autowired
+    private com.balero.models.SettingsDAO SettingsDAO;
+
     @RequestMapping(value = "/full/{id}", method = RequestMethod.GET)
     public String showFull(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, @PathVariable int id, Model model, @RequestParam(value = "more", required = false) Integer more) {
 
@@ -108,6 +111,10 @@ public class ContentController {
         /**
          * Variables
          */
+        model.addAttribute("settingsId", SettingsDAO.settingsId());
+        model.addAttribute("sitename", SettingsDAO.siteName());
+        model.addAttribute("slogan", SettingsDAO.siteSlogan());
+        model.addAttribute("url", SettingsDAO.siteURL());
         model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
         model.addAttribute("content", content);

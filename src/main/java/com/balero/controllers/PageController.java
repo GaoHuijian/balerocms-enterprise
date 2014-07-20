@@ -59,6 +59,9 @@ public class PageController {
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
 
+    @Autowired
+    private com.balero.models.SettingsDAO SettingsDAO;
+
     @RequestMapping(value = "/page/{id}", method = RequestMethod.GET)
     public String showPage(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, @PathVariable int id, Model model) {
 
@@ -99,6 +102,10 @@ public class PageController {
         /**
          * Variables
          */
+        model.addAttribute("settingsId", SettingsDAO.settingsId());
+        model.addAttribute("sitename", SettingsDAO.siteName());
+        model.addAttribute("slogan", SettingsDAO.siteSlogan());
+        model.addAttribute("url", SettingsDAO.siteURL());
         model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
         model.addAttribute("page", page);

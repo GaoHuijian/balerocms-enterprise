@@ -92,7 +92,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Password Setup</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Settings</a></li>
+                                <li><a href="#" id="settings" data-toggle="modal" data-target="#SettingsModal">Settings</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/logout" id="logout">Logout</a></li>
                             </ul>
@@ -132,8 +132,8 @@
         </div>
     </c:if>
 
-    <h1>Balero CMS</h1>
-    <h5>Simple is powerful</h5>
+    <h1><a href="${url}">${sitename}</a></h1>
+    <h5>${slogan}</h5>
 
 </div>
 
@@ -286,7 +286,40 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">OK</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal fade" id="SettingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/settings">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Settings</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="sitename">Site Name</label>
+                        <input type="text" name="sitename" class="form-control" id="sitename" value="${sitename}">
+                    </div>
+                    <div class="form-group">
+                        <label for="slogan">Slogan</label>
+                        <input type="text" name="slogan" class="form-control" id="slogan" value="${slogan}">
+                    </div>
+                    <div class="form-group">
+                        <label for="url">URL</label>
+                        <input type="text" name="url" class="form-control" id="url" value="${url}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="id" value="${settingsId}">
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

@@ -70,7 +70,9 @@ public class SetupController {
 
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
-    private Model model;
+
+    @Autowired
+    private com.balero.models.SettingsDAO SettingsDAO;
 
     @Value( "${jdbc.username}" )
     private String jdbcUsername;
@@ -80,9 +82,6 @@ public class SetupController {
 
     @Autowired
     private Environment env;
-
-    private int step = 1;
-    private int installed = 0;
 
     /**
      * Only the installer can change the
@@ -134,6 +133,8 @@ public class SetupController {
         FooterDAO.make();
         PagesDAO.make();
         UsersDAO.make();
+        System.out.println("Inseting settings data...");
+        SettingsDAO.make();
 
         model.addAttribute("sucess", true);
 

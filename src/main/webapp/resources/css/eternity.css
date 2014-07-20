@@ -99,6 +99,21 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+#site-name a {
+    color: #FFFFFF;
+}
+#site-name a:link {
+    color: #FFFFFF;
+}
+#site-name a:hover {
+    color: #FFFFFF;
+}
+#site-name a:visited {
+    color: #FFFFFF;
+}
+#site-name a:active {
+    color: #FFFFFF;
+}
 /**
 * Badges
 **/
