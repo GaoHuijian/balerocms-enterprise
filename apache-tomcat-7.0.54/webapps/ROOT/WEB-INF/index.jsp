@@ -147,7 +147,7 @@
 
         <c:if test="${not empty p.full && admin != true}">
             <!-- Read More -->
-            <a href="/full/${p.id}" class="badge badge-info">More...</a>
+            <a href="/post/${p.id}" class="badge badge-info">More...</a>
         </c:if>
 
     </div>
@@ -156,14 +156,14 @@
 
         <c:if test="${empty p.full}">
             <div class="div-center">
-                <a href="/full/${p.id}?more=1" class="badge badge-info pull-right">
+                <a href="/post/${p.id}?more=1" class="badge badge-info pull-right">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
         </c:if>
         <c:if test="${not empty p.full}">
             <div class="div-center">
-                <a href="/full/${p.id}?more=0" class="badge badge-info pull-right">
+                <a href="/post/${p.id}?more=0" class="badge badge-info pull-right">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
             </div>
@@ -297,7 +297,7 @@
 <div class="modal fade" id="SettingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/settings">
+            <form method="post" action="/users/administrator">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">Settings</h4>

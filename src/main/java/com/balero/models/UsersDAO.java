@@ -62,6 +62,17 @@ public class UsersDAO {
     }
 
     @Transactional
+    public void administratorCredentials(String username, String password) {
+        Session session = sessionFactory.getCurrentSession();
+        Users users = new Users();
+        users.setId(1); // Admin credentials id = 1
+        users.setUsername(username);
+        users.setPassword(password);
+        session.update(users);
+        session.flush();
+    }
+
+    @Transactional
     public void make() {
         String query;
         Session session = sessionFactory.getCurrentSession();

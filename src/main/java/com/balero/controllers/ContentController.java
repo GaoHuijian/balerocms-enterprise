@@ -66,7 +66,7 @@ public class ContentController {
     @Autowired
     private com.balero.models.SettingsDAO SettingsDAO;
 
-    @RequestMapping(value = "/full/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String showFull(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, @PathVariable int id, Model model, @RequestParam(value = "more", required = false) Integer more) {
 
         String background = "eternity.png";
@@ -122,11 +122,11 @@ public class ContentController {
         model.addAttribute("pages", pages);
         model.addAttribute("footer", footer);
 
-        return "full";
+        return "post";
 
     }
 
-    @RequestMapping(value = "/full/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/post/edit", method = RequestMethod.POST)
     public String editFull(@RequestParam String id,
                            @RequestParam String content,
                            @RequestParam String full) {
@@ -140,12 +140,12 @@ public class ContentController {
         int intId = Integer.parseInt(id);
         ContentDAO.updatePost(intId, content, full, "welcome-test-post-slug", "en");
 
-        return "redirect:/full/" + id;
+        return "redirect:/post/" + id;
 
     }
 
 
-    @RequestMapping(value = "/full/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/post/delete", method = RequestMethod.GET)
     public String deleteFull(@RequestParam String id) {
 
         int intId = Integer.parseInt(id);

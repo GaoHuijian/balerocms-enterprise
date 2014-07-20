@@ -132,7 +132,7 @@
 </div>
 
 <!-- Loop -->
-<form method="post" action="/full/edit">
+<form method="post" action="/post/edit">
 <c:forEach var="p" items="${content}">
 
     <div id="editableContent" class="type1" contenteditable="${admin}">
@@ -158,7 +158,7 @@
 
         <!-- btn -dlete -->
         <div class="add-button">
-            <a href="/full/delete?id=${p.id}" class="btn btn-default btn-lg">
+            <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
         </div>
@@ -280,7 +280,7 @@
 <div class="modal fade" id="SettingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/settings">
+            <form method="post" action="/users/administrator">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">Settings</h4>

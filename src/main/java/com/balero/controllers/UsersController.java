@@ -42,20 +42,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping("/settings")
-public class SettingsController {
+@RequestMapping("/users")
+public class UsersController {
 
     @Autowired
     private com.balero.models.SettingsDAO SettingsDAO;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String save(@RequestParam("id") int id,
+    @RequestMapping(value = "/administrator", method = RequestMethod.POST)
+    public String administrator(@RequestParam("id") int id,
             @RequestParam("sitename") String sitename,
             @RequestParam("slogan") String slogan,
-            @RequestParam("url") String url,
-            @RequestParam("url") String lang)  {
+            @RequestParam("url") String url) {
+            //@RequestParam("lang") String lang)  {
 
-
+        // Require user id
+        // God Administrator = 1
         SettingsDAO.save(id, sitename, slogan, url, "en");
 
         return "redirect:/";
