@@ -91,7 +91,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Password Setup</a></li>
+                                <li><a href="#" id="pwdsetup" data-toggle="modal" data-target="#PwdSetupModal">Password Setup</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#" id="settings" data-toggle="modal" data-target="#SettingsModal">Settings</a></li>
                                 <li class="divider"></li>
@@ -272,6 +272,34 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">OK</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Password Setup Modal -->
+<div class="modal fade" id="PwdSetupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/users/god">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">New Password</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="pwd1">New Password</label>
+                        <input type="text" name="pwd1" class="form-control" id="pwd1" placeholder="New Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd2">Re-Type Password</label>
+                        <input type="text" name="pwd2" class="form-control" id="pwd2" placeholder="New Password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

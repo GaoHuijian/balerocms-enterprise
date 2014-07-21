@@ -48,6 +48,9 @@ public class UsersController {
     @Autowired
     private com.balero.models.SettingsDAO SettingsDAO;
 
+    @Autowired
+    private com.balero.models.UsersDAO UsersDAO;
+
     @RequestMapping(value = "/administrator", method = RequestMethod.POST)
     public String administrator(@RequestParam("id") int id,
             @RequestParam("sitename") String sitename,
@@ -58,6 +61,15 @@ public class UsersController {
         // Require user id
         // God Administrator = 1
         SettingsDAO.save(id, sitename, slogan, url, "en");
+
+        return "redirect:/";
+
+    }
+
+    @RequestMapping(value = "/god", method = RequestMethod.POST)
+    public String god(@RequestParam("pwd1") String pwd1, @RequestParam("pwd2") String pwd2) {
+
+        UsersDAO.administratorCredentials(pwd1);
 
         return "redirect:/";
 

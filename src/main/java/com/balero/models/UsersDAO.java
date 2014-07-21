@@ -62,12 +62,13 @@ public class UsersDAO {
     }
 
     @Transactional
-    public void administratorCredentials(String username, String password) {
+    public void administratorCredentials(String password) {
         Session session = sessionFactory.getCurrentSession();
         Users users = new Users();
         users.setId(1); // Admin credentials id = 1
-        users.setUsername(username);
+        users.setUsername("admin");
         users.setPassword(password);
+        users.setAuth("god");
         session.update(users);
         session.flush();
     }
@@ -86,8 +87,8 @@ public class UsersDAO {
 //        session.createSQLQuery(query).executeUpdate();
         Users users = new Users();
         users.setId(1);
-        users.setUsername("demo");
-        users.setPassword("demo");
+        users.setUsername("admin");
+        users.setPassword("admin");
         users.setAuth("god");
         session.save(users);
         session.flush();
