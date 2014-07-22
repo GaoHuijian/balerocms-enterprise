@@ -66,6 +66,9 @@ body {
 .pull-left {
     margin-left: 10%;
 }
+.pull-right {
+    margin-right: 5px;
+}
 .add-button {
     margin-left: 5%;
     padding-left: 5%;
@@ -113,6 +116,9 @@ body {
 }
 #site-name a:active {
     color: #FFFFFF;
+}
+.fix {
+    margin: 10px;
 }
 /**
 * Badges

@@ -181,7 +181,7 @@ public class UploadController {
                 // Create Default Header File
                 File source = new File(rootPath + File.separator + "webapps/media/uploads"
                         + File.separator + file.getName());
-                File dest = new File(rootPath + File.separator + "webapps/media/uploads"
+                File dest = new File(rootPath + File.separator + "webapps/media"
                         + File.separator + "default.jpg");
                 FileManager cp = new FileManager();
                 try {

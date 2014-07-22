@@ -114,7 +114,7 @@ public class ContentController {
          * Variables
          */
 
-        String pathCover =  "media/uploads/default.jpg";
+        String pathCover =  "media/default.jpg";
         File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
 
         if(defaultCover.exists()) {
