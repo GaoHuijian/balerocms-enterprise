@@ -34,7 +34,11 @@
 
 package com.balero.controllers;
 
+import com.balero.models.Content;
+import com.balero.models.Footer;
+import com.balero.models.Pages;
 import com.balero.models.Users;
+import com.balero.services.ListFilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +49,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -60,6 +65,18 @@ public class LoginController {
     private Boolean admin = false;
     private String username = null;
     private String password = null;
+
+    @Autowired
+    private com.balero.models.ContentDAO ContentDAO;
+
+    @Autowired
+    private com.balero.models.FooterDAO FooterDAO;
+
+    @Autowired
+    private com.balero.models.PagesDAO PagesDAO;
+
+    @Autowired
+    private com.balero.models.SettingsDAO SettingsDAO;
 
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
@@ -102,8 +119,41 @@ public class LoginController {
             view = "redirect:/";
         } else {
             admin = false;
+
+            String background = "eternity.png";
+            model.addAttribute("background", background);
             model.addAttribute("admin", admin);
             model.addAttribute("message", "Login failed! Wrong credentials.");
+
+            String pathCover =  "media/default.jpg";
+            File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
+
+            if(defaultCover.exists()) {
+                model.addAttribute("defaultCover", pathCover);
+            } else {
+                model.addAttribute("defaultCover", "resources/images/eternity.png");
+            }
+
+            model.addAttribute("settingsId", SettingsDAO.settingsId());
+            model.addAttribute("sitename", SettingsDAO.siteName());
+            model.addAttribute("slogan", SettingsDAO.siteSlogan());
+            model.addAttribute("url", SettingsDAO.siteURL());
+
+            ListFilesUtil listFilesUtil = new ListFilesUtil();
+            String files = listFilesUtil.listFiles();
+
+            // Home Post's
+            List<Content> rows = ContentDAO.findAll();
+
+            // Footer content
+            List<Footer> footer = FooterDAO.findAll();
+
+            List<Pages> pages  = PagesDAO.findAll();
+            model.addAttribute("files", files);
+            model.addAttribute("rows", rows);
+            model.addAttribute("pages", pages);
+            model.addAttribute("footer", footer);
+
             view = "index";
         }
 
