@@ -64,8 +64,12 @@ public class ListFilesUtil {
         for (File file : fList){
             i++;
             if (file.isFile()){
-                System.out.println(file.getName());
-                headers += i + "<li><img src=\"/media/uploads/" + file.getName() + "\"></li>\n";
+                if(file.getName().contains("default")) {
+                    headers += i + ""; // ignore default
+                } else {
+                    System.out.println(file.getName());
+                    headers += i + "<li><img src=\"/media/uploads/" + file.getName() + "\"></li>\n";
+                }
             }
         }
 

@@ -45,6 +45,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 
@@ -111,6 +113,16 @@ public class ContentController {
         /**
          * Variables
          */
+
+        String pathCover =  "media/uploads/default.jpg";
+        File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
+
+        if(defaultCover.exists()) {
+            model.addAttribute("defaultCover", pathCover);
+        } else {
+            model.addAttribute("defaultCover", "resources/images/eternity.png");
+        }
+
         model.addAttribute("settingsId", SettingsDAO.settingsId());
         model.addAttribute("sitename", SettingsDAO.siteName());
         model.addAttribute("slogan", SettingsDAO.siteSlogan());
@@ -150,6 +162,40 @@ public class ContentController {
 
         int intId = Integer.parseInt(id);
         ContentDAO.deletePost(intId);
+
+        return "redirect:/";
+
+    }
+
+    @RequestMapping(value = "/post/add", method = RequestMethod.GET)
+    public String add() {
+
+        String html;
+
+        html = "<h1>\n" +
+                "    <img alt=\"Image\" class=\"left\" src=\"/resources/images/nopic.png\"/>\n" +
+                "    Title\n" +
+                "</h1>\n" +
+                "<hr />\n" +
+                "<h3>SubTitle</h3>\n" +
+                "<p>\n" +
+                "    Content\n" +
+                "</p>";
+
+        ContentDAO.addPost(html, null, "welcome-test-post", "en");
+
+        return "redirect:/";
+
+    }
+
+    @RequestMapping(value = "/post/save", method = RequestMethod.POST)
+    public String save(HttpServletRequest request,
+                       @RequestParam("id") String id,
+                       @RequestParam("dataContainer") String dataContainer)  {
+
+        String body = request.getParameter("body");
+        int intId = Integer.parseInt(id);
+        ContentDAO.updatePost(intId, dataContainer, "fullpost", "welcome-test-post", "en");
 
         return "redirect:/";
 

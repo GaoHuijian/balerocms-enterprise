@@ -34,6 +34,7 @@
 
 package com.balero.controllers;
 
+import com.balero.services.FileManager;
 import com.balero.services.ListFilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -156,6 +157,41 @@ public class UploadController {
                 // Debug
                 System.out.println("Loop: " + i + " corresponding to file: " + file.getName());
                 System.out.println("Finding:" + sliderContainer);
+            }
+        }
+
+        return "redirect:/";
+
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(@RequestParam String defaultSliderContainer) {
+
+        // sliderContairner is a String, so convert to int
+        int sliderContainerToInt = Integer.parseInt(defaultSliderContainer);
+        String rootPath = System.getProperty("catalina.home");
+
+        int i = 0;
+        ListFilesUtil listFilesUtil = new ListFilesUtil();
+        File[] fList = listFilesUtil.listFilesInArray();
+
+        for (File file : fList){
+            i++;
+            if (sliderContainerToInt == i) {
+                // Create Default Header File
+                File source = new File(rootPath + File.separator + "webapps/media/uploads"
+                        + File.separator + file.getName());
+                File dest = new File(rootPath + File.separator + "webapps/media/uploads"
+                        + File.separator + "default.jpg");
+                FileManager cp = new FileManager();
+                try {
+                    cp.copyFile(source, dest);
+                } catch (Exception e) {
+                    System.out.println("Can't save");
+                }
+                // Debug
+                System.out.println("Loop: " + i + " corresponding to file: " + file.getName());
+                System.out.println("Finding:" + defaultSliderContainer);
             }
         }
 

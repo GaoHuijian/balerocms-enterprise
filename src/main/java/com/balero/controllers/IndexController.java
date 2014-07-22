@@ -34,7 +34,10 @@
 
 package com.balero.controllers;
 
-import com.balero.models.*;
+import com.balero.models.Content;
+import com.balero.models.Footer;
+import com.balero.models.Pages;
+import com.balero.models.Users;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -122,6 +126,16 @@ public class IndexController {
         /**
          * System variables
          */
+
+        String pathCover =  "media/uploads/default.jpg";
+        File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
+
+        if(defaultCover.exists()) {
+            model.addAttribute("defaultCover", pathCover);
+        } else {
+            model.addAttribute("defaultCover", "resources/images/eternity.png");
+        }
+
         model.addAttribute("settingsId", SettingsDAO.settingsId());
         model.addAttribute("sitename", SettingsDAO.siteName());
         model.addAttribute("slogan", SettingsDAO.siteSlogan());

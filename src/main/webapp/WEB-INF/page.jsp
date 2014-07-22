@@ -29,7 +29,9 @@
 
 <!-- Slider Headers -->
 <ul class="bxslider">
-    <li><img src="<c:url value="/resources/images/eternity.png" />"></li>
+
+    <li><img src="<c:url value="/" />${defaultCover}"></li>
+
     <c:if test="${admin == true}">
         <!-- /media/uploads/ -->
         ${files}
@@ -85,7 +87,7 @@
 
                     <c:if test="${admin == true}">
 
-                        <li><a href="/add" id="add"><span class="glyphicon glyphicon-pencil"></span></a></li>
+                        <li><a href="/post/add" id="add"><span class="glyphicon glyphicon-pencil"></span></a></li>
                         <li><a href="#" id="new" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
 
                         <li class="dropdown">
@@ -118,18 +120,30 @@
     <c:if test="${admin == true}">
         <!-- Upload And Delete Headers -->
         <div class="pull-right">
-        <form method="post" action="/upload/remove" class="pull-right">
-            <!-- Edit header background (Modal) -->
-            <button type="button" class="btn btn-default btn-lg inverse" data-toggle="modal" data-target="#UploadModal">
-                <span class="glyphicon glyphicon-upload"></span>
-            </button>
-            <!-- Submit -->
-            <button type="submit" class="btn btn-default btn-lg inverse" onclick="javascript:getSlider()">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
-            <!-- Data Container -->
-            <input type="hidden" id="sliderContainer" name="sliderContainer">
-        </form>
+
+            <form method="post" action="/upload/remove" class="pull-right">
+                <!-- Edit header background (Modal) -->
+                <button type="button" class="btn btn-default btn-lg inverse" data-toggle="modal" data-target="#UploadModal">
+                    <span class="glyphicon glyphicon-upload"></span>
+                </button>
+                <!-- Submit -->
+                <button type="submit" class="btn btn-default btn-lg inverse" onclick="javascript:getSlider()">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <!-- Data Container -->
+                <input type="hidden" id="sliderContainer" name="sliderContainer">
+            </form>
+
+            <!-- Save Cover -->
+            <form method="post" action="/upload/save" class="pull-right">
+                <!-- Edit header background (Modal) -->
+                <button type="submit" class="btn btn-default btn-lg inverse" onclick="javascript:getDefaultSlider()">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                </button>
+                <!--Container -->
+                <input type="hidden" id="defaultSliderContainer" name="defaultSliderContainer">
+            </form>
+
         </div>
     </c:if>
 
@@ -259,7 +273,7 @@
 <div class="modal fade" id="NewPageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/new">
+            <form method="post" action="/page/new">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">Create New Page</h4>
@@ -377,6 +391,10 @@
     function getSlider() {
         var current = slider.getCurrentSlide();
         document.getElementById("sliderContainer").value = current;
+    }
+    function getDefaultSlider() {
+        var current = slider.getCurrentSlide();
+        document.getElementById("defaultSliderContainer").value = current;
     }
     // Hide and show Site Name because slider
     // divs are disabled When menu's show,

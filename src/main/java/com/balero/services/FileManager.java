@@ -34,10 +34,7 @@
 
 package com.balero.services;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 
 /**
  * Created by lastprophet on 13/07/14.
@@ -65,6 +62,30 @@ public class FileManager {
         } catch (Exception ex) {
             //Captura un posible error le imprime en pantalla
             System.out.println(ex.getMessage());
+        }
+    }
+
+    /**
+     * Copy file using stream
+     *
+     * @param source
+     * @param dest
+     * @throws IOException
+     */
+    public void copyFile(File source, File dest) throws IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
         }
     }
 
