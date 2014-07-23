@@ -355,15 +355,19 @@
     // Save CKE Editor Content
     // InTo Server Data
     function Full_Click() {
+        var dataContent  =  $("#editableContent").html();
+        var dataFull =  $("#editableFull").html();
 //       alert("funciona");
         // Save Div Content into Hidden Field
         // 'postContainer'
+        <c:if test="${mobile == false}">
         var editorContent = CKEDITOR.instances["editableContent"];
         // CKE Editor Method
         var dataContent = editorContent.getData();
         var editorFull = CKEDITOR.instances["editableFull"];
         // CKE Editor Method
         var dataFull = editorFull.getData();
+        </c:if>
         document.getElementById("content").value = dataContent;
         document.getElementById("full").value = dataFull;
     }

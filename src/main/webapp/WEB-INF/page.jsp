@@ -357,15 +357,20 @@
     // Save CKE Editor Content
     // InTo Server Data
     function Content_Click() {
-//       alert("funciona");
+        // Load mobile data
+        var dataTitle =  $("#editableTitle").html();
+        var dataContent = $("#editableContent").html();
+        // alert("funciona");
         // Save Div Content into Hidden Field
         // 'postContainer'
+        <c:if test="${mobile == false}">
         var editorTitle = CKEDITOR.instances["editableTitle"];
         // CKE Editor Method
         var dataTitle = editorTitle.getData();
         var editorContent = CKEDITOR.instances["editableContent"];
         // CKE Editor Method
         var dataContent = editorContent.getData();
+        </c:if>
         document.getElementById("name").value = dataTitle;
         document.getElementById("content").value = dataContent;
     }

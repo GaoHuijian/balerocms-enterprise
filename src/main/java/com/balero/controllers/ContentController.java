@@ -40,6 +40,7 @@ import com.balero.models.Pages;
 import com.balero.models.Users;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
+import com.balero.services.ScreenSize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,6 +122,13 @@ public class ContentController {
             model.addAttribute("defaultCover", pathCover);
         } else {
             model.addAttribute("defaultCover", "resources/images/eternity.png");
+        }
+
+        ScreenSize screen = new ScreenSize();
+        if(screen.getWidth() <= 1920) {
+            model.addAttribute("mobile", true);
+        } else {
+            model.addAttribute("mobile", false);
         }
 
         model.addAttribute("settingsId", SettingsDAO.settingsId());

@@ -32,7 +32,7 @@
  * @since       1.0
  */
 
-package com.balero.setup;
+package com.balero.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

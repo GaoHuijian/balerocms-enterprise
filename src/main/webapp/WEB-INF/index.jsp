@@ -373,11 +373,13 @@
     // Save CKE Editor Content
     // InTo Server Data
     function content(divName, id) {
-        // Save Div Content into Hidden Field
-        // 'postContainer'
+        // Load mobile data
+        var data =  $("#" + divName).html();
+        <c:if test="${mobile == false}">
+        // Replace editor data
         var editor = CKEDITOR.instances[divName];
-        // CKE Editor Method
         var data = editor.getData();
+        </c:if>
         // Variable Datas Has Content
         document.getElementById("dataContainer").value = data;
         document.getElementById("id").value = id;
