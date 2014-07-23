@@ -375,11 +375,14 @@
         document.getElementById("content").value = dataContent;
     }
     function footer(fid) {
+        var data =  $("#editable-footer").html();
         // Save Div Content into Hidden Field
-        // 'postContainer'
+        // 'postContainer'}
+        <c:if test="${mobile == false}">
         var editor = CKEDITOR.instances["editable-footer"];
         // CKE Editor Method
         var data = editor.getData();
+        </c:if>
         // Variable Datas Has Content
         document.getElementById("fContainer").value = data;
         document.getElementById("fid").value = fid;
