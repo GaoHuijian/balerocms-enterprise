@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<h1>Spring MVC internationalization example</h1>
+<h1>Spring MVC internationalization Unit Test</h1>
 
 var message = ${message}
 

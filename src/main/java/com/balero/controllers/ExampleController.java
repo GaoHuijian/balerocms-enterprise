@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
-* i18n & L10n Unit test class
+* Commit: i18n & L10n Unit test class
 */
 public class ExampleController extends AbstractController{
 
