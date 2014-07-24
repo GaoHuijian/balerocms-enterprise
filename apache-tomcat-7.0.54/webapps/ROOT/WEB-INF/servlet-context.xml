@@ -94,10 +94,13 @@
     </bean>
 
     <!--
-    Add/Register
+    Add / Register
     Multi-Language Controllers
     -->
     <bean class="com.balero.controllers.ExampleController" />
+    <!--
+    End
+    -->
 
     <!-- Register the welcome.properties -->
     <bean id="messageSource"
