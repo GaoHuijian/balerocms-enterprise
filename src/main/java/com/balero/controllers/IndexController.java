@@ -34,126 +34,27 @@
 
 package com.balero.controllers;
 
-import com.balero.models.Content;
-import com.balero.models.Footer;
-import com.balero.models.Pages;
-import com.balero.models.Users;
-import com.balero.services.Administrator;
-import com.balero.services.ListFilesUtil;
-import com.balero.services.ScreenSize;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.io.File;
-import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 
 @Controller
 @RequestMapping("/")
 public class IndexController {
 
-    @Autowired
-    private com.balero.models.UsersDAO UsersDAO;
+    @RequestMapping(method = RequestMethod.GET)
+    public String index(HttpServletResponse response) {
 
-    @Autowired
-    private com.balero.models.ContentDAO ContentDAO;
+        // create cookie and set it in response
+        Cookie cookie = new Cookie("baleroAdmin", "init");
+        response.addCookie(cookie);
 
-    @Autowired
-    private com.balero.models.FooterDAO FooterDAO;
+        return "redirect:/home";
 
-    @Autowired
-    private com.balero.models.PagesDAO PagesDAO;
-
-    @Autowired
-    private com.balero.models.SettingsDAO SettingsDAO;
-
-    private boolean adminElements = false;
-    private int i = 0;
-
-    /**
-     * Front-end Main Controller
-     *
-     * @param baleroAdmin Cookie
-     * @param model Model Layout
-     * @return String
-     */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, Model model) {
-        String background = "eternity.png";
-		model.addAttribute("background", background);
-
-        Administrator admin = new Administrator();
-        if(!baleroAdmin.equals("init")) {
-            // Set credentials
-            String[] credentials = baleroAdmin.split(":");
-
-            // Extract cookie credentials
-            admin.setLocalUsername(credentials[0]);
-            admin.setLocalPassword(credentials[1]);
-
-            List<Users> users = UsersDAO.administrator();
-
-            for(Users obj: users) {
-                admin.setRemoteUsername(obj.getUsername());
-                admin.setRemotePassword(obj.getPassword());
-            }
-
-            admin.allowAccess();
-        } else {
-            admin.denyAccess();
-        }
-
-        ListFilesUtil listFilesUtil = new ListFilesUtil();
-        String files = listFilesUtil.listFiles();
-
-        // Home Post's
-        List<Content> rows = ContentDAO.findAll();
-
-        // Footer content
-        List<Footer> footer = FooterDAO.findAll();
-
-        List<Pages> pages  = PagesDAO.findAll();
-
-        /**
-         * Enable or Disable and
-         * Check if Admin Elements will
-         * be displayed
-         */
-        model.addAttribute("admin", admin.getAccess());
-
-        /**
-         * System variables
-         */
-
-        String pathCover =  "media/default.jpg";
-        File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
-
-        if(defaultCover.exists()) {
-            model.addAttribute("defaultCover", pathCover);
-        } else {
-            model.addAttribute("defaultCover", "resources/images/eternity.png");
-        }
-
-        ScreenSize screen = new ScreenSize();
-        if(screen.getWidth() <= 1920) {
-            model.addAttribute("mobile", true);
-        } else {
-            model.addAttribute("mobile", false);
-        }
-
-        model.addAttribute("settingsId", SettingsDAO.settingsId());
-        model.addAttribute("sitename", SettingsDAO.siteName());
-        model.addAttribute("slogan", SettingsDAO.siteSlogan());
-        model.addAttribute("url", SettingsDAO.siteURL());
-        model.addAttribute("files", files);
-        model.addAttribute("rows", rows);
-        model.addAttribute("pages", pages);
-        model.addAttribute("footer", footer);
-
-		return "index";
-	}
+    }
 
 }

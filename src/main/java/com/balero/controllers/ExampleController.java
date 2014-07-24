@@ -20,12 +20,13 @@ public class ExampleController extends AbstractController{
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
+        response.addCookie(new Cookie("baleroAdmin", "init"));
+
         Cookie[] cookies = request.getCookies();
 
-        for(int loopIndex = 0; loopIndex < cookies.length; loopIndex++) {
-            baleroAdmin = cookies[loopIndex];
-            if (baleroAdmin.getName().equals("baleroAdmin")) {
-                System.out.println("baleroAdmin = " + baleroAdmin.getValue());
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println("cookies: " + cookie.getName() + " : " + cookie.getValue());
             }
         }
 

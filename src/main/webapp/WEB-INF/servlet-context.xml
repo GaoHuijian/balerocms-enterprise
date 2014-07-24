@@ -94,12 +94,12 @@
     </bean>
 
     <!--
-    Add / Register
-    Multi-Language Controllers
+    <Multi-Language Controllers>
     -->
+    <bean class="com.balero.controllers.HomeController" />
     <bean class="com.balero.controllers.ExampleController" />
     <!--
-    End
+    </Multi-Language Controllers>
     -->
 
     <!-- Register the welcome.properties -->
