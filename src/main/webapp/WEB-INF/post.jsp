@@ -97,7 +97,11 @@
                     </c:if>
 
                     <c:if test="${admin == false}">
-                        <li><a href="#" id="login" data-toggle="modal" data-target="#LoginModal">Login</a></li>
+                        <li>
+                            <a href="#" id="login" data-toggle="modal" data-target="#LoginModal">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
+                        </li>
                     </c:if>
 
                 </ul>
