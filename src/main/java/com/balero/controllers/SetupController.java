@@ -74,6 +74,9 @@ public class SetupController {
     @Autowired
     private com.balero.models.SettingsDAO SettingsDAO;
 
+    @Autowired
+    private com.balero.models.CommentsDAO CommentsDAO;
+
     @Value( "${jdbc.username}" )
     private String jdbcUsername;
 
@@ -135,6 +138,8 @@ public class SetupController {
         UsersDAO.make();
         System.out.println("Inseting settings data...");
         SettingsDAO.make();
+        System.out.println("Inseting comments data...");
+        CommentsDAO.make();
 
         model.addAttribute("sucess", true);
 

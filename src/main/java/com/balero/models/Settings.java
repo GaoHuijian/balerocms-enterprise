@@ -49,7 +49,6 @@ public class Settings {
     private String sitename;
     private String slogan;
     private String url;
-    private String lang;
 
     public long getId() {
         return id;
@@ -82,11 +81,4 @@ public class Settings {
         this.url = url;
     }
 
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
 }

@@ -34,10 +34,7 @@
 
 package com.balero.controllers;
 
-import com.balero.models.Content;
-import com.balero.models.Footer;
-import com.balero.models.Pages;
-import com.balero.models.Users;
+import com.balero.models.*;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
 import com.balero.services.ScreenSize;
@@ -69,6 +66,9 @@ public class IndexController {
 
     @Autowired
     private com.balero.models.SettingsDAO SettingsDAO;
+
+    @Autowired
+    private com.balero.models.CommentsDAO CommentsDAO;
 
     private boolean adminElements = false;
     private int i = 0;
@@ -111,11 +111,9 @@ public class IndexController {
 
         // Home Post's
         List<Content> rows = ContentDAO.findAll();
-
-        // Footer content
         List<Footer> footer = FooterDAO.findAll();
-
         List<Pages> pages  = PagesDAO.findAll();
+        List<Comments> comments = CommentsDAO.findAll();
 
         /**
          * Enable or Disable and
@@ -150,6 +148,7 @@ public class IndexController {
         model.addAttribute("url", SettingsDAO.siteURL());
         model.addAttribute("files", files);
         model.addAttribute("rows", rows);
+        model.addAttribute("comments", comments);
         model.addAttribute("pages", pages);
         model.addAttribute("footer", footer);
 

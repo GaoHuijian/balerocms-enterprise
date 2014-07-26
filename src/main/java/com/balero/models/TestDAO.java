@@ -86,15 +86,7 @@ public class TestDAO {
 
     @Transactional
     public void make() {
-        String query;
         Session session = sessionFactory.getCurrentSession();
-//        //query = "create table if not exists test (" +
-//                "id int not null auto_increment," +
-//                "name varchar (250) not null," +
-//                "email varchar (250) not null," +
-//                "PRIMARY KEY (id)" +
-//                ");";
-        //session.createSQLQuery(query).executeUpdate();
         Test test = new Test();
         test.setId(1);
         test.setName("Anibal Gomez");

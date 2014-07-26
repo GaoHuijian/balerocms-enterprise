@@ -58,7 +58,7 @@ public class FooterDAO {
     @Transactional
     public List<Footer> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        List rows = session.createQuery("from Footer where lang = 'en'").list();
+        List rows = session.createQuery("from Footer").list();
         return rows;
     }
 
@@ -68,7 +68,6 @@ public class FooterDAO {
         Footer footer = new Footer();
         footer.setId(fid);
         footer.setContent(fContainer);
-        footer.setLang(lang);
         session.update(footer);
         session.flush();
         session.close();
@@ -88,7 +87,6 @@ public class FooterDAO {
         Footer footer = new Footer();
         footer.setId(1);
         footer.setContent("Copyright (c) 2013-2014 <a href=\"http://www.balerocms.com/\">BaleroCMS Enterprise</a>.");
-        footer.setLang("en");
         session.save(footer);
         session.flush();
     }

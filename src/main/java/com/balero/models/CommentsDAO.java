@@ -40,48 +40,62 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-/**
- * Unit Test Model Class
- */
 @Repository
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class UsersDAO {
+public class CommentsDAO {
     @Autowired private SessionFactory sessionFactory;
 
-    /**
-     * @Transactional annotation below will trigger Spring Hibernate transaction manager to automatically create
-     * a hibernate session. See src/main/webapp/WEB-INF/servlet-context.xml
-     */
     @Transactional
-    public List<Users> administrator() {
+    public List<Comments> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        List users = session.createQuery("from Users where auth = 'god'").list();
-        return users;
+        List rows = session.createQuery("from Comments").list();
+        return rows;
     }
 
     @Transactional
-    public void administratorCredentials(String password) {
+    public List<Comments> findById(int postId) {
         Session session = sessionFactory.getCurrentSession();
-        Users users = new Users();
-        users.setId(1); // Admin credentials id = 1
-        users.setUsername("admin");
-        users.setPassword(password);
-        users.setAuth("god");
-        session.update(users);
+        List rows = session.createQuery("from Comments where postId = " + postId + "").list();
+        return rows;
+    }
+
+    @Transactional
+    public void addComment(String name, String comment, int postId) {
+        Session session = sessionFactory.openSession();
+        Comments comments = new Comments();
+        comments.setName(name);
+        comments.setComment(comment);
+        comments.setDate(new Date());
+        comments.setPostId(postId);
+        session.save(comments);
         session.flush();
+        session.close();
+    }
+
+    @Transactional
+    public void deleteComment(int id) {
+        Session session = sessionFactory.openSession();
+        Comments comments = new Comments();
+        comments.setId(id);
+        session.delete(comments);
+        session.flush();
+        session.close();
     }
 
     @Transactional
     public void make() {
         Session session = sessionFactory.getCurrentSession();
-        Users users = new Users();
-        users.setId(1);
-        users.setUsername("admin");
-        users.setPassword("admin");
-        users.setAuth("god");
-        session.save(users);
+        Comments comments = new Comments();
+        comments.setId(1);
+        comments.setName("Anon");
+        comments.setComment("Great CMS. :-)");
+        comments.setDate(new Date());
+        comments.setPostId(1);
+        session.save(comments);
         session.flush();
     }
 

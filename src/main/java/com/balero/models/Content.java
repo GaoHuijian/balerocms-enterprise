@@ -53,7 +53,6 @@ public class Content {
     @Column(columnDefinition="longtext")
     private String full;
     private String slug;
-    private String lang;
 
     public long getId() {
         return id;
@@ -78,12 +77,6 @@ public class Content {
     }
     public void setSlug(String slug) {
         this.slug = slug;
-    }
-    public String getLang() {
-        return lang;
-    }
-    public void setLang(String lang) {
-        this.lang = lang;
     }
 
 }

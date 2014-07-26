@@ -147,7 +147,7 @@ public class PageController {
         }
 
         int intId = Integer.parseInt(id);
-        PagesDAO.updatePage(intId, name, content, "en");
+        PagesDAO.updatePage(intId, name, content);
 
         return "redirect:/page/" + id;
 
@@ -181,7 +181,7 @@ public class PageController {
                 "El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras.\n" +
                 "</p>";
 
-        PagesDAO.addPage(name, html, "en");
+        PagesDAO.addPage(name, html);
 
         return "redirect:/";
 

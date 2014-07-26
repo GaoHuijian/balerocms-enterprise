@@ -97,11 +97,7 @@
                     </c:if>
 
                     <c:if test="${admin == false}">
-                        <li>
-                            <a href="#" id="login" data-toggle="modal" data-target="#LoginModal">
-                                <span class="glyphicon glyphicon-user"></span>
-                            </a>
-                        </li>
+                        <li><a href="#" id="login" data-toggle="modal" data-target="#LoginModal">Login</a></li>
                     </c:if>
 
                 </ul>
@@ -150,8 +146,8 @@
 </div>
 
 <!-- Loop -->
-<form method="post" action="/post/edit">
 <c:forEach var="p" items="${content}">
+<form method="post" action="/post/edit">
 
     <div id="editableContent" class="type1" contenteditable="${admin}">
         ${p.content}
@@ -183,13 +179,56 @@
 
     </c:if>
 
+    <!-- Comments -->
+    <c:forEach var="q" items="${comments}">
+        <div class="div-center">
+            <div class="bubble">
+                <c:if test="${admin == true}">
+                <div class="pull-right">
+                    <a href="/comments/delete/${q.id}?postId=${p.id}">
+                        <span class="glyphicon glyphicon-floppy-remove"></span>
+                    </a>
+                </div>
+                </c:if>
+                <b>${q.name}</b>
+                <br>
+                    ${q.comment}
+                <div class="pull-right">
+                    ${q.date}
+                </div>
+            </div>
+        </div>
+    </c:forEach>
+
     <!-- Data Container -->
     <input type="hidden" name="id" id="id" value="${p.id}">
     <input type="hidden" name="content" id="content" value="init">
     <input type="hidden" name="full" id="full" value="">
 
-</c:forEach>
 </form>
+
+<!-- Comment Form -->
+<div class="div-center">
+    <form action="/comments/${p.id}" method="post" role="form">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Name" name="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" rows="10" placeholder="Comment" name="comment"></textarea>
+        </div>
+            <button type="submit" class="btn btn-default pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </form>
+</div>
+
+</c:forEach>
+
 <!-- /Loop -->
 
 <!-- Footer -->

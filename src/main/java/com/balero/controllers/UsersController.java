@@ -60,7 +60,7 @@ public class UsersController {
 
         // Require user id
         // God Administrator = 1
-        SettingsDAO.save(id, sitename, slogan, url, "en");
+        SettingsDAO.save(id, sitename, slogan, url);
 
         return "redirect:/";
 

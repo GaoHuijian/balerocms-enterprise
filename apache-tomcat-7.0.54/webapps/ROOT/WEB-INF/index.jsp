@@ -93,28 +93,18 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
                             <ul class="dropdown-menu">
-                                <li class="pull-right">
-                                    <button type="button" class="pull-right btn btn-default btn-sm" id="logout" onclick="window.location.href='<c:url value="/logout" />'">
-                                        <span class="glyphicon glyphicon-log-out"></span>
-                                    </button>
-                                    <button type="button" class="pull-right btn btn-default btn-sm" id="settings" data-toggle="modal" data-target="#SettingsModal">
-                                        <span class="glyphicon glyphicon-cog"></span>
-                                    </button>
-                                    <button type="button" class="pull-right btn btn-default btn-sm" id="pwdsetup" data-toggle="modal" data-target="#PwdSetupModal">
-                                        <span class="glyphicon glyphicon-lock"></span>
-                                    </button>
-                                </li>
+                                <li><a href="#" id="pwdsetup" data-toggle="modal" data-target="#PwdSetupModal">Password Setup</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" id="settings" data-toggle="modal" data-target="#SettingsModal">Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/logout" id="logout">Logout</a></li>
                             </ul>
                         </li>
 
                     </c:if>
 
                     <c:if test="${admin == false}">
-                        <li>
-                            <a href="#" id="login" data-toggle="modal" data-target="#LoginModal">
-                                <span class="glyphicon glyphicon-user"></span>
-                            </a>
-                        </li>
+                        <li><a href="#" id="login" data-toggle="modal" data-target="#LoginModal">Login</a></li>
                     </c:if>
 
                 </ul>
@@ -163,9 +153,12 @@
 </div>
 
 <!-- Loop -->
+
 <form method="post" action="/post/save">
+
 <c:forEach var="p" items="${rows}">
 
+    <% int i = 0; %>
     <div id="editable-${p.id}" class="type1" contenteditable="${admin}">
 
         ${p.content}
@@ -175,6 +168,25 @@
             <a href="/post/${p.id}" class="badge badge-info">More...</a>
         </c:if>
 
+            <!-- Get Total Comments -->
+            <c:forEach var="q" items="${comments}">
+                <c:if test="${q.postId == p.id}">
+                    <%
+                        i++;
+                        application.setAttribute("i", i);
+                    %>
+                </c:if>
+            </c:forEach>
+
+    </div>
+
+    <!-- Comments -->
+    <div class="div-center">
+        <a href="/post/${p.id}" class="pull-right">
+            <span class="badge badge-info glyphicon glyphicon-comment">
+                <%= i%>
+            </span>
+        </a>
     </div>
 
     <c:if test="${admin == true}">
@@ -252,25 +264,21 @@
             <form method="post" action="/login">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Login</h4>
+                <h4 class="modal-title" id="myModalLabel">Admin Login</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                        <input type="text" name="inputUsername" class="form-control" id="inputUsername">
-                    </div>
+                    <label for="inputUsername">Username</label>
+                    <input type="text" name="inputUsername" class="form-control" id="inputUsername" placeholder="Enter username">
                 </div>
                 <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></div>
-                        <input type="password" name="inputPassword" class="form-control" id="inputPassword">
-                    </div>
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="inputPassword" class="form-control" id="inputPassword" placeholder="Enter password">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
-                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button>
+                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </div>
             </form>
         </div>

@@ -78,15 +78,13 @@ public class PagesDAO {
      * INSERT INTO TABLE pages VALUES name, conteny, slug, lang
      *
      * @param content
-     * @param lang
      */
     @Transactional
-    public void addPage(String name, String content, String lang) {
+    public void addPage(String name, String content) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setName(name);
         pages.setContent(content);
-        pages.setLang(lang);
         session.save(pages);
         session.flush();
         session.close();
@@ -97,16 +95,14 @@ public class PagesDAO {
      *
      * @param id
      * @param content
-     * @param lang
      */
     @Transactional
-    public void updatePage(int id, String name, String content, String lang) {
+    public void updatePage(int id, String name, String content) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setId(id);
         pages.setName(name);
         pages.setContent(content);
-        pages.setLang(lang);
         session.update(pages);
         session.flush();
         session.close();
@@ -129,26 +125,16 @@ public class PagesDAO {
 
     @Transactional
     public void make() {
-        String query;
         Session session = sessionFactory.getCurrentSession();
-//        query = "create table if not exists pages (" +
-//                "id int not null auto_increment," +
-//                "content longtext not null," +
-//                "slug varchar (250) not null," +
-//                "lang varchar (250) not null," +
-//                "PRIMARY KEY (id)" +
-//                ");";
-//        session.createSQLQuery(query).executeUpdate();
         Pages pages = new Pages();
         pages.setId(1);
         pages.setName("Example");
         pages.setContent("\n" +
-                "<p>Lorem ipsum es el texto que se usa habitualmente en dise&ntilde;o gr&aacute;fico en demostraciones de tipograf&iacute;as o de borradores de dise&ntilde;o para probar el dise&ntilde;o visual antes de insertar el texto final.</p>\n" +
+                "<p>Lorem Ipsum is text that is commonly used in graphic design typefaces demonstrations or draft design to test the visual design before inserting the final text.</p>\n" +
                 "\n" +
-                "<p>Aunque no posee actualmente fuentes para justificar sus hip&oacute;tesis, el profesor de filolog&iacute;a cl&aacute;sica Richard McClintock asegura que su uso se remonta a los impresores de comienzos del siglo XVI.1 Su uso en algunos editores de texto muy conocidos en la actualidad ha dado al texto lorem ipsum nueva popularidad.</p>\n" +
+                "<p>Although currently has no sources to justify ótesis hip, professor of classical philology Richard McClintock says its use dates back to the early printers XVI.1 century Its use in some text editors well known in today has given the new popularity lorem ipsum.</p>\n" +
                 "\n" +
-                "<p>El texto en s&iacute; no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicer&oacute;n en lengua latina, a cuyas palabras se les han eliminado s&iacute;labas o letras. El significado del texto no tiene importancia, ya que solo es una demostraci&oacute;n o prueba,</p>\n");
-        pages.setLang("en");
+                "<p>The text itself no sense, although it is not completely random, but derives from a text by Cicero in Latin language, whose words have been removed them syllables or letters. The meaning of the text does not matter, since it is just a test demostracióno,</p>\n");
         session.save(pages);
         session.flush();
     }

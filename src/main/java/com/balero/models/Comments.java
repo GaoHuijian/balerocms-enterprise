@@ -35,7 +35,11 @@
 package com.balero.models;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * Footer Class
@@ -43,25 +47,55 @@ import javax.persistence.*;
  * Getters and Setters Methods
  */
 @Entity
-@Table(name = "footer")
-public class Footer {
+@Table(name = "comments")
+public class Comments {
 
     @Id @GeneratedValue
     private int id;
-    @Column(columnDefinition="longtext")
-    private String content;
+    private String name;
+    private String comment;
+    private Date date;
+    private int postId;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
-    public String getContent() {
-        return content;
+
+    public String getName() {
+        return name;
     }
-    public void setContent(String content) {
-        this.content = content;
+
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
 
 }

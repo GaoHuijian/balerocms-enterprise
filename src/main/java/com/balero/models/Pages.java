@@ -53,7 +53,6 @@ public class Pages {
     private String name;
     @Column(columnDefinition="longtext")
     private String content;
-    private String lang;
 
     public long getId() {
         return id;
@@ -72,12 +71,6 @@ public class Pages {
     }
     public void setContent(String content) {
         this.content = content;
-    }
-    public String getLang() {
-        return lang;
-    }
-    public void setLang(String lang) {
-        this.lang = lang;
     }
 
 }

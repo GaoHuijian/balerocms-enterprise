@@ -48,14 +48,13 @@ public class SettingsDAO {
     @Autowired private SessionFactory sessionFactory;
 
     @Transactional
-    public void save(long id, String sitename, String slogan, String url, String lang) {
+    public void save(long id, String sitename, String slogan, String url) {
         Session session = sessionFactory.getCurrentSession();
         Settings settings = new Settings();
         settings.setId(id);
         settings.setSitename(sitename);
         settings.setSlogan(slogan);
         settings.setUrl(url);
-        settings.setLang(lang);
         session.update(settings);
         session.flush();
     }
@@ -64,7 +63,7 @@ public class SettingsDAO {
     public long settingsId() {
         long id = 1;
         Session session = sessionFactory.getCurrentSession();
-        List<Settings> settings = session.createQuery("from Settings where lang = 'en'").list();
+        List<Settings> settings = session.createQuery("from Settings").list();
 
         for(Settings obj: settings) {
             id = obj.getId();
@@ -78,7 +77,7 @@ public class SettingsDAO {
     public String siteName() {
         String sitename = null;
         Session session = sessionFactory.getCurrentSession();
-        List<Settings> settings = session.createQuery("from Settings where lang = 'en'").list();
+        List<Settings> settings = session.createQuery("from Settings").list();
 
         for(Settings obj: settings) {
             sitename = obj.getSitename();
@@ -92,7 +91,7 @@ public class SettingsDAO {
     public String siteSlogan() {
         String slogan = null;
         Session session = sessionFactory.getCurrentSession();
-        List<Settings> settings = session.createQuery("from Settings where lang = 'en'").list();
+        List<Settings> settings = session.createQuery("from Settings").list();
 
         for(Settings obj: settings) {
             slogan = obj.getSlogan();
@@ -106,7 +105,7 @@ public class SettingsDAO {
     public String siteURL() {
         String url = null;
         Session session = sessionFactory.getCurrentSession();
-        List<Settings> settings = session.createQuery("from Settings where lang = 'en'").list();
+        List<Settings> settings = session.createQuery("from Settings").list();
 
         for(Settings obj: settings) {
             url = obj.getUrl();
@@ -124,7 +123,6 @@ public class SettingsDAO {
         settings.setSitename("Balero CMS");
         settings.setSlogan("Simple is powerful");
         settings.setUrl("http://www.balerocms.com/");
-        settings.setLang("en");
         session.save(settings);
         session.flush();
     }
