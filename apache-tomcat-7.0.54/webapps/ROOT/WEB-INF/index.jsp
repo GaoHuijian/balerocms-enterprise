@@ -5,7 +5,8 @@
   Time: 01:20 PM
   Eternity Template (balerocms.com).
 --%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -152,81 +153,74 @@
 
 </div>
 
-<!-- Loop -->
+<!-- Container -->
+<div class="container">
 
-<form method="post" action="/post/save">
+    <!-- Loop -->
+    <form method="post" action="/post/save">
+        <c:forEach var="p" items="${rows}">
 
-<c:forEach var="p" items="${rows}">
+            <% int i = 0; %>
+            <div id="editable-${p.id}" contenteditable="${admin}">
 
-    <% int i = 0; %>
-    <div id="editable-${p.id}" class="type1" contenteditable="${admin}">
+                    ${p.content}
 
-        ${p.content}
-
-        <c:if test="${not empty p.full && admin != true}">
-            <!-- Read More -->
-            <a href="/post/${p.id}" class="badge badge-info">More...</a>
-        </c:if>
-
-            <!-- Get Total Comments -->
-            <c:forEach var="q" items="${comments}">
-                <c:if test="${q.postId == p.id}">
-                    <%
-                        i++;
-                        application.setAttribute("i", i);
-                    %>
+                <c:if test="${not empty p.full && admin != true}">
+                    <!-- Read More -->
+                    <a href="/post/${p.id}" class="badge badge-info">More...</a>
                 </c:if>
-            </c:forEach>
 
-    </div>
+                <!-- Get Total Comments -->
+                <c:forEach var="q" items="${comments}">
+                    <c:if test="${q.postId == p.id}">
+                        <%
+                            i++;
+                            application.setAttribute("i", i);
+                        %>
+                    </c:if>
+                </c:forEach>
 
-    <!-- Comments -->
-    <div class="div-center">
-        <a href="/post/${p.id}" class="pull-right">
-            <span class="badge badge-info glyphicon glyphicon-comment">
-                <%= i%>
-            </span>
-        </a>
-    </div>
-
-    <c:if test="${admin == true}">
-
-        <c:if test="${empty p.full}">
-            <div class="div-center">
-                <a href="/post/${p.id}?more=1" class="badge badge-info pull-right">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
             </div>
-        </c:if>
-        <c:if test="${not empty p.full}">
-            <div class="div-center">
-                <a href="/post/${p.id}?more=0" class="badge badge-info pull-right">
-                    <span class="glyphicon glyphicon-edit"></span>
-                </a>
-            </div>
-        </c:if>
 
-        <div class="pull-left">
-            <button type="submit" class="btn btn-default btn-lg" onclick="javascript:content('editable-${p.id}', '${p.id}')">
-                <span class="glyphicon glyphicon-floppy-disk"></span>
-            </button>
-        </div>
-
-        <!-- btn -dlete -->
-        <div class="add-button">
-            <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
-                <span class="glyphicon glyphicon-remove"></span>
+            <!-- Comments -->
+            <a href="/post/${p.id}" class="pull-right">
+                <span class="badge badge-info glyphicon glyphicon-comment">
+                    <%= i%>
+                </span>
             </a>
-        </div>
 
-    </c:if>
+            <c:if test="${admin == true}">
 
-</c:forEach>
-<!-- Data Container -->
-<input type="hidden" name="dataContainer" id="dataContainer">
-<input type="hidden" name="id" id="id">
-</form>
-<!-- /Loop -->
+                <c:if test="${empty p.full}">
+                    <a href="/post/${p.id}?more=1" class="badge badge-info pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </c:if>
+                <c:if test="${not empty p.full}">
+                        <a href="/post/${p.id}?more=0" class="badge badge-info pull-right">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                </c:if>
+
+                <!-- Toolbox -->
+                <button type="submit" class="btn btn-default btn-lg" onclick="javascript:content('editable-${p.id}', '${p.id}')">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+
+                <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+
+            </c:if>
+
+        </c:forEach>
+        <!-- Data Container -->
+        <input type="hidden" name="dataContainer" id="dataContainer">
+        <input type="hidden" name="id" id="id">
+    </form>
+    <!-- /Loop -->
+
+</div>
 
 <!-- Footer -->
 <div id="footer">

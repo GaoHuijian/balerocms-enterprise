@@ -5,6 +5,7 @@
   Time: 01:20 PM
   Eternity Template (balerocms.com).
 --%>
+<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -152,43 +153,41 @@
 
 </div>
 
-<!-- Loop -->
-<form method="post" action="/page/edit">
-<c:forEach var="p" items="${page}">
+<div class="container">
 
-    <h1 id="editableTitle" class="type1" contenteditable="${admin}">
-        ${p.name}
-    </h1>
+    <!-- Loop -->
+    <form method="post" action="/page/edit">
+        <c:forEach var="p" items="${page}">
 
-    <div id="editableContent" class="type1" contenteditable="${admin}">
-        ${p.content}
-    </div>
+            <h1 id="editableTitle" contenteditable="${admin}">
+                    ${p.name}
+            </h1>
 
-    <c:if test="${admin == true}">
+            <div id="editableContent" contenteditable="${admin}">
+                    ${p.content}
+            </div>
 
-        <div class="pull-left">
-            <button type="submit" class="btn btn-default btn-lg" onclick="Content_Click()">
-                <span class="glyphicon glyphicon-floppy-disk"></span>
-            </button>
-        </div>
+            <c:if test="${admin == true}">
+                <!-- Toolbox -->
+                <button type="submit" class="btn btn-default btn-lg" onclick="Content_Click()">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
 
-        <!-- btn -dlete -->
-        <div class="add-button">
-            <a href="/page/delete?id=${p.id}" class="btn btn-default btn-lg">
-                <span class="glyphicon glyphicon-remove"></span>
-            </a>
-        </div>
+                <a href="/page/delete?id=${p.id}" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </c:if>
 
-    </c:if>
+            <!-- Data Container -->
+            <input type="hidden" name="id" id="id" value="${p.id}">
+            <input type="hidden" name="name" id="name" value="init">
+            <input type="hidden" name="content" id="content" value="init">
 
-    <!-- Data Container -->
-    <input type="hidden" name="id" id="id" value="${p.id}">
-    <input type="hidden" name="name" id="name" value="init">
-    <input type="hidden" name="content" id="content" value="init">
+        </c:forEach>
+    </form>
+    <!-- /Loop -->
 
-</c:forEach>
-</form>
-<!-- /Loop -->
+</div>
 
 <!-- Footer -->
 <div id="footer">

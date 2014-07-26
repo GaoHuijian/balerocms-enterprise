@@ -1,3 +1,4 @@
+<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -145,70 +146,62 @@
 
 </div>
 
-<!-- Loop -->
-<c:forEach var="p" items="${content}">
-<form method="post" action="/post/edit">
+<div class="container">
 
-    <div id="editableContent" class="type1" contenteditable="${admin}">
-        ${p.content}
-    </div>
+    <!-- Loop -->
+    <c:forEach var="p" items="${content}">
+    <form method="post" action="/post/edit">
 
-    <hr class="div-center" contenteditable="false">
+        <div id="editableContent" contenteditable="${admin}">
+                ${p.content}
+        </div>
 
-    <div id="editableFull" class="type1" contenteditable="${admin}">
-        ${p.full}
-        <c:if test="${more == 1}">
-            (Full Post...)
-        </c:if>
-    </div>
+        <hr contenteditable="false">
 
-    <c:if test="${admin == true}">
+        <div id="editableFull" contenteditable="${admin}">
+                ${p.full}
+            <c:if test="${more == 1}">
+                (Full Post...)
+            </c:if>
+        </div>
 
-        <div class="pull-left">
+        <c:if test="${admin == true}">
+            <!-- Toolbox -->
             <button type="submit" class="btn btn-default btn-lg" onclick="Full_Click()">
                 <span class="glyphicon glyphicon-floppy-disk"></span>
             </button>
-        </div>
 
-        <!-- btn -dlete -->
-        <div class="add-button">
             <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
-        </div>
+        </c:if>
 
-    </c:if>
-
-    <!-- Comments -->
-    <c:forEach var="q" items="${comments}">
-        <div class="div-center">
-            <div class="bubble">
-                <c:if test="${admin == true}">
-                <div class="pull-right">
-                    <a href="/comments/delete/${q.id}?postId=${p.id}">
-                        <span class="glyphicon glyphicon-floppy-remove"></span>
-                    </a>
+        <!-- Comments -->
+        <c:forEach var="q" items="${comments}">
+                <div class="bubble">
+                    <c:if test="${admin == true}">
+                        <div class="pull-right">
+                            <a href="/comments/delete/${q.id}?postId=${p.id}">
+                                <span class="glyphicon glyphicon-floppy-remove"></span>
+                            </a>
+                        </div>
+                    </c:if>
+                    <b>${q.name}</b>
+                    <br>
+                        ${q.comment}
+                    <br />
+                        ${q.date}
                 </div>
-                </c:if>
-                <b>${q.name}</b>
-                <br>
-                    ${q.comment}
-                <div class="pull-right">
-                    ${q.date}
-                </div>
-            </div>
-        </div>
-    </c:forEach>
+        </c:forEach>
 
-    <!-- Data Container -->
-    <input type="hidden" name="id" id="id" value="${p.id}">
-    <input type="hidden" name="content" id="content" value="init">
-    <input type="hidden" name="full" id="full" value="">
+        <!-- Data Container -->
+        <input type="hidden" name="id" id="id" value="${p.id}">
+        <input type="hidden" name="content" id="content" value="init">
+        <input type="hidden" name="full" id="full" value="">
 
-</form>
+    </form>
 
 <!-- Comment Form -->
-<div class="div-center">
     <form action="/comments/${p.id}" method="post" role="form">
         <div class="form-group">
             <div class="input-group">
@@ -225,7 +218,8 @@
             <span class="glyphicon glyphicon-ok"></span>
         </button>
     </form>
-</div>
+
+</div> <!-- Container -->
 
 </c:forEach>
 
