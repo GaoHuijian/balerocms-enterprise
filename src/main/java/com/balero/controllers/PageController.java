@@ -64,6 +64,13 @@ public class PageController {
     @Autowired
     private com.balero.models.SettingsDAO SettingsDAO;
 
+    /**
+     *
+     * @param baleroAdmin
+     * @param id
+     * @param model
+     * @return String
+     */
     @RequestMapping(value = "/page/{id}", method = RequestMethod.GET)
     public String showPage(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, @PathVariable int id, Model model) {
 

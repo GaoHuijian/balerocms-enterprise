@@ -70,9 +70,6 @@ public class IndexController {
     @Autowired
     private com.balero.models.CommentsDAO CommentsDAO;
 
-    private boolean adminElements = false;
-    private int i = 0;
-
     /**
      * Front-end Main Controller
      *
@@ -100,7 +97,6 @@ public class IndexController {
                 admin.setRemoteUsername(obj.getUsername());
                 admin.setRemotePassword(obj.getPassword());
             }
-
             admin.allowAccess();
         } else {
             admin.denyAccess();
@@ -109,7 +105,7 @@ public class IndexController {
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
 
-        // Home Post's
+        // DAO
         List<Content> rows = ContentDAO.findAll();
         List<Footer> footer = FooterDAO.findAll();
         List<Pages> pages  = PagesDAO.findAll();
@@ -125,9 +121,9 @@ public class IndexController {
         /**
          * System variables
          */
-
         String pathCover =  "media/default.jpg";
-        File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
+        File defaultCover = new File(System.getProperty("catalina.home") +
+                File.separator + "webapps" + File.separator + pathCover);
 
         if(defaultCover.exists()) {
             model.addAttribute("defaultCover", pathCover);

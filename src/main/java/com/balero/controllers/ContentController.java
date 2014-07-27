@@ -69,6 +69,14 @@ public class ContentController {
     @Autowired
     private com.balero.models.CommentsDAO CommentsDAO;
 
+    /**
+     *
+     * @param baleroAdmin
+     * @param id
+     * @param model
+     * @param more
+     * @return
+     */
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String showFull(@CookieValue(value = "baleroAdmin",
                            defaultValue = "init") String baleroAdmin,
@@ -118,7 +126,6 @@ public class ContentController {
         /**
          * Variables
          */
-
         String pathCover =  "media/default.jpg";
         File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
 
@@ -151,6 +158,13 @@ public class ContentController {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param content
+     * @param full
+     * @return
+     */
     @RequestMapping(value = "/post/edit", method = RequestMethod.POST)
     public String editFull(@RequestParam String id,
                            @RequestParam String content,
@@ -169,7 +183,11 @@ public class ContentController {
 
     }
 
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/post/delete", method = RequestMethod.GET)
     public String deleteFull(@RequestParam String id) {
 
@@ -180,6 +198,10 @@ public class ContentController {
 
     }
 
+    /**
+     *
+     * @return String
+     */
     @RequestMapping(value = "/post/add", method = RequestMethod.GET)
     public String add() {
 
@@ -201,6 +223,13 @@ public class ContentController {
 
     }
 
+    /**
+     *
+     * @param request
+     * @param id
+     * @param dataContainer
+     * @return String
+     */
     @RequestMapping(value = "/post/save", method = RequestMethod.POST)
     public String save(HttpServletRequest request,
                        @RequestParam("id") String id,
@@ -214,6 +243,13 @@ public class ContentController {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param comment
+     * @return String
+     */
     @RequestMapping(value = "/comments/{id}", method = RequestMethod.POST)
     public String addComment(@PathVariable String id,
                        @RequestParam("name") String name,
@@ -228,6 +264,12 @@ public class ContentController {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param postId
+     * @return String
+     */
     @RequestMapping(value = "/comments/delete/{id}", method = RequestMethod.GET)
     public String deleteComment(@PathVariable String id,
                                 @RequestParam(value = "postId") int postId)  {

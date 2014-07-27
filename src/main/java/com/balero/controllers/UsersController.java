@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 @RequestMapping("/users")
 public class UsersController {
@@ -51,6 +50,14 @@ public class UsersController {
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
 
+    /**
+     *
+     * @param id
+     * @param sitename
+     * @param slogan
+     * @param url
+     * @return String
+     */
     @RequestMapping(value = "/administrator", method = RequestMethod.POST)
     public String administrator(@RequestParam("id") int id,
             @RequestParam("sitename") String sitename,
@@ -66,6 +73,12 @@ public class UsersController {
 
     }
 
+    /**
+     *
+     * @param pwd1
+     * @param pwd2
+     * @return String
+     */
     @RequestMapping(value = "/god", method = RequestMethod.POST)
     public String god(@RequestParam("pwd1") String pwd1, @RequestParam("pwd2") String pwd2) {
 

@@ -45,7 +45,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-
 /**
  * Setup Controller
  *
@@ -91,7 +90,7 @@ public class SetupController {
      * database properties connection
      *
      * @param model
-     * @return
+     * @return String
      */
     @RequestMapping(method = RequestMethod.GET)
     public String setup(Model model) {
@@ -126,7 +125,11 @@ public class SetupController {
 
     }
 
-
+    /**
+     *
+     * @param model
+     * @return String
+     */
     @RequestMapping(value = "/install", method = RequestMethod.POST)
     public String install(Model model) {
 

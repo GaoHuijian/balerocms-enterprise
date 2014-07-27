@@ -164,6 +164,11 @@ public class UploadController {
 
     }
 
+    /**
+     *
+     * @param defaultSliderContainer
+     * @return String
+     */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@RequestParam String defaultSliderContainer) {
 

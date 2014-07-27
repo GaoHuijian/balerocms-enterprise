@@ -42,7 +42,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * Footer Class
+ * Comments Class
  *
  * Getters and Setters Methods
  */

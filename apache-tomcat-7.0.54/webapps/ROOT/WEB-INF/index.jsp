@@ -385,35 +385,13 @@
     </div>
 </div>
 
+<c:if test="${mobile == false}">
+    <script src="<c:url value="/resources/js/balero-desktop.js" />"></script>
+</c:if>
+<c:if test="${mobile == true}">
+    <script src="<c:url value="/resources/js/balero-mobile.js" />"></script>
+</c:if>
 <script>
-    // Save CKE Editor Content
-    // InTo Server Data
-    function content(divName, id) {
-        // Load mobile data
-        var data =  $("#" + divName).html();
-        <c:if test="${mobile == false}">
-        // Replace editor data
-        var editor = CKEDITOR.instances[divName];
-        var data = editor.getData();
-        </c:if>
-        // Variable Datas Has Content
-        document.getElementById("dataContainer").value = data;
-        document.getElementById("id").value = id;
-    }
-    // Footer container
-    function footer(fid) {
-        var data =  $("#editable-footer").html();
-        // Save Div Content into Hidden Field
-        // 'postContainer'}
-        <c:if test="${mobile == false}">
-        var editor = CKEDITOR.instances["editable-footer"];
-        // CKE Editor Method
-        var data = editor.getData();
-        </c:if>
-        // Variable Datas Has Content
-        document.getElementById("fContainer").value = data;
-        document.getElementById("fid").value = fid;
-    }
     // Bxslider
     // Load Slider and settiings
     slider = $('.bxslider').bxSlider({
@@ -423,35 +401,6 @@
         controls: true,
         adaptiveHeight: true
     });
-    function getSlider() {
-        var current = slider.getCurrentSlide();
-        document.getElementById("sliderContainer").value = current;
-    }
-    function getDefaultSlider() {
-        var current = slider.getCurrentSlide();
-        document.getElementById("defaultSliderContainer").value = current;
-    }
-    // Hide and show Site Name because slider
-    // divs are disabled When menu's show,
-    // so it will fix the issue
-    var flag = 0;
-    $('.navbar-toggle').click(function() {
-        flag = flag+1;
-        //alert(flag);
-        if (flag == 1) $("#site-name").hide();
-        if (flag == 2) {
-            $("#site-name").show();
-            flag = 0;
-        }
-    });
-    // Message center
-    $(window).load(function(){
-        $('#myModal').modal('show');
-    });
-    // Remove one plugin.
-    // http://docs.ckeditor.com/#!/
-    // guide/dev_howtos_basic_configuration
-    CKEDITOR.config.removePlugins = 'about, pastefromword, pastetext, undo, clipboard, scayt, wsc, removeformat';
 </script>
 
 </body>

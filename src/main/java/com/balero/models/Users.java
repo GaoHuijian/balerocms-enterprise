@@ -41,7 +41,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Unit Test Model Class
+ * Users getters and Setters
  */
 @Entity
 @Table(name = "users")
