@@ -18,6 +18,8 @@
     <link href="<c:url value="/resources/css/jquery.bxslider.css" />" rel="stylesheet" />
     <!-- Eternity template CSS -->
     <link rel="stylesheet" href="<c:url value="/resources/css/eternity.css" />">
+    <!-- favicon.ico -->
+    <link rel="shortcut icon" href="<c:url value="/resources/images/favicon.ico" />" />
 </head>
 <body>
 
