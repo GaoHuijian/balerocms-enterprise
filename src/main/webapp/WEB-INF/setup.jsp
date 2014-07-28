@@ -5,12 +5,13 @@
   Time: 01:20 PM
   Eternity Template (balerocms.com).
 --%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome - Setup Wizard</title>
+    <title><spring:message code="label.setup.title" /></title>
     <c:if test="${sucess == true}">
     <meta http-equiv="refresh" content="15; url=<c:url value="/" />">
     </c:if>
@@ -20,7 +21,8 @@
     <script src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
     <script src="<c:url value="/resources/js/bootstrap.js" />"></script>
     <script src="<c:url value="/resources/js/bootstrap-progressbar.js" />"></script>
-<style>
+    <link rel="shortcut icon" href="<c:url value="/resources/images/setup.ico" />" />
+    <style>
     .center {
         width: 70%;
         margin-left: auto;
@@ -38,7 +40,12 @@
 </head>
 <body>
 
+
 <div class="center">
+
+    <p class="pull-right">
+        <a href="?lang=en">en</a> | <a href="?lang=es">es</a>
+    </p>
 
     <p align="center">
         <img src="<c:url value="/resources/images/logo.png" />">
@@ -49,13 +56,14 @@
     <c:if test="${sucess == false}">
 
     <div class="alert alert-info" role="alert">
-        Setup Wizard:
-        Balero CMS will configure your system.
+        <spring:message code="label.setup.alert" />
     </div>
 
     <form method="post" action="/setup/install" class="form-horizontal" role="form">
         <div class="form-group form-group-sm">
-            <button type="submit" class="btn btn-primary pull-right">Setup And Insert Data Sample</button>
+            <button type="submit" class="btn btn-primary pull-right">
+                <spring:message code="label.setup.btn" />
+            </button>
         </div>
     </form>
     </c:if>

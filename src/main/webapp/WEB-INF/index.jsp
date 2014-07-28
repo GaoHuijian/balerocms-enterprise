@@ -97,18 +97,18 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" id="pwdsetup" data-toggle="modal" data-target="#PwdSetupModal">Password Setup</a></li>
+                                <li><a href="#" id="pwdsetup" data-toggle="modal" data-target="#PwdSetupModal"><spring:message code="label.pwd" /></a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" id="settings" data-toggle="modal" data-target="#SettingsModal">Settings</a></li>
+                                <li><a href="#" id="settings" data-toggle="modal" data-target="#SettingsModal"><spring:message code="label.settings" /></a></li>
                                 <li class="divider"></li>
-                                <li><a href="/logout" id="logout">Logout</a></li>
+                                <li><a href="/logout" id="logout"><spring:message code="label.logout" /></a></li>
                             </ul>
                         </li>
 
                     </c:if>
 
                     <c:if test="${admin == false}">
-                        <li><a href="#" id="login" data-toggle="modal" data-target="#LoginModal">Login</a></li>
+                        <li><a href="#" id="login" data-toggle="modal" data-target="#LoginModal"><spring:message code="label.login" /></a></li>
                     </c:if>
 
                 </ul>
@@ -158,6 +158,10 @@
 
 <!-- Container -->
 <div class="container">
+
+    <p class="pull-right">
+        <a href="<c:url value="/" />?lang=en">en</a> | <a href="<c:url value="/" />?lang=es">es</a>
+    </p>
 
     <!-- Loop -->
     <form method="post" action="/post/save">
@@ -261,21 +265,21 @@
             <form method="post" action="/login">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Admin Login</h4>
+                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.login.title" /></h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="inputUsername">Username</label>
-                    <input type="text" name="inputUsername" class="form-control" id="inputUsername" placeholder="Enter username">
+                    <label for="inputUsername"><spring:message code="label.login.user" /></label>
+                    <input type="text" name="inputUsername" class="form-control" id="inputUsername">
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" name="inputPassword" class="form-control" id="inputPassword" placeholder="Enter password">
+                    <label for="inputPassword"><spring:message code="label.login.pass" /></label>
+                    <input type="password" name="inputPassword" class="form-control" id="inputPassword">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
+                <button type="submit" class="btn btn-primary"><spring:message code="label.login" /></button>
             </div>
             </form>
         </div>
@@ -289,14 +293,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Upload Header</h4>
+                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.upload.title" /></h4>
             </div>
             <div class="modal-body">
                 <input type="file" name="file">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
-                <button type="input" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
+                <button type="input" class="btn btn-primary"><spring:message code="label.upload.btn" /></button>
             </div>
             </div>
          </form>
@@ -311,7 +315,7 @@
             <form method="post" action="/page/new">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Create New Page</h4>
+                    <h4 class="modal-title" id="myModalLabel"><spring:message code="label.page.new" /></h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -319,8 +323,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">OK</button>
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
+                    <button type="submit" class="btn btn-primary"><spring:message code="label.btn.ok" /></button>
                 </div>
             </form>
         </div>
@@ -334,21 +338,21 @@
             <form method="post" action="/users/god">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">New Password</h4>
+                    <h4 class="modal-title" id="myModalLabel"><spring:message code="label.pwd.title" /></h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="pwd1">New Password</label>
-                        <input type="text" name="pwd1" class="form-control" id="pwd1" placeholder="New Password">
+                        <label for="pwd1"><spring:message code="label.pwd.pwd1" /></label>
+                        <input type="text" name="pwd1" class="form-control" id="pwd1">
                     </div>
                     <div class="form-group">
-                        <label for="pwd2">Re-Type Password</label>
-                        <input type="text" name="pwd2" class="form-control" id="pwd2" placeholder="New Password">
+                        <label for="pwd2"><spring:message code="label.pwd.pwd2" /></label>
+                        <input type="text" name="pwd2" class="form-control" id="pwd2">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
+                    <button type="submit" class="btn btn-primary"><spring:message code="label.bn.save" /></button>
                 </div>
             </form>
         </div>
@@ -362,15 +366,15 @@
             <form method="post" action="/users/administrator">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Settings</h4>
+                    <h4 class="modal-title" id="myModalLabel"><spring:message code="label.settings" /></h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="sitename">Site Name</label>
+                        <label for="sitename"><spring:message code="label.settings.sitename" /></label>
                         <input type="text" name="sitename" class="form-control" id="sitename" value="${sitename}">
                     </div>
                     <div class="form-group">
-                        <label for="slogan">Slogan</label>
+                        <label for="slogan"><spring:message code="label.settings.slogan" /></label>
                         <input type="text" name="slogan" class="form-control" id="slogan" value="${slogan}">
                     </div>
                     <div class="form-group">
@@ -380,8 +384,8 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="id" value="${settingsId}">
-                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
+                    <button type="submit" class="btn btn-primary"><spring:message code="label.btn.save" /></button>
                 </div>
             </form>
         </div>
