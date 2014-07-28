@@ -163,6 +163,17 @@
         <a href="<c:url value="/" />?lang=en">en</a> | <a href="<c:url value="/" />?lang=es">es</a>
     </p>
 
+    <br />
+
+    <!-- Run Installer -->
+    <c:if test="${installer == true}">
+        <a href="/setup" class="btn btn-primary pull-center">
+            <span class="glyphicon glyphicon-cloud-upload"></span>
+            <spring:message code="label.btn.installer" />
+        </a>
+    </c:if>
+    <!-- /Run Installer -->
+
     <!-- Loop -->
     <form method="post" action="/post/save">
         <c:forEach var="p" items="${rows}">

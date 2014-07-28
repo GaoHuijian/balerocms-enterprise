@@ -107,6 +107,12 @@ body {
     left: -15px;
     top: 45px;
 }
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: center;
+}
 .close {
     color: #ffffff;
 }

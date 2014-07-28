@@ -111,6 +111,14 @@ public class IndexController {
         List<Pages> pages  = PagesDAO.findAll();
         List<Comments> comments = CommentsDAO.findAll();
 
+        // Installer
+        if(rows.isEmpty()
+                && pages.isEmpty()
+                && footer.isEmpty()
+                && comments.isEmpty()) {
+            model.addAttribute("installer", true);
+        }
+
         /**
          * Enable or Disable and
          * Check if Admin Elements will
