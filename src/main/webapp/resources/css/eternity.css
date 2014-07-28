@@ -22,7 +22,9 @@
     color: black;
     background-color: white;
 }
-
+.bxslider {
+   border: 0;
+}
 body {
     margin: 0;
     padding: 0;

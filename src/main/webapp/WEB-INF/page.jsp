@@ -281,7 +281,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Title">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="<spring:message code="label.page.title" />">
                     </div>
                 </div>
                 <div class="modal-footer">

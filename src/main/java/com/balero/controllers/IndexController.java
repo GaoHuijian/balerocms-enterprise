@@ -79,6 +79,9 @@ public class IndexController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, Model model) {
+
+        String view = "index";
+
         String background = "eternity.png";
 		model.addAttribute("background", background);
 
@@ -116,7 +119,8 @@ public class IndexController {
                 && pages.isEmpty()
                 && footer.isEmpty()
                 && comments.isEmpty()) {
-            model.addAttribute("installer", true);
+            model.addAttribute("sucess", false);
+            view = "setup";
         }
 
         /**
@@ -156,7 +160,7 @@ public class IndexController {
         model.addAttribute("pages", pages);
         model.addAttribute("footer", footer);
 
-		return "index";
+		return view;
 	}
 
 }

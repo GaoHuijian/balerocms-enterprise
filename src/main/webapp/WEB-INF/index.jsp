@@ -34,7 +34,7 @@
 <!-- Slider Headers -->
 <ul class="bxslider">
 
-    <li><img src="<c:url value="/" />${defaultCover}"></li>
+    <li><img src="<c:url value="/" />${defaultCover}" border="0"></li>
 
     <c:if test="${admin == true}">
         <!-- /media/uploads/ -->
@@ -162,17 +162,6 @@
     <p class="pull-right">
         <a href="<c:url value="/" />?lang=en">en</a> | <a href="<c:url value="/" />?lang=es">es</a>
     </p>
-
-    <br />
-
-    <!-- Run Installer -->
-    <c:if test="${installer == true}">
-        <a href="/setup" class="btn btn-primary pull-center">
-            <span class="glyphicon glyphicon-cloud-upload"></span>
-            <spring:message code="label.btn.installer" />
-        </a>
-    </c:if>
-    <!-- /Run Installer -->
 
     <!-- Loop -->
     <form method="post" action="/post/save">
@@ -330,7 +319,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Title">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="<spring:message code="label.page.title" />">
                     </div>
                 </div>
                 <div class="modal-footer">

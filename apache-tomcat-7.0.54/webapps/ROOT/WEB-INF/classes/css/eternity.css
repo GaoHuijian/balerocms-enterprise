@@ -22,7 +22,9 @@
     color: black;
     background-color: white;
 }
-
+.bxslider {
+   border: 0;
+}
 body {
     margin: 0;
     padding: 0;
@@ -106,6 +108,12 @@ body {
     z-index: 1;
     left: -15px;
     top: 45px;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: center;
 }
 .close {
     color: #ffffff;
