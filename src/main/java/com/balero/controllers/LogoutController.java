@@ -35,8 +35,10 @@
 package com.balero.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -59,12 +61,21 @@ public class LogoutController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String logout(HttpServletResponse response) {
+    public String logout(HttpServletResponse response,
+                         Model model,
+                         RedirectAttributes redirectAttributes) {
 
         // create cookie and set it in response
         Cookie cookie = new Cookie("baleroAdmin", "init");
         response.addCookie(cookie);
 
+        /**
+         * Base on:
+         * stackoverflow.com/questions/19249049/
+         * how-to-pass-parameters-
+         * to-redirect-page-in-spring-mvc
+         */
+        redirectAttributes.addFlashAttribute("message", "Success Logout");
         return "redirect:/";
 
     }

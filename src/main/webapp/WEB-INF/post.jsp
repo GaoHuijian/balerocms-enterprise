@@ -78,7 +78,7 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <c:forEach var="p" items="${pages}">
-                        <li><a href="/page/${p.id}">${p.name}</a></li>
+                        <li><a href="/page/${p.slug}">${p.name}</a></li>
                     </c:forEach>
 
                     <c:if test="${admin == true}">
@@ -405,6 +405,10 @@
         hideControlOnEnd: true,
         controls: true,
         adaptiveHeight: true
+    });
+    // Message center
+    $(window).load(function(){
+        $('#myModal').modal('show');
     });
 </script>
 

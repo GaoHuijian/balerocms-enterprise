@@ -53,6 +53,9 @@ public class Pages {
     private String name;
     @Column(columnDefinition="longtext")
     private String content;
+    @Column(unique=true)
+    private String slug;
+    private boolean hidden;
 
     public long getId() {
         return id;
@@ -73,4 +76,19 @@ public class Pages {
         this.content = content;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
 }

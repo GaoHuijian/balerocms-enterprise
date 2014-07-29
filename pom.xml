@@ -73,6 +73,20 @@
           <artifactId>commons-io</artifactId>
           <version>2.4</version>
       </dependency>
+
+      <!-- Slugify (github.com/slugify/slugify) -->
+      <dependency>
+          <groupId>com.github.slugify</groupId>
+          <artifactId>slugify-integration-jstl</artifactId>
+          <version>2.1.2</version>
+      </dependency>
+
+      <!-- Slugify Dependence -->
+      <dependency>
+          <groupId>javax.servlet.jsp</groupId>
+          <artifactId>jsp-api</artifactId>
+          <version>2.1</version>
+      </dependency>
     
   </dependencies>
   

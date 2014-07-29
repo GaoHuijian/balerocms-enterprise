@@ -57,10 +57,6 @@ $('.navbar-toggle').click(function() {
         flag = 0;
     }
 });
-// Message center
-$(window).load(function(){
-    $('#myModal').modal('show');
-});
 // Remove one plugin.
 // http://docs.ckeditor.com/#!/
 // guide/dev_howtos_basic_configuration

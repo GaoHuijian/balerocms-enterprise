@@ -75,16 +75,29 @@ public class PagesDAO {
     }
 
     /**
+     * SELECT * FROM 'pages' where slug = '{string}'
+     *
+     * @return rows
+     */
+    @Transactional
+    public List<Pages> findPageBySlug(String slug) {
+        Session session = sessionFactory.getCurrentSession();
+        List rows = session.createQuery("from Pages where slug = '" + slug + "'").list();
+        return rows;
+    }
+
+    /**
      * INSERT INTO TABLE pages VALUES name, conteny, slug, lang
      *
      * @param content
      */
     @Transactional
-    public void addPage(String name, String content) {
+    public void addPage(String name, String content, String slug) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setName(name);
         pages.setContent(content);
+        pages.setSlug(slug);
         session.save(pages);
         session.flush();
         session.close();
@@ -97,12 +110,13 @@ public class PagesDAO {
      * @param content
      */
     @Transactional
-    public void updatePage(int id, String name, String content) {
+    public void updatePage(int id, String name, String content, String slug) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setId(id);
         pages.setName(name);
         pages.setContent(content);
+        pages.setSlug(slug);
         session.update(pages);
         session.flush();
         session.close();
@@ -135,6 +149,7 @@ public class PagesDAO {
                 "<p>Although currently has no sources to justify ótesis hip, professor of classical philology Richard McClintock says its use dates back to the early printers XVI.1 century Its use in some text editors well known in today has given the new popularity lorem ipsum.</p>\n" +
                 "\n" +
                 "<p>The text itself no sense, although it is not completely random, but derives from a text by Cicero in Latin language, whose words have been removed them syllables or letters. The meaning of the text does not matter, since it is just a test demostracióno,</p>\n");
+        pages.setSlug("example-page");
         session.save(pages);
         session.flush();
     }

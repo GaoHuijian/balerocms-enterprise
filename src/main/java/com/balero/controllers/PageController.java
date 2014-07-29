@@ -40,6 +40,7 @@ import com.balero.models.Users;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
 import com.balero.services.ScreenSize;
+import com.github.slugify.InitSlugifyTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,12 +68,15 @@ public class PageController {
     /**
      *
      * @param baleroAdmin
-     * @param id
+     * @param slug
      * @param model
      * @return String
      */
-    @RequestMapping(value = "/page/{id}", method = RequestMethod.GET)
-    public String showPage(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, @PathVariable int id, Model model) {
+    @RequestMapping(value = "/page/{slug}", method = RequestMethod.GET)
+    public String showPage(@CookieValue(value = "baleroAdmin",
+                           defaultValue = "init") String baleroAdmin,
+                           @PathVariable String slug,
+                           Model model) {
 
         String background = "eternity.png";
         model.addAttribute("background", background);
@@ -105,7 +109,7 @@ public class PageController {
         List<Footer> footer = FooterDAO.findAll();
 
         // Pages
-        List<Pages> page = PagesDAO.findPage(id);
+        List<Pages> page = PagesDAO.findPageBySlug(slug);
         List<Pages> pages = PagesDAO.findAll();
 
         /**
@@ -146,17 +150,16 @@ public class PageController {
     public String editPage(@RequestParam String id,
                            @RequestParam String name,
                            @RequestParam String content) {
-                           //@RequestParam String slug,
-                           //@RequestParam String lang) {
 
         if(name.isEmpty()) {
             name = "(No Title)";
         }
 
         int intId = Integer.parseInt(id);
-        PagesDAO.updatePage(intId, name, content);
+        String slug = InitSlugifyTag.getSlugify().slugify(name);
+        PagesDAO.updatePage(intId, name, content, slug);
 
-        return "redirect:/page/" + id;
+        return "redirect:/page/" + slug;
 
     }
 
@@ -175,7 +178,7 @@ public class PageController {
     public String newPage(@RequestParam("name") String name) {
 
         if(name.equals("")) {
-            name = "_empty";
+            name = "(No Title)";
         }
 
         String html;
@@ -188,7 +191,8 @@ public class PageController {
                 "El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras.\n" +
                 "</p>";
 
-        PagesDAO.addPage(name, html);
+        String slug = InitSlugifyTag.getSlugify().slugify(name);
+        PagesDAO.addPage(name, html, slug);
 
         return "redirect:/";
 

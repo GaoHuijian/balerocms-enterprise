@@ -60,6 +60,11 @@ public class TestController {
 		return "test";
 	}
 
+    @RequestMapping(value = "test/slug", method = RequestMethod.GET)
+    public String slugTest() {
+        return "test";
+    }
+
     @RequestMapping(value = "add")
     public String addUser() {
         TestDAO.add();
