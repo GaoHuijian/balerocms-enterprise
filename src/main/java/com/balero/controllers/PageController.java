@@ -42,12 +42,16 @@ import com.balero.services.ListFilesUtil;
 import com.balero.services.ScreenSize;
 import com.github.slugify.InitSlugifyTag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 @Controller
@@ -64,6 +68,9 @@ public class PageController {
 
     @Autowired
     private com.balero.models.SettingsDAO SettingsDAO;
+
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      *
@@ -149,7 +156,9 @@ public class PageController {
     @RequestMapping(value = "/page/edit", method = RequestMethod.POST)
     public String editPage(@RequestParam String id,
                            @RequestParam String name,
-                           @RequestParam String content) {
+                           @RequestParam String content,
+                           RedirectAttributes redirectAttributes,
+                           Locale locale) {
 
         if(name.isEmpty()) {
             name = "(No Title)";
@@ -157,9 +166,17 @@ public class PageController {
 
         int intId = Integer.parseInt(id);
         String slug = InitSlugifyTag.getSlugify().slugify(name);
-        PagesDAO.updatePage(intId, name, content, slug);
 
-        return "redirect:/page/" + slug;
+        ResourceBundle messages =
+                ResourceBundle.getBundle("messages", locale);
+
+        try {
+            PagesDAO.updatePage(intId, name, content, slug);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", messages.getString("label.page.slugerror"));
+        }
+
+        return "redirect:/";
 
     }
 
@@ -175,7 +192,10 @@ public class PageController {
     }
 
     @RequestMapping(value = "/page/new", method = RequestMethod.POST)
-    public String newPage(@RequestParam("name") String name) {
+    public String newPage(@RequestParam("name") String name,
+                          Model model,
+                          RedirectAttributes redirectAttributes,
+                          Locale locale) {
 
         if(name.equals("")) {
             name = "(No Title)";
@@ -191,8 +211,19 @@ public class PageController {
                 "El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras.\n" +
                 "</p>";
 
+        /**
+         * Referer:
+         * lingobit.com/solutions/java/java_localization.html
+         */
+        ResourceBundle messages =
+                ResourceBundle.getBundle("messages", locale);
+
         String slug = InitSlugifyTag.getSlugify().slugify(name);
-        PagesDAO.addPage(name, html, slug);
+        try {
+            PagesDAO.addPage(name, html, slug);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", messages.getString("label.page.slugerror"));
+        }
 
         return "redirect:/";
 
