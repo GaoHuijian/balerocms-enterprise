@@ -1,3 +1,10 @@
+<%--
+  Created for BaleroCMS.
+  User: Anibal Gomez
+  Date: 18/07/14
+  Time: 01:20 PM
+  Eternity Template (balerocms.com).
+--%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page session="false" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -7,6 +14,7 @@
 <head>
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Anibal Gomez">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.css" />">
     <!-- CKE Editor -->

@@ -16,6 +16,7 @@
     <meta http-equiv="refresh" content="15; url=<c:url value="/" />">
     </c:if>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Anibal Gomez">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.css" />">
     <script src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>

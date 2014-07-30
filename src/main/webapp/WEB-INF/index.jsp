@@ -14,6 +14,7 @@
 <head>
     <title><spring:message code="label.title" /></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Anibal Gomez">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.css" />">
     <!-- CKE Editor -->
