@@ -36,7 +36,6 @@ package com.balero.controllers;
 
 import com.balero.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,12 +75,6 @@ public class SetupController {
     @Autowired
     private com.balero.models.CommentsDAO CommentsDAO;
 
-    @Value( "${jdbc.username}" )
-    private String jdbcUsername;
-
-    @Value( "${jdbc.password}" )
-    private String jdbcPassword;
-
     @Autowired
     private Environment env;
 
@@ -94,15 +87,6 @@ public class SetupController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String setup(Model model) {
-
-        // get dbuser and dbname
-        jdbcUsername = env.getProperty("jdbc.username");
-        jdbcPassword = env.getProperty("jdbc.password");
-
-        model.addAttribute("sucess", false);
-        model.addAttribute("dbuser", jdbcUsername);
-        model.addAttribute("dbpass", jdbcPassword);
-        model.addAttribute("CATAINA_HOME", env.getProperty("CATALINA_HOME"));
 
         try {
 

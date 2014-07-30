@@ -1,4 +1,16 @@
 .idea
 *.iml
-target
+target/*.war
+target/*.jar
+target/generated-sources
+target/classes
+target/maven-archiver
+target/maven-status
+target/balerocms-enterprise-0.0.1-SNAPSHOT
+target/test-classes
+target/surefire
+target/war-exec.properties
+target/war-exec.manifest
+dist/uploads/*
+.extract
 .git

@@ -12,15 +12,45 @@ Requirements
 ============
 
 * JDK 7
-* Tomcat 7
 * MySQL 5.1+
+
+Building From Source Code
+========================
+
+Making the .WAR and executable .JAR file ;-).
+
+Install Maven
+
+    # Ubuntu
+    sudo apt-get install maven
+    
+    # Fedora
+    sudo yum install maven
+
+1. cd balerocms-enterprise
+2. mvn package
+
+If success search for 'standalone.jar' on 'target' folder
 
 Installation
 ============
 
-1. Open [http://localhost:8080/](http://localhost:8080/) and the Setup Wizard will be initialized.
-2. Clic on "Setup" Button.
-3. Enjoy!
+Create an empty database
+
+1. cd balerocms-enterprise
+2. cp dist target
+3. Configure 'target/conf/database.properties'
+
+    * MySQL Database
+    * MySQL Username
+    * MySQL Password
+    
+4. cd target
+5. java -jar standalone.jar
+
+Open [http://localhost:8080/](http://localhost:8080/)
+
+Enjoy!
 
 Technologies under Balero CMS
 =============================
@@ -43,14 +73,10 @@ Under development
 
 * balerocms.com
 
-Deploying from IntelliJ IDE
-===========================
+Under development with ntelliJ IDE Ultimate
+===========================================
 
-Go to Servers list -> Edit Configuration...
-
-Server Tab -> Check option "Deploy applications configure in Tomcat instance"
-
-Note: We recommend this wonderful IDE ;-)
+We recommend this wonderful IDE ;-)
 
 API Reference Documentation
 ===========================

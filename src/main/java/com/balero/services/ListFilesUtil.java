@@ -55,8 +55,8 @@ public class ListFilesUtil {
         String headers = "";
         int i = 0;
 
-        String rootPath = System.getProperty("catalina.home");
-        File directory = new File(rootPath + File.separator + "webapps/media/uploads");
+        //String rootPath = System.getProperty("catalina.home");
+        File directory = new File("./media/uploads");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();
@@ -75,8 +75,8 @@ public class ListFilesUtil {
 
     public File[] listFilesInArray(){
 
-        String rootPath = System.getProperty("catalina.home");
-        File directory = new File(rootPath + File.separator + "webapps/media/uploads");
+        //String rootPath = System.getProperty("catalina.home");
+        File directory = new File("./media/uploads");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();
