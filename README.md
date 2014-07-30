@@ -15,6 +15,13 @@ Requirements
 * Tomcat 7
 * MySQL 5.1+
 
+Installation
+============
+
+1. Open [http://localhost:8080/](http://localhost:8080/) and the Setup Wizard will be initialized.
+2. Clic on "Setup" Button.
+3. Enjoy!
+
 Technologies under Balero CMS
 =============================
 
