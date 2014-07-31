@@ -34,8 +34,10 @@
 
 package com.balero.controllers;
 
+import com.balero.services.Administrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,12 +50,24 @@ import javax.servlet.http.HttpServletRequest;
 public class FooterController {
 
     @Autowired
+    private com.balero.models.UsersDAO UsersDAO;
+
+    @Autowired
     private com.balero.models.FooterDAO FooterDAO;
 
     @RequestMapping(method = RequestMethod.POST)
     public String save(HttpServletRequest request,
             @RequestParam("fid") String id,
-            @RequestParam("fContainer") String dataContainer)  {
+            @RequestParam("fContainer") String dataContainer,
+            @CookieValue(value = "baleroAdmin") String baleroAdmin)  {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         int intId = Integer.parseInt(id);
         FooterDAO.updateFooter(intId, dataContainer, "en");

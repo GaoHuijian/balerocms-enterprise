@@ -35,14 +35,17 @@
 package com.balero.controllers;
 
 import com.balero.models.Test;
+import com.balero.services.Administrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+
 
 /**
  * Unit Test Controller Class
@@ -50,7 +53,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class TestController {
-	
+
+    @Autowired
+    private com.balero.models.UsersDAO UsersDAO;
+
 	@Autowired private com.balero.models.TestDAO TestDAO;
 	
 	@RequestMapping(value = "test", method = RequestMethod.GET)
@@ -66,13 +72,32 @@ public class TestController {
     }
 
     @RequestMapping(value = "add")
-    public String addUser() {
+    public String addUser(@CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
+
         TestDAO.add();
         return "redirect:/test";
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") int id) {
+    public String deleteUser(@PathVariable("id") int id,
+                             @CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
+
         TestDAO.delete(id);
         return "redirect:/test";
     }

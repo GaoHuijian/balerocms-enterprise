@@ -158,7 +158,16 @@ public class PageController {
                            @RequestParam String name,
                            @RequestParam String content,
                            RedirectAttributes redirectAttributes,
-                           Locale locale) {
+                           Locale locale,
+                           @CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         if(name.isEmpty()) {
             name = "(No Title)";
@@ -182,7 +191,16 @@ public class PageController {
 
 
     @RequestMapping(value = "/page/delete", method = RequestMethod.GET)
-    public String deletePage(@RequestParam String id) {
+    public String deletePage(@RequestParam String id,
+                             @CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         int intId = Integer.parseInt(id);
         PagesDAO.deletePage(intId);
@@ -195,7 +213,16 @@ public class PageController {
     public String newPage(@RequestParam("name") String name,
                           Model model,
                           RedirectAttributes redirectAttributes,
-                          Locale locale) {
+                          Locale locale,
+                          @CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         if(name.equals("")) {
             name = "(No Title)";

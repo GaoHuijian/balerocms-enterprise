@@ -168,9 +168,16 @@ public class ContentController {
     @RequestMapping(value = "/post/edit", method = RequestMethod.POST)
     public String editFull(@RequestParam String id,
                            @RequestParam String content,
-                           @RequestParam String full) {
-        //@RequestParam String slug,
-        //@RequestParam String lang) {
+                           @RequestParam String full,
+                           @CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         if(full.isEmpty()) {
             full = "";
@@ -189,7 +196,16 @@ public class ContentController {
      * @return
      */
     @RequestMapping(value = "/post/delete", method = RequestMethod.GET)
-    public String deleteFull(@RequestParam String id) {
+    public String deleteFull(@RequestParam String id,
+                             @CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         int intId = Integer.parseInt(id);
         ContentDAO.deletePost(intId);
@@ -203,7 +219,15 @@ public class ContentController {
      * @return String
      */
     @RequestMapping(value = "/post/add", method = RequestMethod.GET)
-    public String add() {
+    public String add(@CookieValue(value = "baleroAdmin") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         String html;
 
@@ -233,9 +257,17 @@ public class ContentController {
     @RequestMapping(value = "/post/save", method = RequestMethod.POST)
     public String save(HttpServletRequest request,
                        @RequestParam("id") String id,
-                       @RequestParam("dataContainer") String dataContainer)  {
+                       @RequestParam("dataContainer") String dataContainer,
+                       @CookieValue(value = "baleroAdmin") String baleroAdmin)  {
 
-        String body = request.getParameter("body");
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
+
         int intId = Integer.parseInt(id);
         ContentDAO.updatePost(intId, dataContainer, "fullpost", "welcome-test-post");
 
@@ -272,7 +304,16 @@ public class ContentController {
      */
     @RequestMapping(value = "/comments/delete/{id}", method = RequestMethod.GET)
     public String deleteComment(@PathVariable String id,
-                                @RequestParam(value = "postId") int postId)  {
+                                @RequestParam(value = "postId") int postId,
+                                @CookieValue(value = "baleroAdmin") String baleroAdmin)  {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         int intId = Integer.parseInt(id);
         CommentsDAO.deleteComment(intId);

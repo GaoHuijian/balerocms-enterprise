@@ -34,6 +34,7 @@
 
 package com.balero.services;
 
+
 /**
  * Created by lastprophet on 25/06/14.
  */
@@ -45,6 +46,37 @@ public class Administrator {
     private String localPassword = null;
     private String remoteUsername = null;
     private String remotePassword = null;
+
+    public boolean isAdmin(String baleroAdmin, String usr, String pwd) {
+
+        if(!baleroAdmin.equals("init")) {
+            // Extract credentials
+            String[] credentials = baleroAdmin.split(":");
+
+            String localUsr = credentials[0];
+            String localPwd = credentials[1];
+
+            // Set local credentials
+            setLocalUsername(localUsr);
+            setLocalPassword(localPwd);
+
+            // Set remote credentials
+            setRemoteUsername(usr);
+            setRemotePassword(pwd);
+
+            // compare
+            allowAccess();
+        } else {
+            denyAccess();
+        }
+
+        if(this.admin == true) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     /**
      * Allow access

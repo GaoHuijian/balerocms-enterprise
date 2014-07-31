@@ -51,6 +51,45 @@ public class UsersDAO {
     @Autowired private SessionFactory sessionFactory;
 
     /**
+     *
+     * @return usr
+     */
+    @Transactional
+    public String usrAdmin() {
+
+        String usr = null;
+
+        Session session = sessionFactory.getCurrentSession();
+        // Do the rick  List<Users> Object
+        List<Users> rows = session.createQuery("from Users where auth = 'god'").list();
+
+        for(Users objUsers: rows) {
+            usr = objUsers.getUsername();
+        }
+
+        return usr;
+    }
+
+    /**
+     *
+     * @return pwd
+     */
+    @Transactional
+    public String pwdAdmin() {
+
+        String pwd = null;
+
+        Session session = sessionFactory.getCurrentSession();
+        List<Users> rows = session.createQuery("from Users where auth = 'god'").list();
+
+        for(Users objUsers: rows) {
+            pwd = objUsers.getPassword();
+        }
+
+        return pwd;
+    }
+
+    /**
      * @Transactional annotation below will trigger Spring Hibernate transaction manager to automatically create
      * a hibernate session. See src/main/webapp/WEB-INF/servlet-context.xml
      */

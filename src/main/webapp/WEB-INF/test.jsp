@@ -33,5 +33,9 @@ Unit Test View Page
     </form>
     <!-- Slug - Result: hello-world -->
     ${slg:slugify('Hello, world Im a slug!')}
+    <br>
+    <p>
+        Only administrator can do Unit Testing
+    </p>
 </body>
 </html>
