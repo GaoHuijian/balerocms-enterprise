@@ -121,6 +121,9 @@
                         <path>/</path>
                         <enableNaming>false</enableNaming>
                         <finalName>standalone.jar</finalName>
+                        <!--
+                        <serverXml>src/main/tomcatconf/server.xml</serverXml>
+                        -->
                     </configuration>
                 </execution>
             </executions>

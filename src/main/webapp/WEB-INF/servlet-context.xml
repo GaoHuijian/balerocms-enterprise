@@ -94,6 +94,8 @@
 
   <!-- Resources -->
   <mvc:resources mapping="/resources/**" location="/resources/" />
+  <mvc:resources mapping="/media/**" location="file:${user.dir}/media/" />
+
   <mvc:annotation-driven />
 
     <!-- Image Uploader -->
