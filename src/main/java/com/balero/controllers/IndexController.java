@@ -37,7 +37,7 @@ package com.balero.controllers;
 import com.balero.models.*;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
-import com.balero.services.ScreenSize;
+import com.balero.services.UAgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
 
@@ -78,7 +79,10 @@ public class IndexController {
      * @return String
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(@CookieValue(value = "baleroAdmin", defaultValue = "init") String baleroAdmin, Model model) {
+	public String home(@CookieValue(value = "baleroAdmin",
+            defaultValue = "init") String baleroAdmin,
+                       Model model,
+                       HttpServletRequest request) {
 
         String view = "index";
 
@@ -142,11 +146,15 @@ public class IndexController {
             model.addAttribute("defaultCover", "resources/images/eternity.png");
         }
 
-        ScreenSize screen = new ScreenSize();
-        if(screen.getWidth() <= 1920) {
+        /**
+         * Mobile Routine
+         */
+        model.addAttribute("mobile", false);
+        String useragent = request.getHeader("user-agent");
+        String accept = "Accept: */*";
+        UAgentInfo agent = new UAgentInfo(useragent, accept);
+        if(agent.detectMobileQuick() == true) {
             model.addAttribute("mobile", true);
-        } else {
-            model.addAttribute("mobile", false);
         }
 
         model.addAttribute("settingsId", SettingsDAO.settingsId());

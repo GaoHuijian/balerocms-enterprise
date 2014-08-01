@@ -39,7 +39,7 @@ import com.balero.models.Pages;
 import com.balero.models.Users;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
-import com.balero.services.ScreenSize;
+import com.balero.services.UAgentInfo;
 import com.github.slugify.InitSlugifyTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -48,6 +48,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
@@ -83,7 +84,8 @@ public class PageController {
     public String showPage(@CookieValue(value = "baleroAdmin",
                            defaultValue = "init") String baleroAdmin,
                            @PathVariable String slug,
-                           Model model) {
+                           Model model,
+                           HttpServletRequest request) {
 
         String background = "eternity.png";
         model.addAttribute("background", background);
@@ -132,11 +134,15 @@ public class PageController {
             model.addAttribute("defaultCover", "resources/images/eternity.png");
         }
 
-        ScreenSize screen = new ScreenSize();
-        if(screen.getWidth() <= 1920) {
+        /**
+         * Mobile Routine
+         */
+        model.addAttribute("mobile", false);
+        String useragent = request.getHeader("user-agent");
+        String accept = "Accept: */*";
+        UAgentInfo agent = new UAgentInfo(useragent, accept);
+        if(agent.detectMobileQuick() == true) {
             model.addAttribute("mobile", true);
-        } else {
-            model.addAttribute("mobile", false);
         }
 
         model.addAttribute("settingsId", SettingsDAO.settingsId());

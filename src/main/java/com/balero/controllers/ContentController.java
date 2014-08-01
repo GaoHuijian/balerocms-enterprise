@@ -37,7 +37,7 @@ package com.balero.controllers;
 import com.balero.models.*;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
-import com.balero.services.ScreenSize;
+import com.balero.services.UAgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,7 +81,8 @@ public class ContentController {
     public String showFull(@CookieValue(value = "baleroAdmin",
                            defaultValue = "init") String baleroAdmin,
                            @PathVariable int id, Model model,
-                           @RequestParam(value = "more", required = false) Integer more) {
+                           @RequestParam(value = "more", required = false) Integer more,
+                           HttpServletRequest request) {
 
         String background = "eternity.png";
         model.addAttribute("background", background);
@@ -135,11 +136,15 @@ public class ContentController {
             model.addAttribute("defaultCover", "resources/images/eternity.png");
         }
 
-        ScreenSize screen = new ScreenSize();
-        if(screen.getWidth() <= 1920) {
+        /**
+         * Mobile Routine
+         */
+        model.addAttribute("mobile", false);
+        String useragent = request.getHeader("user-agent");
+        String accept = "Accept: */*";
+        UAgentInfo agent = new UAgentInfo(useragent, accept);
+        if(agent.detectMobileQuick() == true) {
             model.addAttribute("mobile", true);
-        } else {
-            model.addAttribute("mobile", false);
         }
 
         model.addAttribute("settingsId", SettingsDAO.settingsId());
