@@ -48,6 +48,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/")
@@ -82,7 +83,8 @@ public class IndexController {
 	public String home(@CookieValue(value = "baleroAdmin",
             defaultValue = "init") String baleroAdmin,
                        Model model,
-                       HttpServletRequest request) {
+                       HttpServletRequest request,
+                       Locale locale) {
 
         String view = "index";
 
@@ -113,9 +115,9 @@ public class IndexController {
         String files = listFilesUtil.listFiles();
 
         // DAO
-        List<Content> rows = ContentDAO.findAll();
+        List<Content> rows = ContentDAO.findAll(locale);
         List<Footer> footer = FooterDAO.findAll();
-        List<Pages> pages  = PagesDAO.findAll();
+        List<Pages> pages  = PagesDAO.findAll(locale);
         List<Comments> comments = CommentsDAO.findAll();
 
         // Installer

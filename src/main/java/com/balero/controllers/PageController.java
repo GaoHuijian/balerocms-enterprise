@@ -85,7 +85,8 @@ public class PageController {
                            defaultValue = "init") String baleroAdmin,
                            @PathVariable String slug,
                            Model model,
-                           HttpServletRequest request) {
+                           HttpServletRequest request,
+                           Locale locale) {
 
         String background = "eternity.png";
         model.addAttribute("background", background);
@@ -119,7 +120,7 @@ public class PageController {
 
         // Pages
         List<Pages> page = PagesDAO.findPageBySlug(slug);
-        List<Pages> pages = PagesDAO.findAll();
+        List<Pages> pages = PagesDAO.findAll(locale);
 
         /**
          * Variables
@@ -163,6 +164,7 @@ public class PageController {
     public String editPage(@RequestParam String id,
                            @RequestParam String name,
                            @RequestParam String content,
+                           @RequestParam String code,
                            RedirectAttributes redirectAttributes,
                            Locale locale,
                            @CookieValue(value = "baleroAdmin") String baleroAdmin) {
@@ -186,7 +188,7 @@ public class PageController {
                 ResourceBundle.getBundle("messages", locale);
 
         try {
-            PagesDAO.updatePage(intId, name, content, slug);
+            PagesDAO.updatePage(intId, name, content, slug, code);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", messages.getString("label.page.slugerror"));
         }
@@ -253,7 +255,7 @@ public class PageController {
 
         String slug = InitSlugifyTag.getSlugify().slugify(name);
         try {
-            PagesDAO.addPage(name, html, slug);
+            PagesDAO.addPage(name, html, slug, locale);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", messages.getString("label.page.slugerror"));
         }

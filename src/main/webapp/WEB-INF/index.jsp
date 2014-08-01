@@ -160,10 +160,6 @@
 <!-- Container -->
 <div class="container">
 
-    <p class="pull-right">
-        <a href="<c:url value="/" />?lang=en">en</a> | <a href="<c:url value="/" />?lang=es">es</a>
-    </p>
-
     <!-- Loop -->
     <form method="post" action="/post/save">
         <c:forEach var="p" items="${rows}">

@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Setup Controller
@@ -115,13 +116,13 @@ public class SetupController {
      * @return String
      */
     @RequestMapping(value = "/install", method = RequestMethod.POST)
-    public String install(Model model) {
+    public String install(Model model, Locale locale) {
 
         System.out.println("Inseting data sample...");
         TestDAO.make();
-        ContentDAO.make();
+        ContentDAO.make(locale);
         FooterDAO.make();
-        PagesDAO.make();
+        PagesDAO.make(locale);
         UsersDAO.make();
         System.out.println("Inseting settings data...");
         SettingsDAO.make();

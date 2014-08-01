@@ -41,6 +41,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Get, Insert and Update data from database
@@ -56,9 +57,9 @@ public class ContentDAO {
      * @return rows
      */
     @Transactional
-    public List<Content> findAll() {
+    public List<Content> findAll(Locale locale) {
         Session session = sessionFactory.getCurrentSession();
-        List rows = session.createQuery("from Content").list();
+        List rows = session.createQuery("from Content where locale = '"+ locale.toString() + "'").list();
         return rows;
     }
 
@@ -76,12 +77,13 @@ public class ContentDAO {
      * @param fullcontent
      */
     @Transactional
-    public void addPost(String postContainer, String fullcontent, String slug) {
+    public void addPost(String postContainer, String fullcontent, String slug, Locale locale) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setContent(postContainer);
         content.setFull(fullcontent);
         content.setSlug(slug);
+        content.setLocale(locale.toString());
         session.save(content);
         session.flush();
         session.close();
@@ -94,13 +96,14 @@ public class ContentDAO {
      * @param fullcontent
      */
     @Transactional
-    public void updatePost(int id, String postContainer, String fullcontent, String slug) {
+    public void updatePost(int id, String postContainer, String fullcontent, String slug, String code) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setId(id);
         content.setContent(postContainer);
         content.setFull(fullcontent);
         content.setSlug(slug);
+        content.setLocale(code);
         session.update(content);
         session.flush();
         session.close();
@@ -122,7 +125,7 @@ public class ContentDAO {
     }
 
     @Transactional
-    public void make() {
+    public void make(Locale locale) {
         Session session = sessionFactory.getCurrentSession();
         Content content = new Content();
         content.setId(1);
@@ -138,6 +141,7 @@ public class ContentDAO {
                 "<p>The text itself no sense, although it is not completely random, but derives from a text by Cicero in Latin language, whose words have been removed them syllables or letters. The meaning of the text does not matter, since it is just a test demostracióno,</p>\n");
         content.setFull(null);
         content.setSlug("welcome-test-post");
+        content.setLocale(locale.toString());
         session.save(content);
         session.flush();
     }

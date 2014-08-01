@@ -56,6 +56,7 @@ public class Pages {
     @Column(unique=true)
     private String slug;
     private boolean hidden;
+    private String locale;
 
     public long getId() {
         return id;
@@ -90,5 +91,14 @@ public class Pages {
 
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
+    }
+
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 }

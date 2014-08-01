@@ -53,6 +53,7 @@ public class Content {
     @Column(columnDefinition="longtext")
     private String full;
     private String slug;
+    private String locale;
 
     public long getId() {
         return id;
@@ -79,4 +80,12 @@ public class Content {
         this.slug = slug;
     }
 
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
 }

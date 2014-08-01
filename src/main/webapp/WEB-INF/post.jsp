@@ -176,6 +176,38 @@
         </div>
 
         <c:if test="${admin == true}">
+
+            <!-- Language codes -->
+            <select name="code">
+                <option value="${pageContext.response.locale}">Default (${pageContext.response.locale})</option>
+                <option value="af">af</option><option value="sq">sq</option><option value="ap">ap</option>
+                <option value="hy">hy</option><option value="eu">eu</option><option value="bn">bn</option>
+                <option value="bg">bg</option><option value="ca">ca</option><option value="km">km</option>
+                <option value="zh">zh</option><option value="hr">hr</option><option value="cs">cs</option>
+                <option value="da">da</option><option value="nl">nl</option><option value="en">en</option>
+                <option value="et">et</option><option value="fj">fj</option><option value="fi">fi</option>
+                <option value="fr">fr</option><option value="ka">ka</option><option value="de">de</option>
+                <option value="el">el</option><option value="gu">gu</option><option value="he">he</option>
+                <option value="hi">hi</option><option value="hu">hu</option><option value="is">is</option>
+                <option value="id">id</option><option value="ga">ga</option><option value="it">it</option>
+                <option value="ja">ja</option><option value="jw">jw</option><option value="ko">ko</option>
+                <option value="la">la</option><option value="lv">lv</option><option value="lt">lt</option>
+                <option value="mk">mk</option><option value="ms">ms</option><option value="ml">ml</option>
+                <option value="mt">mt</option><option value="mi">mi</option><option value="mp">mp</option>
+                <option value="mn">mn</option><option value="ne">ne</option><option value="no">no</option>
+                <option value="fa">fa</option><option value="pl">pl</option><option value="pt">pt</option>
+                <option value="pa">pa</option><option value="qu">qu</option><option value="ro">ro</option>
+                <option value="ru">ru</option><option value="sm">sm</option><option value="sp">sp</option>
+                <option value="sk">sk</option><option value="sl">sl</option><option value="es">es</option>
+                <option value="sw">sw</option><option value="sv">sv</option><option value="ta">ta</option>
+                <option value="tt">tt</option><option value="te">te</option><option value="th">th</option>
+                <option value="bo">bo</option><option value="to">to</option><option value="tr">tr</option>
+                <option value="uk">uk</option><option value="ur">ur</option><option value="uz">uz</option>
+                <option value="vi">vi</option><option value="cy">cy</option><option value="xy">xy</option>
+            </select>
+
+            <p></p>
+
             <!-- Toolbox -->
             <button type="submit" class="btn btn-default btn-lg" onclick="Full_Click()">
                 <span class="glyphicon glyphicon-floppy-disk"></span>
@@ -184,6 +216,7 @@
             <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
+
         </c:if>
 
         <!-- Comments -->

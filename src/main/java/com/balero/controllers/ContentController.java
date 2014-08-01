@@ -47,6 +47,7 @@ import org.springframework.web.util.HtmlUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class ContentController {
@@ -82,7 +83,8 @@ public class ContentController {
                            defaultValue = "init") String baleroAdmin,
                            @PathVariable int id, Model model,
                            @RequestParam(value = "more", required = false) Integer more,
-                           HttpServletRequest request) {
+                           HttpServletRequest request,
+                           Locale locale) {
 
         String background = "eternity.png";
         model.addAttribute("background", background);
@@ -115,7 +117,7 @@ public class ContentController {
         List<Footer> footer = FooterDAO.findAll();
 
         List<Content> content = ContentDAO.findContent(id);
-        List<Pages> pages = PagesDAO.findAll();
+        List<Pages> pages = PagesDAO.findAll(locale);
         List<Comments> comments = CommentsDAO.findById(id);
 
         if(more == null || more != 1) {
@@ -174,6 +176,7 @@ public class ContentController {
     public String editFull(@RequestParam String id,
                            @RequestParam String content,
                            @RequestParam String full,
+                           @RequestParam String code,
                            @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
         /**
@@ -189,7 +192,7 @@ public class ContentController {
         }
 
         int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, content, full, "welcome-test-post-slug");
+        ContentDAO.updatePost(intId, content, full, "welcome-test-post-slug", code);
 
         return "redirect:/post/" + id;
 
@@ -224,7 +227,8 @@ public class ContentController {
      * @return String
      */
     @RequestMapping(value = "/post/add", method = RequestMethod.GET)
-    public String add(@CookieValue(value = "baleroAdmin") String baleroAdmin) {
+    public String add(@CookieValue(value = "baleroAdmin") String baleroAdmin,
+                      Locale locale) {
 
         /**
          * Security
@@ -246,7 +250,7 @@ public class ContentController {
                 "    Content\n" +
                 "</p>";
 
-        ContentDAO.addPost(html, null, "welcome-test-post");
+        ContentDAO.addPost(html, null, "welcome-test-post", locale);
 
         return "redirect:/";
 
@@ -263,6 +267,7 @@ public class ContentController {
     public String save(HttpServletRequest request,
                        @RequestParam("id") String id,
                        @RequestParam("dataContainer") String dataContainer,
+                       @RequestParam("code") String code,
                        @CookieValue(value = "baleroAdmin") String baleroAdmin)  {
 
         /**
@@ -274,7 +279,7 @@ public class ContentController {
         }
 
         int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, dataContainer, "fullpost", "welcome-test-post");
+        ContentDAO.updatePost(intId, dataContainer, "fullpost", "welcome-test-post", code);
 
         return "redirect:/";
 

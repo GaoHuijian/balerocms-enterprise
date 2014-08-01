@@ -41,6 +41,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Get, Insert and Update data from database
@@ -56,9 +57,9 @@ public class PagesDAO {
      * @return rows
      */
     @Transactional
-    public List<Pages> findAll() {
+    public List<Pages> findAll(Locale locale) {
         Session session = sessionFactory.getCurrentSession();
-        List rows = session.createQuery("from Pages").list();
+        List rows = session.createQuery("from Pages where locale = '" + locale + "'").list();
         return rows;
     }
 
@@ -92,12 +93,13 @@ public class PagesDAO {
      * @param content
      */
     @Transactional
-    public void addPage(String name, String content, String slug) {
+    public void addPage(String name, String content, String slug, Locale locale) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setName(name);
         pages.setContent(content);
         pages.setSlug(slug);
+        pages.setLocale(locale.toString());
         session.save(pages);
         session.flush();
         session.close();
@@ -110,13 +112,14 @@ public class PagesDAO {
      * @param content
      */
     @Transactional
-    public void updatePage(int id, String name, String content, String slug) {
+    public void updatePage(int id, String name, String content, String slug, String code) {
         Session session = sessionFactory.openSession();
         Pages pages = new Pages();
         pages.setId(id);
         pages.setName(name);
         pages.setContent(content);
         pages.setSlug(slug);
+        pages.setLocale(code);
         session.update(pages);
         session.flush();
         session.close();
@@ -138,7 +141,7 @@ public class PagesDAO {
     }
 
     @Transactional
-    public void make() {
+    public void make(Locale locale) {
         Session session = sessionFactory.getCurrentSession();
         Pages pages = new Pages();
         pages.setId(1);
@@ -150,6 +153,7 @@ public class PagesDAO {
                 "\n" +
                 "<p>The text itself no sense, although it is not completely random, but derives from a text by Cicero in Latin language, whose words have been removed them syllables or letters. The meaning of the text does not matter, since it is just a test demostracióno,</p>\n");
         pages.setSlug("example-page");
+        pages.setLocale(locale.toString());
         session.save(pages);
         session.flush();
     }

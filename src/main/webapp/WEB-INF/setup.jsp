@@ -46,6 +46,8 @@
 
     <p class="pull-right">
         <a href="?lang=en">en</a> | <a href="?lang=es">es</a>
+        <br>
+        Lang: ${pageContext.response.locale}
     </p>
 
     <p align="center">
