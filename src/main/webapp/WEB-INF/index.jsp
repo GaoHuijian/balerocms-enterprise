@@ -309,7 +309,7 @@
 <div class="modal fade" id="NewPageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/page/new">
+            <form method="post" action="/page/new" accept-charset="ISO-8859-1">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel"><spring:message code="label.page.new" /></h4>
