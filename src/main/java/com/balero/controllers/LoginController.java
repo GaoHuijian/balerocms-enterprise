@@ -35,6 +35,7 @@
 package com.balero.controllers;
 
 import com.balero.models.Users;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,6 +78,8 @@ public class LoginController {
     @Autowired
     private com.balero.models.UsersDAO UsersDAO;
 
+    private static final Logger logger = Logger.getLogger(LoginController.class);
+
     /**
      * LoginController
      *
@@ -96,9 +99,9 @@ public class LoginController {
         String inputUsername = request.getParameter("inputUsername");
         String inputPassword = request.getParameter("inputPassword");
 
-        System.out.println("param user: " + request.getParameter("inputUsername"));
-        System.out.println("param pwd: " + request.getParameter("inputPassword"));
-        System.out.println("cookie: " + baleroAdmin);
+        logger.debug("param user: " + request.getParameter("inputUsername"));
+        logger.debug("param pwd: " + request.getParameter("inputPassword"));
+        logger.debug("cookie: " + baleroAdmin);
 
        List<Users> users = UsersDAO.administrator();
 

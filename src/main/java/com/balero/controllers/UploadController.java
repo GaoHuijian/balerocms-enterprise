@@ -36,6 +36,7 @@ package com.balero.controllers;
 
 import com.balero.services.FileManager;
 import com.balero.services.ListFilesUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,6 +66,7 @@ public class UploadController {
     @Autowired
     private ServletContext servletContext;
 
+    private static final Logger logger = Logger.getLogger(UploadController.class);
 
     /**
      * Upload file on server
@@ -155,8 +157,8 @@ public class UploadController {
                 new File("./media/uploads"
                         + File.separator + file.delete());
                 // Debug
-                System.out.println("Loop: " + i + " corresponding to file: " + file.getName());
-                System.out.println("Finding:" + sliderContainer);
+                logger.debug("Loop: " + i + " corresponding to file: " + file.getName());
+                logger.debug("Finding:" + sliderContainer);
             }
         }
 
@@ -195,8 +197,8 @@ public class UploadController {
                     System.out.println("Can't save");
                 }
                 // Debug
-                System.out.println("Loop: " + i + " corresponding to file: " + file.getName());
-                System.out.println("Finding:" + defaultSliderContainer);
+                logger.debug("Loop: " + i + " corresponding to file: " + file.getName());
+                logger.debug("Finding:" + defaultSliderContainer);
             }
         }
 

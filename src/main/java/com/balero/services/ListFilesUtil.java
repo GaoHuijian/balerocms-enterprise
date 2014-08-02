@@ -34,6 +34,8 @@
 
 package com.balero.services;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 
 /**
@@ -44,6 +46,8 @@ import java.io.File;
  * http://loianegroner.com (English)
  */
 public class ListFilesUtil {
+
+    private static final Logger logger = Logger.getLogger(ListFilesUtil.class);
 
     /**
      * List all the files under directory '/media/uploads/'
@@ -64,7 +68,7 @@ public class ListFilesUtil {
         for (File file : fList){
             i++;
             if (file.isFile()){
-                System.out.println(file.getName());
+                logger.debug(file.getName());
                 headers += i + "<li><img src=\"/media/uploads/" + file.getName() + "\"></li>\n";
             }
         }

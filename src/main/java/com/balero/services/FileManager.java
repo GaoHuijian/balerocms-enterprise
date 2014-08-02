@@ -34,6 +34,8 @@
 
 package com.balero.services;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 
 /**
@@ -43,6 +45,8 @@ import java.io.*;
  * 05/manejo-de-archivos-o-ficheros-en.html
  */
 public class FileManager {
+
+    private static final Logger logger = Logger.getLogger(FileManager.class);
 
     public void write(File file, String sString) {
         try {
@@ -61,7 +65,7 @@ public class FileManager {
             Fescribe.close();
         } catch (Exception ex) {
             //Captura un posible error le imprime en pantalla
-            System.out.println(ex.getMessage());
+            logger.debug(ex.getMessage());
         }
     }
 

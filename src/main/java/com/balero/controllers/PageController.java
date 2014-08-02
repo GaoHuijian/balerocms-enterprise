@@ -41,6 +41,7 @@ import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
 import com.balero.services.UAgentInfo;
 import com.github.slugify.InitSlugifyTag;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -72,6 +73,8 @@ public class PageController {
 
     @Autowired
     private MessageSource messageSource;
+
+    private static final Logger logger = Logger.getLogger(PageController.class);
 
     /**
      *
@@ -245,6 +248,8 @@ public class PageController {
                 "\n" +
                 "El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un texto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras.\n" +
                 "</p>";
+
+        logger.debug("UTF-8->name: " + name);
 
         /**
          * Referer:
