@@ -221,6 +221,7 @@
         <!-- Data Container -->
         <input type="hidden" name="dataContainer" id="dataContainer">
         <input type="hidden" name="id" id="id">
+        <input type="hidden" name="code" value="${pageContext.response.locale}">
     </form>
     <!-- /Loop -->
 

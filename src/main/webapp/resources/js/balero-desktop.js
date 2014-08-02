@@ -68,7 +68,3 @@ $('.navbar-toggle').click(function() {
         flag = 0;
     }
 });
-// Remove one plugin.
-// http://docs.ckeditor.com/#!/
-// guide/dev_howtos_basic_configuration
-CKEDITOR.config.removePlugins = 'about, pastefromword, pastetext, undo, clipboard, scayt, wsc, removeformat';
