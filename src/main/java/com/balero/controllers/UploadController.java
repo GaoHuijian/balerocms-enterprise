@@ -34,12 +34,14 @@
 
 package com.balero.controllers;
 
+import com.balero.services.Administrator;
 import com.balero.services.FileManager;
 import com.balero.services.ListFilesUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,6 +70,9 @@ public class UploadController {
     @Autowired
     private ServletContext servletContext;
 
+    @Autowired
+    private com.balero.models.UsersDAO UsersDAO;
+
     private static final Logger logger = Logger.getLogger(UploadController.class);
 
     /**
@@ -77,8 +82,17 @@ public class UploadController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String upload(@RequestParam("file") MultipartFile file) {
+    public String upload(@RequestParam("file") MultipartFile file,
+                         @CookieValue(value = "baleroAdmin",
+                         defaultValue = "init") String baleroAdmin) {
 
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         String inputFileName = file.getOriginalFilename();
 
@@ -140,7 +154,17 @@ public class UploadController {
     @RequestMapping(value = "/picture", method = RequestMethod.POST)
     public String uploadPicture(@RequestParam("upload") MultipartFile file,
                                 Model model,
-     HttpServletRequest request) {
+                                HttpServletRequest request,
+                                @CookieValue(value = "baleroAdmin",
+                                defaultValue = "init") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         String CKEditorFuncNum = request.getParameter("CKEditorFuncNum");
 
@@ -205,7 +229,17 @@ public class UploadController {
      */
     @RequestMapping(value = "/browser", method = RequestMethod.GET)
     public String browser(Model model,
-                          HttpServletRequest request) {
+                          HttpServletRequest request,
+                          @CookieValue(value = "baleroAdmin",
+                          defaultValue = "init") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         String CKEditorFuncNum = request.getParameter("CKEditorFuncNum");
 
@@ -235,7 +269,17 @@ public class UploadController {
      * @return
      */
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public String remove(@RequestParam String sliderContainer) {
+    public String remove(@RequestParam String sliderContainer,
+                         @CookieValue(value = "baleroAdmin",
+                         defaultValue = "init") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         // sliderContairner is a String, so convert to int
         int sliderContainerToInt = Integer.parseInt(sliderContainer);
@@ -267,7 +311,17 @@ public class UploadController {
      * @return String
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@RequestParam String defaultSliderContainer) {
+    public String save(@RequestParam String defaultSliderContainer,
+                       @CookieValue(value = "baleroAdmin",
+                       defaultValue = "init") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
 
         // sliderContairner is a String, so convert to int
         int sliderContainerToInt = Integer.parseInt(defaultSliderContainer);

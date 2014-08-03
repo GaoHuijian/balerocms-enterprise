@@ -46,7 +46,10 @@ Create an empty database
     * MySQL Password
     
 4. cd target
-5. java -jar standalone.jar
+5. Deploy:
+
+    sudo chmod 777 *.sh
+    ./balero-start.sh
 
 Open [http://localhost:8080/](http://localhost:8080/)
 
