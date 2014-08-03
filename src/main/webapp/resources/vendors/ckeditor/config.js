@@ -10,4 +10,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserBrowseUrl = '/upload/browser';
     // Upload Controller
     config.filebrowserUploadUrl = '/upload/picture';
+    // Make it responsive
+    // Remove Width And Height
+    config.disallowedContent = 'img[width,height]';
 };
