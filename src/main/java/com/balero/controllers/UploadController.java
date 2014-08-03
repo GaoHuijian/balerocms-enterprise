@@ -197,6 +197,30 @@ public class UploadController {
     }
 
     /**
+     * CKEditor Browser Controller
+     *
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/browser", method = RequestMethod.GET)
+    public String browser(Model model,
+                          HttpServletRequest request) {
+
+        String CKEditorFuncNum = request.getParameter("CKEditorFuncNum");
+
+        ListFilesUtil listFilesUtil = new ListFilesUtil();
+        String files = listFilesUtil.listPictures(CKEditorFuncNum);
+
+        model.addAttribute("files", files);
+        //model.addAttribute("url", "/media/pictures/" + inputFileName);
+        model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
+
+        return "browser";
+
+    }
+
+    /**
      * This method loop containing file headers files
      * and then delete the selected file by number.
      * Example:

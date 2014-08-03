@@ -5,6 +5,9 @@
 
 // ckeditor/config.js
 CKEDITOR.editorConfig = function( config ) {
-    config.filebrowserBrowseUrl = '/browser/browse.php';
+    // CKE Editor for Balero CMS
+    // Browser View
+    config.filebrowserBrowseUrl = '/upload/browser';
+    // Upload Controller
     config.filebrowserUploadUrl = '/upload/picture';
 };

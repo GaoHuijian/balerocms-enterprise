@@ -77,6 +77,38 @@ public class ListFilesUtil {
 
     }
 
+    /**
+     * CKEditor Browser
+     *
+     * @param CKEditorFuncNum
+     * @return
+     */
+    public String listPictures(String CKEditorFuncNum){
+
+        String headers = "";
+        int i = 0;
+
+        //String rootPath = System.getProperty("catalina.home");
+        File directory = new File("./media/pictures/");
+
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+
+        for (File file : fList){
+            i++;
+            if (file.isFile()){
+                logger.debug(file.getName());
+                headers += i + "<a href=\"\" onclick=\"getUrl('" +
+                        CKEditorFuncNum + "', '/media/pictures/" +
+                        file.getName() + "')\"><img src=\"/media/pictures/" +
+                        file.getName() + "\"></a>\n";
+            }
+        }
+
+        return headers;
+
+    }
+
     public File[] listFilesInArray(){
 
         //String rootPath = System.getProperty("catalina.home");
