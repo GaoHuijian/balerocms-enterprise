@@ -39,12 +39,14 @@ import com.balero.services.ListFilesUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -122,6 +124,75 @@ public class UploadController {
         }
 
         return "redirect:/";
+
+    }
+
+    /**
+     * Upload image from CKEDITOR to server
+     *
+     * Source: http://alfonsoml.blogspot.mx/2013/08/a-basic-
+     * upload-script-for-ckeditor.html
+     *
+     * @param file
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/picture", method = RequestMethod.POST)
+    public String uploadPicture(@RequestParam("upload") MultipartFile file,
+                                Model model,
+     HttpServletRequest request) {
+
+        String CKEditorFuncNum = request.getParameter("CKEditorFuncNum");
+
+        String inputFileName = file.getOriginalFilename();
+
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+
+                // Creating the directory to store file
+                //String rootPath = System.getProperty("catalina.home");
+                File dir = new File("./media/pictures");
+                if (!dir.exists())
+                    dir.mkdirs();
+
+                String[] ext = new String[9];
+                // Add your extension here
+                ext[0] = ".jpg";
+                ext[1] = ".png";
+                ext[2] = ".bmp";
+                ext[3] = ".jpeg";
+
+                for(int i = 0; i < ext.length; i++) {
+                    int intIndex = inputFileName.indexOf(ext[i]);
+                    if(intIndex == -1) {
+                        System.out.println("File extension is not valid");
+                    } else {
+                        // Create the file on server
+                        File serverFile = new File(dir.getAbsolutePath()
+                                + File.separator + inputFileName);
+                        BufferedOutputStream stream = new BufferedOutputStream(
+                                new FileOutputStream(serverFile));
+                        stream.write(bytes);
+                        stream.close();
+                    }
+                }
+
+                System.out.println("You successfully uploaded file");
+
+            } catch (Exception e) {
+                System.out.println("You failed to upload => " + e.getMessage());
+            }
+        } else {
+            System.out.println("You failed to upload because the file was empty.");
+        }
+
+        //String url = request.getLocalAddr();
+
+        model.addAttribute("url", "/media/pictures/" + inputFileName);
+        model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
+
+        return "upload";
 
     }
 
