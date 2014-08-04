@@ -127,10 +127,10 @@ public class ContentController {
         }
 
         /**
-         * Variables
+         * System variables
          */
-        String pathCover =  "media/default.jpg";
-        File defaultCover = new File(System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + pathCover);
+        String pathCover =  "./media/default.jpg";
+        File defaultCover = new File(pathCover);
 
         if(defaultCover.exists()) {
             model.addAttribute("defaultCover", pathCover);
