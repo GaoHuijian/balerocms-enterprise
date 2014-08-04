@@ -54,8 +54,22 @@ import org.apache.commons.lang.StringUtils;
 public class ContentDAO {
     @Autowired private SessionFactory sessionFactory;
 
+
     /**
      * SELECT * FROM 'content'
+     *
+     * @return rows
+     */
+    @Transactional
+    public List<Content> findAllAdmin() {
+        Session session = sessionFactory.getCurrentSession();
+        List rows = session.createQuery("from Content").list();
+        return rows;
+    }
+
+
+    /**
+     * SELECT * FROM 'content' where lang
      *
      * @return rows
      */

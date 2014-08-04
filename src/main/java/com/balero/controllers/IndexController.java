@@ -92,30 +92,28 @@ public class IndexController {
 		model.addAttribute("background", background);
 
         Administrator admin = new Administrator();
-        if(!baleroAdmin.equals("init")) {
-            // Set credentials
-            String[] credentials = baleroAdmin.split(":");
+        List<Users> users = UsersDAO.administrator();
 
-            // Extract cookie credentials
-            admin.setLocalUsername(credentials[0]);
-            admin.setLocalPassword(credentials[1]);
+        String username = null;
+        String password = null;
 
-            List<Users> users = UsersDAO.administrator();
+        for(Users obj: users) {
+            username = obj.getUsername();
+            password = obj.getPassword();
+        }
 
-            for(Users obj: users) {
-                admin.setRemoteUsername(obj.getUsername());
-                admin.setRemotePassword(obj.getPassword());
-            }
-            admin.allowAccess();
+        List<Content> rows;
+        if(admin.isAdmin(baleroAdmin, username, password)) {
+            rows = ContentDAO.findAllAdmin();
         } else {
-            admin.denyAccess();
+            rows = ContentDAO.findAll(locale);
         }
 
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
 
         // DAO
-        List<Content> rows = ContentDAO.findAll(locale);
+
         List<Footer> footer = FooterDAO.findAll();
         List<Pages> pages  = PagesDAO.findAll(locale);
         List<Comments> comments = CommentsDAO.findAll();

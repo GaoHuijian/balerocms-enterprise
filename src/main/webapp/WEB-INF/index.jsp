@@ -167,7 +167,7 @@
             <% int i = 0; %>
             <div id="editable-${p.id}" contenteditable="${admin}">
 
-                    ${p.content}
+                ${p.content}
 
                 <c:if test="${not empty p.full && admin != true}">
                     <!-- Read More -->
@@ -185,6 +185,13 @@
                 </c:forEach>
 
             </div>
+
+            <!-- Code Lang -->
+            <a href="/post/${p.id}" class="pull-right">
+                <span class="badge badge-info">
+                    ${p.locale}
+                 </span>
+            </a>
 
             <!-- Comments -->
             <a href="/post/${p.id}" class="pull-right">
