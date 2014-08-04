@@ -43,6 +43,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Locale;
 
+import java.util.Date;
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Get, Insert and Update data from database
  */
@@ -144,6 +147,31 @@ public class ContentDAO {
         content.setLocale(locale.toString());
         session.save(content);
         session.flush();
+    }
+
+    @Transactional
+    public String postTitle(int id) {
+
+        // Extract title
+        String postitle = null;
+
+        Session session = sessionFactory.getCurrentSession();
+        List<Content> content = session.createQuery("from Content where id = '" + id + "'").list();
+
+        for(Content obj: content) {
+            postitle = obj.getContent();
+        }
+
+        String title = null;
+
+        title = StringUtils.substringBetween(postitle, "<p>", "</p>");
+
+
+
+        //System.out.println("title = " + title);
+
+        return StringUtils.abbreviate(title + "...", 150);
+
     }
 
 }

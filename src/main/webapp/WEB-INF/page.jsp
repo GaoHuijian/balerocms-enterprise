@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><spring:message code="label.title" /></title>
+    <title>${sitename} - ${pagename}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="author" content="Anibal Gomez">
     <!-- Bootstrap core CSS -->

@@ -149,6 +149,7 @@ public class ContentController {
             model.addAttribute("mobile", true);
         }
 
+        model.addAttribute("title", ContentDAO.postTitle(id));
         model.addAttribute("settingsId", SettingsDAO.settingsId());
         model.addAttribute("sitename", SettingsDAO.siteName());
         model.addAttribute("slogan", SettingsDAO.siteSlogan());

@@ -158,4 +158,18 @@ public class PagesDAO {
         session.flush();
     }
 
+    @Transactional
+    public String pageName(String slug) {
+        String pagename = null;
+        Session session = sessionFactory.getCurrentSession();
+        List<Pages> pages = session.createQuery("from Pages where slug = '" + slug + "'").list();
+
+        for(Pages obj: pages) {
+            pagename = obj.getName();
+        }
+
+        return pagename;
+
+    }
+
 }

@@ -149,6 +149,7 @@ public class PageController {
             model.addAttribute("mobile", true);
         }
 
+        model.addAttribute("pagename", PagesDAO.pageName(slug));
         model.addAttribute("settingsId", SettingsDAO.settingsId());
         model.addAttribute("sitename", SettingsDAO.siteName());
         model.addAttribute("slogan", SettingsDAO.siteSlogan());
