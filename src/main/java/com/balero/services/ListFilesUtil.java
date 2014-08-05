@@ -98,10 +98,21 @@ public class ListFilesUtil {
             i++;
             if (file.isFile()){
                 logger.debug(file.getName());
-                headers += i + "<a href=\"\" onclick=\"getUrl('" +
-                        CKEditorFuncNum + "', '/media/pictures/" +
-                        file.getName() + "')\"><img src=\"/media/pictures/" +
-                        file.getName() + "\"></a>\n";
+
+                headers += "" +
+                        "<div class=\"col-lg-3 col-md-4 col-xs-6 thumb\">\n" +
+                        "<a class=\"thumbnail\" href=\"\"" +
+                        "onclick=\"getUrl('" + CKEditorFuncNum + "', '/media/pictures/" + file.getName() + "')\">" +
+                        "<img class=\"img-responsive\" src=\"/media/pictures/" +
+                        file.getName() + "\" alt=\"" + i + "\">\n" +
+                        "</a>" +
+                        "</div>";
+
+//                headers += i + "<a href=\"\" onclick=\"getUrl('" +
+//                        CKEditorFuncNum + "', '/media/pictures/" +
+//                        file.getName() + "')\"><img src=\"/media/pictures/" +
+//                        file.getName() + "\"></a>\n";
+
             }
         }
 
