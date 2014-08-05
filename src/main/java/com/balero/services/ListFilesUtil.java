@@ -108,11 +108,6 @@ public class ListFilesUtil {
                         "</a>" +
                         "</div>";
 
-//                headers += i + "<a href=\"\" onclick=\"getUrl('" +
-//                        CKEditorFuncNum + "', '/media/pictures/" +
-//                        file.getName() + "')\"><img src=\"/media/pictures/" +
-//                        file.getName() + "\"></a>\n";
-
             }
         }
 

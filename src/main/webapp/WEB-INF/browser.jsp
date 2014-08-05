@@ -2,10 +2,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lastprophet (Anibal Gomez)
-  Date: 2/08/14
-  Time: 08:47 PM
-  To change this template use File | Settings | File Templates.
-  http://jokoscode.blogspot.mx/2012/04/part-2-create-simple-image-browser-for.html
+
+  Media Repo
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
