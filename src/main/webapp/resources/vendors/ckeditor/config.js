@@ -13,4 +13,7 @@ CKEDITOR.editorConfig = function( config ) {
     // Make it responsive
     // Remove Width And Height
     config.disallowedContent = 'img[width,height]';
+    // Extra plugins
+    // Add Here
+    config.extraPlugins = 'sourcedialog';
 };
