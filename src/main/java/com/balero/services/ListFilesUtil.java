@@ -60,7 +60,7 @@ public class ListFilesUtil {
         int i = 0;
 
         //String rootPath = System.getProperty("catalina.home");
-        File directory = new File("./media/uploads");
+        File directory = new File("../webapps/media/uploads");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();
@@ -89,7 +89,7 @@ public class ListFilesUtil {
         int i = 0;
 
         //String rootPath = System.getProperty("catalina.home");
-        File directory = new File("./media/pictures/");
+        File directory = new File("../webapps/media/pictures/");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();
@@ -119,7 +119,7 @@ public class ListFilesUtil {
     public File[] listFilesInArray(){
 
         //String rootPath = System.getProperty("catalina.home");
-        File directory = new File("./media/uploads");
+        File directory = new File("../webapps/media/uploads");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();
@@ -131,7 +131,7 @@ public class ListFilesUtil {
     public File[] listPicturesInArray(){
 
         //String rootPath = System.getProperty("catalina.home");
-        File directory = new File("./media/pictures");
+        File directory = new File("../webapps/media/pictures");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();

@@ -102,7 +102,7 @@ public class UploadController {
 
                 // Creating the directory to store file
                 //String rootPath = System.getProperty("catalina.home");
-                File dir = new File("./media/uploads");
+                File dir = new File("../webapps/media/uploads");
                 if (!dir.exists())
                     dir.mkdirs();
 
@@ -176,7 +176,7 @@ public class UploadController {
 
                 // Creating the directory to store file
                 //String rootPath = System.getProperty("catalina.home");
-                File dir = new File("./media/pictures");
+                File dir = new File("../webapps/media/pictures");
                 if (!dir.exists())
                     dir.mkdirs();
 
@@ -293,7 +293,7 @@ public class UploadController {
             i++;
             if (sliderContainerToInt == i) {
                 // Delete Header File
-                new File("./media/uploads"
+                new File("../webapps/media/uploads"
                         + File.separator + file.delete());
                 // Debug
                 logger.debug("Loop: " + i + " corresponding to file: " + file.getName());
@@ -320,7 +320,7 @@ public class UploadController {
 
         for (int i = 0; i < list.length; i++){
                 logger.debug("checkbox value:" + list[i].toString() + " i:" + i);
-                File picture = new File("./media/pictures"
+                File picture = new File("../webapps/media/pictures"
                         + File.separator + list[i].toString());
             if(picture.exists()) {
                 picture.delete();
@@ -362,9 +362,9 @@ public class UploadController {
             i++;
             if (sliderContainerToInt == i) {
                 // Create Default Header File
-                File source = new File("./media/uploads"
+                File source = new File("../webapps/media/uploads"
                         + File.separator + file.getName());
-                File dest = new File("./media"
+                File dest = new File("../webapps/media"
                         + File.separator + "default.jpg");
                 FileManager cp = new FileManager();
                 try {

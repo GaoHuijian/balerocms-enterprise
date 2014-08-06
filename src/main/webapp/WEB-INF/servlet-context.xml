@@ -49,7 +49,7 @@
     beans/factory/config/PropertyPlaceholderConfigurer.html
     -->
     <context:property-placeholder
-            location="file:${user.dir}/conf/database.properties" />
+            location="file:${user.dir}/../conf/database.properties" />
 
     <!--
     Scan classpath for annotations (eg: @Service, @Repository etc)
@@ -94,7 +94,7 @@
 
   <!-- Resources -->
   <mvc:resources mapping="/resources/**" location="/resources/" />
-  <mvc:resources mapping="/media/**" location="file:${user.dir}/media/" />
+  <mvc:resources mapping="/media/**" location="file:${user.dir}/../webapps/media/" />
 
   <mvc:annotation-driven />
 

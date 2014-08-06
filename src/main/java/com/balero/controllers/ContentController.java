@@ -129,7 +129,7 @@ public class ContentController {
         /**
          * System variables
          */
-        String pathCover =  "./media/default.jpg";
+        String pathCover =  "../webapps/media/default.jpg";
         File defaultCover = new File(pathCover);
 
         if(defaultCover.exists()) {

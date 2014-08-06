@@ -113,33 +113,6 @@
           <target>1.6</target>
         </configuration>
       </plugin>
-        <!-- Executable JAR File
-        Thanks to this post!
-        nurkiewicz.com/2012/11/standalone-web
-        -application-with.html
-        -->
-        <plugin>
-            <groupId>org.apache.tomcat.maven</groupId>
-            <artifactId>tomcat7-maven-plugin</artifactId>
-            <version>2.0</version>
-            <executions>
-                <execution>
-                    <id>tomcat-run</id>
-                    <goals>
-                        <goal>exec-war-only</goal>
-                    </goals>
-                    <phase>package</phase>
-                    <configuration>
-                        <path>/</path>
-                        <enableNaming>false</enableNaming>
-                        <finalName>standalone.jar</finalName>
-                        <!--
-                        <serverXml>src/main/tomcatconf/server.xml</serverXml>
-                        -->
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
     </plugins>
   </build>
 </project>

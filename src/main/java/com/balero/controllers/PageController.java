@@ -129,7 +129,7 @@ public class PageController {
          * Variables
          */
 
-        String pathCover =  "./media/default.jpg";
+        String pathCover =  "../webapps/media/default.jpg";
         File defaultCover = new File(pathCover);
 
         if(defaultCover.exists()) {
