@@ -106,6 +106,7 @@ public class ListFilesUtil {
                         "<img class=\"img-responsive\" src=\"/media/pictures/" +
                         file.getName() + "\" alt=\"" + i + "\">\n" +
                         "</a>" +
+                        "<input type='checkbox' name='list' value='" + file.getName() +"'>" +
                         "</div>";
 
             }
@@ -119,6 +120,18 @@ public class ListFilesUtil {
 
         //String rootPath = System.getProperty("catalina.home");
         File directory = new File("./media/uploads");
+
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+
+        return fList;
+
+    }
+
+    public File[] listPicturesInArray(){
+
+        //String rootPath = System.getProperty("catalina.home");
+        File directory = new File("./media/pictures");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();

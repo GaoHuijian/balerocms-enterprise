@@ -305,6 +305,33 @@ public class UploadController {
 
     }
 
+    @RequestMapping(value = "/remove/media", method = RequestMethod.POST)
+    public String removeMedia(@RequestParam String[] list,
+                         @CookieValue(value = "baleroAdmin",
+                                 defaultValue = "init") String baleroAdmin) {
+
+        /**
+         * Security
+         */
+        Administrator security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+            return "hacking";
+        }
+
+        for (int i = 0; i < list.length; i++){
+                logger.debug("checkbox value:" + list[i].toString() + " i:" + i);
+                File picture = new File("./media/pictures"
+                        + File.separator + list[i].toString());
+            if(picture.exists()) {
+                picture.delete();
+            }
+        }
+
+        return "redirect:/upload/browser";
+
+    }
+
+
     /**
      *
      * @param defaultSliderContainer

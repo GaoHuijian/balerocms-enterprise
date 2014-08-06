@@ -43,6 +43,19 @@
             color: #c0c0c0;
         }
     </style>
+    <script>
+        function CheckAll(chk)
+        {
+            for (i = 0; i < chk.length; i++)
+                chk[i].checked = true ;
+        }
+
+        function UnCheckAll(chk)
+        {
+            for (i = 0; i < chk.length; i++)
+                chk[i].checked = false ;
+        }
+    </script>
 </head>
 <body>
 
@@ -57,7 +70,21 @@
             <h1 class="page-header">Repository</h1>
         </div>
 
-        ${files}
+        <form method="post" action="/upload/remove/media" name="myform">
+            ${files}
+            <p></p>
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <button type="button" class="btn btn-primary" name="Check_All" value="Check All" onClick="CheckAll(document.myform.list)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                    <button type="button" class="btn btn-primary" name="Un_CheckAll" value="Uncheck All" onClick="UnCheckAll(document.myform.list)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+               </div>
+        </form>
 
         <!--
         Template
