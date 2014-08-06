@@ -55,6 +55,17 @@ Open [http://localhost:8080/](http://localhost:8080/)
 
 Enjoy!
 
+Development
+===========
+
+Debugging/Deploying App in Tomcat
+
+Copy 'dist' to 'bin' folder
+
+    cp dist ${CATALINA_HOME/bin/
+    
+Done!
+
 Technologies under Balero CMS
 =============================
 
