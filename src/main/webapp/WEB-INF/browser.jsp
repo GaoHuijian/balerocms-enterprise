@@ -71,6 +71,7 @@
         </div>
 
         <form method="post" action="/upload/remove/media" name="myform">
+            <input type="hidden" name="list" value="init">
             ${files}
             <p></p>
                 <div class="pull-right">
