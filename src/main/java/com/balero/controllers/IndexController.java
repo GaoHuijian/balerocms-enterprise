@@ -137,7 +137,7 @@ public class IndexController {
         /**
          * System variables
          */
-        String pathCover =  "../webapps/media/default.jpg";
+        String pathCover =  "../media/default.jpg";
         File defaultCover = new File(pathCover);
 
         if(defaultCover.exists()) {
