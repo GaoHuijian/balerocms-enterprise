@@ -42,10 +42,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -193,7 +196,7 @@ public class ContentController {
         }
 
         int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, content, full, "welcome-test-post-slug", code);
+        ContentDAO.updatePost(intId, content, full, "welcome-test-post-slug", code, null);
 
         return "redirect:/post/" + id;
 
@@ -259,13 +262,12 @@ public class ContentController {
 
     /**
      *
-     * @param request
      * @param id
      * @param dataContainer
      * @return String
      */
     @RequestMapping(value = "/post/save", method = RequestMethod.POST)
-    public String save(HttpServletRequest request,
+    public String save(@RequestParam(value = "file", required = false) MultipartFile[] file,
                        @RequestParam("id") String id,
                        @RequestParam("dataContainer") String dataContainer,
                        @RequestParam("code") String code,
@@ -279,8 +281,67 @@ public class ContentController {
             return "hacking";
         }
 
+        /**
+         * File upload
+         */
+
+        String inputFileName = null;
+
+            for (int j = 0; j < file.length; j++) {
+
+                if (!file[j].isEmpty()) {
+
+                    inputFileName = file[j].getOriginalFilename();
+
+                    try {
+                        byte[] bytes = file[j].getBytes();
+
+                        // Creating the directory to store file
+                        //String rootPath = System.getProperty("catalina.home");
+                        File dir = new File("../webapps/media/backgrounds");
+                        if (!dir.exists())
+                            dir.mkdirs();
+
+                        String[] ext = new String[9];
+                        // Add your extension here
+                        ext[0] = ".jpg";
+                        ext[1] = ".png";
+                        ext[2] = ".bmp";
+                        ext[3] = ".jpeg";
+
+                        for (int i = 0; i < ext.length; i++) {
+                            int intIndex = inputFileName.indexOf(ext[i]);
+                            if (intIndex == -1) {
+                                System.out.println("File extension is not valid");
+                            } else {
+                                // Create the file on server
+                                File serverFile = new File(dir.getAbsolutePath()
+                                        + File.separator + inputFileName);
+                                BufferedOutputStream stream = new BufferedOutputStream(
+                                        new FileOutputStream(serverFile));
+                                stream.write(bytes);
+                                stream.close();
+                            }
+                        }
+
+                        System.out.println("You successfully uploaded file");
+
+                    } catch (Exception e) {
+                        System.out.println("You failed to upload => " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("You failed to upload because the file was empty.");
+                }
+            } // for
+
+
+        /**
+         * Model
+         */
+
         int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, dataContainer, "fullpost", "welcome-test-post", code);
+        ContentDAO.updatePost(intId, dataContainer, "fullpost",
+                "welcome-test-post", code, "/media/backgrounds/" + inputFileName);
 
         return "redirect:/";
 

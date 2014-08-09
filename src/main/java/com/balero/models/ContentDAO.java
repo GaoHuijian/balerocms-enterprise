@@ -113,7 +113,7 @@ public class ContentDAO {
      * @param fullcontent
      */
     @Transactional
-    public void updatePost(int id, String postContainer, String fullcontent, String slug, String code) {
+    public void updatePost(int id, String postContainer, String fullcontent, String slug, String code, String file) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setId(id);
@@ -121,6 +121,7 @@ public class ContentDAO {
         content.setFull(fullcontent);
         content.setSlug(slug);
         content.setLocale(code);
+        content.setFile(file);
         session.update(content);
         session.flush();
         session.close();

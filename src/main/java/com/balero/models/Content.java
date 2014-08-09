@@ -54,6 +54,7 @@ public class Content {
     private String full;
     private String slug;
     private String locale;
+    private String file;
 
     public long getId() {
         return id;
@@ -87,5 +88,13 @@ public class Content {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 }

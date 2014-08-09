@@ -158,14 +158,14 @@
 </div>
 
 <!-- Container -->
-<div class="container">
+<div class="container-box">
 
     <!-- Loop -->
-    <form method="post" action="/post/save">
+    <form method="post" action="/post/save" enctype="multipart/form-data">
         <c:forEach var="p" items="${rows}">
 
             <% int i = 0; %>
-            <div id="editable-${p.id}" contenteditable="${admin}">
+            <div id="editable-${p.id}" contenteditable="${admin}" class="box" style="background-image: url('${p.file}') ">
 
                 ${p.content}
 
@@ -174,10 +174,10 @@
                     <a href="/post/${p.id}" class="badge badge-info">More...</a>
                 </c:if>
 
-                <!-- Get Total Comments -->
                 <c:forEach var="q" items="${comments}">
                     <c:if test="${q.postId == p.id}">
                         <%
+                            // Total comments
                             i++;
                             application.setAttribute("i", i);
                         %>
@@ -185,6 +185,8 @@
                 </c:forEach>
 
             </div>
+
+            <div class="box">
 
             <!-- Code Lang -->
             <a href="/post/${p.id}" class="pull-right">
@@ -222,13 +224,19 @@
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
 
+                <input type="file" name="file">
+
             </c:if>
 
+            </div>
+
         </c:forEach>
+
         <!-- Data Container -->
         <input type="hidden" name="dataContainer" id="dataContainer">
         <input type="hidden" name="id" id="id">
         <input type="hidden" name="code" value="${pageContext.response.locale}">
+
     </form>
     <!-- /Loop -->
 

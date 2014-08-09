@@ -29,6 +29,13 @@ body {
     margin: 0;
     padding: 0;
 }
+.box {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 4%;
+    padding-bottom: 5%;
+}
 /**
 * Badges
 **/
@@ -118,8 +125,8 @@ body {
 .close {
     color: #ffffff;
 }
-.container {
-    width: 80%;
+.container-box {
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 4%;
