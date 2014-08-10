@@ -38,6 +38,7 @@ import com.balero.models.*;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
 import com.balero.services.UAgentInfo;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,6 +73,8 @@ public class ContentController {
 
     @Autowired
     private com.balero.models.CommentsDAO CommentsDAO;
+
+    private static final Logger logger = Logger.getLogger(LoginController.class);
 
     /**
      *
@@ -273,6 +276,8 @@ public class ContentController {
                        @RequestParam("code") String code,
                        @CookieValue(value = "baleroAdmin") String baleroAdmin)  {
 
+        int intId = Integer.parseInt(id);
+
         /**
          * Security
          */
@@ -291,6 +296,7 @@ public class ContentController {
 
                 if (!file[j].isEmpty()) {
 
+                    logger.debug("Uploading file... " + file[j]);
                     inputFileName = file[j].getOriginalFilename();
 
                     try {
@@ -314,6 +320,12 @@ public class ContentController {
                             if (intIndex == -1) {
                                 System.out.println("File extension is not valid");
                             } else {
+
+                                /**
+                                 * Create file and save  content
+                                 * to the database
+                                 */
+
                                 // Create the file on server
                                 File serverFile = new File(dir.getAbsolutePath()
                                         + File.separator + inputFileName);
@@ -321,6 +333,10 @@ public class ContentController {
                                         new FileOutputStream(serverFile));
                                 stream.write(bytes);
                                 stream.close();
+
+                                // Model
+                                ContentDAO.updatePost(intId, dataContainer, "fullpost",
+                                        "welcome-test-post", code, inputFileName);
                             }
                         }
 
@@ -329,19 +345,8 @@ public class ContentController {
                     } catch (Exception e) {
                         System.out.println("You failed to upload => " + e.getMessage());
                     }
-                } else {
-                    System.out.println("You failed to upload because the file was empty.");
                 }
             } // for
-
-
-        /**
-         * Model
-         */
-
-        int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, dataContainer, "fullpost",
-                "welcome-test-post", code, "/media/backgrounds/" + inputFileName);
 
         return "redirect:/";
 

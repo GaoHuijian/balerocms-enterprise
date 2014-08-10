@@ -38,6 +38,7 @@ import com.balero.models.*;
 import com.balero.services.Administrator;
 import com.balero.services.ListFilesUtil;
 import com.balero.services.UAgentInfo;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,6 +73,8 @@ public class IndexController {
     @Autowired
     private com.balero.models.CommentsDAO CommentsDAO;
 
+    private static final Logger logger = Logger.getLogger(LoginController.class);
+
     /**
      * Front-end Main Controller
      *
@@ -85,6 +88,9 @@ public class IndexController {
                        Model model,
                        HttpServletRequest request,
                        Locale locale) {
+
+
+        logger.debug("Test debug");
 
         String view = "index";
 
@@ -166,6 +172,7 @@ public class IndexController {
         model.addAttribute("comments", comments);
         model.addAttribute("pages", pages);
         model.addAttribute("footer", footer);
+
 
 		return view;
 	}

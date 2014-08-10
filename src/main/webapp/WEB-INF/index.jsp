@@ -165,7 +165,7 @@
         <c:forEach var="p" items="${rows}">
 
             <% int i = 0; %>
-            <div id="editable-${p.id}" contenteditable="${admin}" class="box" style="background-image: url('${p.file}') ">
+            <div id="editable-${p.id}" contenteditable="${admin}" class="box" style="background-image: url('/media/backgrounds/${p.file}') ">
 
                 ${p.content}
 
@@ -224,7 +224,10 @@
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
 
-                <input type="file" name="file">
+                <div class="fileUpload btn btn-primary">
+                    <span class="glyphicon glyphicon-upload"></span>
+                    <input type="file" name="file" class="upload" />
+                </div>
 
             </c:if>
 
