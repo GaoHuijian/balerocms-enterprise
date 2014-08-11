@@ -50,6 +50,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -82,6 +83,8 @@ public class ContentController {
      * @param id
      * @param model
      * @param more
+     * @param request
+     * @param locale
      * @return
      */
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
@@ -177,6 +180,8 @@ public class ContentController {
      * @param id
      * @param content
      * @param full
+     * @param code
+     * @param baleroAdmin
      * @return
      */
     @RequestMapping(value = "/post/edit", method = RequestMethod.POST)
@@ -274,7 +279,7 @@ public class ContentController {
                        @RequestParam("id") String id,
                        @RequestParam("dataContainer") String dataContainer,
                        @RequestParam("code") String code,
-                       @CookieValue(value = "baleroAdmin") String baleroAdmin)  {
+                       @CookieValue(value = "baleroAdmin") String baleroAdmin) throws IOException {
 
         int intId = Integer.parseInt(id);
 
@@ -292,6 +297,8 @@ public class ContentController {
 
         String inputFileName = null;
 
+        try {
+
             for (int j = 0; j < file.length; j++) {
 
                 if (!file[j].isEmpty()) {
@@ -299,54 +306,63 @@ public class ContentController {
                     logger.debug("Uploading file... " + file[j]);
                     inputFileName = file[j].getOriginalFilename();
 
-                    try {
-                        byte[] bytes = file[j].getBytes();
+                    byte[] bytes = file[j].getBytes();
 
-                        // Creating the directory to store file
-                        //String rootPath = System.getProperty("catalina.home");
-                        File dir = new File("../webapps/media/backgrounds");
-                        if (!dir.exists())
-                            dir.mkdirs();
+                    // Creating the directory to store file
+                    //String rootPath = System.getProperty("catalina.home");
+                    File dir = new File("../webapps/media/backgrounds");
+                    if (!dir.exists())
+                        dir.mkdirs();
 
-                        String[] ext = new String[9];
-                        // Add your extension here
-                        ext[0] = ".jpg";
-                        ext[1] = ".png";
-                        ext[2] = ".bmp";
-                        ext[3] = ".jpeg";
+                    String[] ext = new String[9];
+                    // Add your extension here
+                    ext[0] = ".jpg";
+                    ext[1] = ".png";
+                    ext[2] = ".bmp";
+                    ext[3] = ".jpeg";
 
-                        for (int i = 0; i < ext.length; i++) {
-                            int intIndex = inputFileName.indexOf(ext[i]);
-                            if (intIndex == -1) {
-                                System.out.println("File extension is not valid");
-                            } else {
+                    for (int i = 0; i < ext.length; i++) {
 
-                                /**
-                                 * Create file and save  content
-                                 * to the database
-                                 */
+                        int intIndex = inputFileName.indexOf(ext[i]);
 
-                                // Create the file on server
-                                File serverFile = new File(dir.getAbsolutePath()
-                                        + File.separator + inputFileName);
-                                BufferedOutputStream stream = new BufferedOutputStream(
-                                        new FileOutputStream(serverFile));
-                                stream.write(bytes);
-                                stream.close();
+                        if (intIndex == -1) {
 
-                                // Model
-                                ContentDAO.updatePost(intId, dataContainer, "fullpost",
-                                        "welcome-test-post", code, inputFileName);
-                            }
+                            System.out.println("File extension is not valid");
+
+                        } else {
+
+                            /**
+                             * Create file and save  content
+                             * to the database
+                             */
+
+                            // Create the file on server
+                            File serverFile = new File(dir.getAbsolutePath()
+                                    + File.separator + inputFileName);
+                            BufferedOutputStream stream = new BufferedOutputStream(
+                                    new FileOutputStream(serverFile));
+                            stream.write(bytes);
+                            stream.close();
+
+                            // Model
+                            ContentDAO.updatePost(intId, dataContainer, "fullpost",
+                                    "welcome-test-post", code, inputFileName);
+
+                            throw new Exception("Loop: " + j + ":" + i +
+                                    " - Data saved And Upload Sucess!");
+
                         }
-
-                        System.out.println("You successfully uploaded file");
-
-                    } catch (Exception e) {
-                        System.out.println("You failed to upload => " + e.getMessage());
                     }
+
                 }
+
             } // for
+
+        } catch (Exception e) {
+
+            logger.debug(e.getMessage());
+
+        }
 
         return "redirect:/";
 
