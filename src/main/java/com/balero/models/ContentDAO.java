@@ -147,10 +147,7 @@ public class ContentDAO {
         Session session = sessionFactory.getCurrentSession();
         Content content = new Content();
         content.setId(1);
-        content.setContent("<h1><img alt=\"Image\" class=\"left\" src=\"/resources/images/nopic.png\" />&nbsp;Example text</h1>\n" +
-                "\n" +
-                "<hr />\n" +
-                "<h3>Lorem ipsum</h3>\n" +
+        content.setContent("<h3>Lorem ipsum</h3>\n" +
                 "\n" +
                 "<p>Lorem Ipsum is text that is commonly used in graphic design typefaces demonstrations or draft design to test the visual design before inserting the final text.</p>\n" +
                 "\n" +
@@ -179,9 +176,11 @@ public class ContentDAO {
 
         String title = null;
 
-        title = StringUtils.substringBetween(postitle, "<p>", "</p>");
+        title = StringUtils.substringBetween(postitle, "<h3>", "</h3>");
 
-
+        while(title == null) {
+            title = StringUtils.substringBetween(postitle, "<p>", "</p>");
+        }
 
         //System.out.println("title = " + title);
 

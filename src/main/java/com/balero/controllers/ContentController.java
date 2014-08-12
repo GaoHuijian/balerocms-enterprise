@@ -90,7 +90,8 @@ public class ContentController {
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String showFull(@CookieValue(value = "baleroAdmin",
                            defaultValue = "init") String baleroAdmin,
-                           @PathVariable int id, Model model,
+                           @PathVariable int id,
+                           Model model,
                            @RequestParam(value = "more", required = false) Integer more,
                            HttpServletRequest request,
                            Locale locale) {
@@ -98,26 +99,16 @@ public class ContentController {
         String background = "eternity.png";
         model.addAttribute("background", background);
 
-        Administrator admin = new Administrator();
-        if(!baleroAdmin.equals("init")) {
-            // Set credentials
-            String[] credentials = baleroAdmin.split(":");
-
-            // Extract cookie credentials
-            admin.setLocalUsername(credentials[0]);
-            admin.setLocalPassword(credentials[1]);
-
-            List<Users> users = UsersDAO.administrator();
-
-            for(Users obj: users) {
-                admin.setRemoteUsername(obj.getUsername());
-                admin.setRemotePassword(obj.getPassword());
-            }
-
-            admin.allowAccess();
+        /**
+         * Admin rendering
+         */
+        Administrator  security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == true) {
+            security.allowAccess();
         } else {
-            admin.denyAccess();
+            security.denyAccess();
         }
+        model.addAttribute("admin", security.getAccess());
 
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
@@ -164,7 +155,6 @@ public class ContentController {
         model.addAttribute("slogan", SettingsDAO.siteSlogan());
         model.addAttribute("url", SettingsDAO.siteURL());
         model.addAttribute("comments", comments);
-        model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
         model.addAttribute("content", content);
         model.addAttribute("more", more);
@@ -252,15 +242,10 @@ public class ContentController {
 
         String html;
 
-        html = "<h1>\n" +
-                "    <img alt=\"Image\" class=\"left\" src=\"/resources/images/nopic.png\"/>\n" +
-                "    Title\n" +
-                "</h1>\n" +
+        html = "<h1>Title</h1>\n" +
                 "<hr />\n" +
                 "<h3>SubTitle</h3>\n" +
-                "<p>\n" +
-                "    Content\n" +
-                "</p>";
+                "<p>Content</p>";
 
         ContentDAO.addPost(html, null, "welcome-test-post", locale);
 

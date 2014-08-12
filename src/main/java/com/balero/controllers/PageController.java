@@ -94,26 +94,16 @@ public class PageController {
         String background = "eternity.png";
         model.addAttribute("background", background);
 
-        Administrator admin = new Administrator();
-        if(!baleroAdmin.equals("init")) {
-            // Set credentials
-            String[] credentials = baleroAdmin.split(":");
-
-            // Extract cookie credentials
-            admin.setLocalUsername(credentials[0]);
-            admin.setLocalPassword(credentials[1]);
-
-            List<Users> users = UsersDAO.administrator();
-
-            for(Users obj: users) {
-                admin.setRemoteUsername(obj.getUsername());
-                admin.setRemotePassword(obj.getPassword());
-            }
-
-            admin.allowAccess();
+        /**
+         * Admin rendering
+         */
+        Administrator  security = new Administrator();
+        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == true) {
+            security.allowAccess();
         } else {
-            admin.denyAccess();
+            security.denyAccess();
         }
+        model.addAttribute("admin", security.getAccess());
 
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
@@ -154,7 +144,6 @@ public class PageController {
         model.addAttribute("sitename", SettingsDAO.siteName());
         model.addAttribute("slogan", SettingsDAO.siteSlogan());
         model.addAttribute("url", SettingsDAO.siteURL());
-        model.addAttribute("admin", admin.getAccess());
         model.addAttribute("files", files);
         model.addAttribute("page", page);
         model.addAttribute("pages", pages);
