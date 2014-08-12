@@ -129,11 +129,11 @@ public class PageController {
          * Variables
          */
 
-        String pathCover =  "../media/default.jpg";
+        String pathCover =  "../webapps/media/default.jpg";
         File defaultCover = new File(pathCover);
 
         if(defaultCover.exists()) {
-            model.addAttribute("defaultCover", pathCover);
+            model.addAttribute("defaultCover", "media/default.jpg");
         } else {
             model.addAttribute("defaultCover", "resources/images/eternity.png");
         }
