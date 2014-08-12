@@ -5,16 +5,6 @@
  * http://www.balerocms.com
  * @author Anibal Gomez <anibalgomez@icloud.com>
  */
-    // Save CKE Editor Content
-    // InTo Server Data
-function content(divName, id) {
-    // Load desktop data
-    var editor = CKEDITOR.instances[divName];
-    var data = editor.getData();
-    // Variable Datas Has Content
-    document.getElementById("dataContainer").value = data;
-    document.getElementById("id").value = id;
-}
 function Content_Click() {
     // Save Div Content into Hidden Field
     var editorTitle = CKEDITOR.instances["editableTitle"];

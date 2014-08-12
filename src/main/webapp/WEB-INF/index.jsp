@@ -160,12 +160,15 @@
 <!-- Container -->
 <div class="container-box">
 
-    <!-- Loop -->
-    <form method="post" action="/post/save" enctype="multipart/form-data">
+    <% int j = 0; %>
         <c:forEach var="p" items="${rows}">
+    <% j++; %>
+
+            <!-- Loop -->
+            <form method="post" action="/post/save/${p.id}" enctype="multipart/form-data">
 
             <% int i = 0; %>
-            <div id="editable-${p.id}" contenteditable="${admin}" class="box" style="background-image: url('/media/backgrounds/${p.file}') ">
+            <div id="editor${p.id}" contenteditable="${admin}" class="box" style="background-image: url('/media/backgrounds/${p.file}') ">
 
                 ${p.content}
 
@@ -216,7 +219,7 @@
                 </c:if>
 
                 <!-- Toolbox -->
-                <button type="submit" class="btn btn-default btn-lg" onclick="javascript:content('editable-${p.id}', '${p.id}')">
+                <button type="submit" class="btn btn-default btn-lg" id="submit${p.id}">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
 
@@ -233,15 +236,26 @@
 
             </div>
 
-        </c:forEach>
+                <input type="hidden" name="dataContainer" class="dataContainer">
+                <script>
+                    $( "#submit${p.id}" ).click(function() {
+                        <c:if test="${mobile == false}">
+                        var data = CKEDITOR.instances.editor${p.id}.getData();
+                        </c:if>
+                        <c:if test="${mobile == true}">
+                        var data =  $("#editor${p.id}").html();
+                        </c:if>
+                        $(".dataContainer").val(data);
+                    });
+                </script>
 
-        <!-- Data Container -->
-        <input type="hidden" name="dataContainer" id="dataContainer">
-        <input type="hidden" name="id" id="id">
-        <input type="hidden" name="code" value="${pageContext.response.locale}">
+                <input type="hidden" name="code" value="${pageContext.response.locale}">
 
-    </form>
-    <!-- /Loop -->
+            </form>
+            <!-- /Loop -->
+
+            </c:forEach>
+
 
 </div>
 
@@ -415,6 +429,19 @@
     <script src="<c:url value="/resources/js/balero-mobile.js" />"></script>
 </c:if>
 <script>
+
+    $("#editable-1").blur(function(){
+
+        alert("editable-1 lost focus");
+
+    });
+
+    function content(divName) {
+        // Load desktop data
+        var editor = CKEDITOR.instances[divName];
+        return editor.getData();
+    }
+
     // Bxslider
     // Load Slider and settiings
     slider = $('.bxslider').bxSlider({

@@ -271,17 +271,34 @@ public class ContentController {
     /**
      *
      * @param id
+     * @param file
      * @param dataContainer
-     * @return String
+     * @param code
+     * @param baleroAdmin
+     * @return
+     * @throws IOException
      */
-    @RequestMapping(value = "/post/save", method = RequestMethod.POST)
-    public String save(@RequestParam(value = "file", required = false) MultipartFile[] file,
-                       @RequestParam("id") String id,
+    @RequestMapping(value = "/post/save/{id}", method = RequestMethod.POST)
+    public String save(@PathVariable("id") int id,
+                       @RequestParam(value = "file", required = false) MultipartFile[] file,
                        @RequestParam("dataContainer") String dataContainer,
-                       @RequestParam("code") String code,
+                       @RequestParam("code") String[] code,
                        @CookieValue(value = "baleroAdmin") String baleroAdmin) throws IOException {
 
-        int intId = Integer.parseInt(id);
+
+
+        logger.debug("First data container: " + dataContainer);
+
+
+        // DB Settings
+        List<Content> content = ContentDAO.findContent(id);
+        String fileSettings = null;
+        for(Content obj: content) {
+            // file setting from database
+            fileSettings = obj.getFile();
+        }
+
+        //int intId = Integer.parseInt(id);
 
         /**
          * Security
@@ -299,9 +316,27 @@ public class ContentController {
 
         try {
 
+            logger.debug("Try...{");
+
             for (int j = 0; j < file.length; j++) {
 
-                if (!file[j].isEmpty()) {
+                logger.debug("file name: " + file[j].getOriginalFilename());
+
+                if(file[j].getOriginalFilename().isEmpty() ||
+                        file[j].getOriginalFilename().equals("") ||
+                        file[j].getOriginalFilename() == null) {
+                    logger.debug("file name is empty");
+                    // Model
+                    ContentDAO.updatePost(id, dataContainer, "fullpost",
+                            "welcome-test-post", code[j], fileSettings);
+                    throw new Exception("Saved without image");
+                }
+
+                logger.debug("For......{");
+
+                logger.debug("Data container value: " + dataContainer);
+
+                if (!file[j].isEmpty() && !dataContainer.isEmpty()) {
 
                     logger.debug("Uploading file... " + file[j]);
                     inputFileName = file[j].getOriginalFilename();
@@ -345,8 +380,8 @@ public class ContentController {
                             stream.close();
 
                             // Model
-                            ContentDAO.updatePost(intId, dataContainer, "fullpost",
-                                    "welcome-test-post", code, inputFileName);
+                            ContentDAO.updatePost(id, dataContainer, "fullpost",
+                                    "welcome-test-post", code[j], inputFileName);
 
                             throw new Exception("Loop: " + j + ":" + i +
                                     " - Data saved And Upload Sucess!");
@@ -360,7 +395,7 @@ public class ContentController {
 
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            logger.debug("Debug error: " + e.getMessage());
 
         }
 

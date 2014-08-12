@@ -35,6 +35,8 @@
 package com.balero.models;
 
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -44,6 +46,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "content")
+@DynamicUpdate
 public class Content {
 
     @Id @GeneratedValue
