@@ -242,10 +242,18 @@ public class ContentController {
 
         String html;
 
-        html = "<h1>Title</h1>\n" +
-                "<hr />\n" +
-                "<h3>SubTitle</h3>\n" +
-                "<p>Content</p>";
+        html = "<h3>Lorem ipsum</h3>\n" +
+                "<p>Lorem Ipsum is text that is commonly used in graphic" +
+                "design typefaces demonstrations or draft design to test the" +
+                "visual design before inserting the final text.</p>\n" +
+                "<p>Although currently has no sources to justify ótesis hip," +
+                "professor of classical philology Richard McClintock says its" +
+                "use dates back to the early printers XVI.1 century Its use in" +
+                "some text editors well known in today has given the new popularity lorem ipsum.</p>\n" +
+                "<p>The text itself no sense, although it is not completely" +
+                "random, but derives from a text by Cicero in Latin language," +
+                "whose words have been removed them syllables or letters." +
+                "The meaning of the text does not matter, since it is just a test demostracióno,</p>\n";
 
         ContentDAO.addPost(html, null, "welcome-test-post", locale);
 
