@@ -132,7 +132,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
-    margin-bottom: 5%;
+    margin-bottom: -10px;
 }
 .comments {
     padding: 10px;
@@ -173,7 +173,7 @@ body {
     padding-right: 2%;
     padding-top: 4%;
     padding-bottom: 1%;
-    margin-top: 10%;
+    margin-top: 0;
     text-align: center;
     color: #000000;
     background-color: #f9f9f9;
@@ -262,4 +262,11 @@ img {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* Small */
+@media(min-width:768px) and (max-width:991px) {
+    #footer {
+        margin-top: 0;
+    }
 }

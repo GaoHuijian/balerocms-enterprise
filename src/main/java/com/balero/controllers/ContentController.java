@@ -78,13 +78,14 @@ public class ContentController {
     private static final Logger logger = Logger.getLogger(LoginController.class);
 
     /**
+     * Show post content
      *
-     * @param baleroAdmin
-     * @param id
-     * @param model
-     * @param more
-     * @param request
-     * @param locale
+     * @param baleroAdmin Administrator cookie
+     * @param id Post ID
+     * @param model MVC Model
+     * @param more bool active or disable link
+     * @param request HTTP Request
+     * @param locale System locale
      * @return
      */
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
@@ -166,12 +167,13 @@ public class ContentController {
     }
 
     /**
+     * Post edit
      *
-     * @param id
-     * @param content
-     * @param full
-     * @param code
-     * @param baleroAdmin
+     * @param id int Post ID
+     * @param content String Post content
+     * @param full String Post full content
+     * @param code String System locale
+     * @param baleroAdmin Cookie administrator
      * @return
      */
     @RequestMapping(value = "/post/edit/{id}", method = RequestMethod.POST)
@@ -181,9 +183,7 @@ public class ContentController {
                            @RequestParam String code,
                            @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
-        /**
-         * Security
-         */
+        // Security
         Administrator security = new Administrator();
         if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
@@ -208,17 +208,17 @@ public class ContentController {
     }
 
     /**
+     * Delete post
      *
-     * @param id
+     * @param id String post ID
+     * @param baleroAdmin Cookie administrato
      * @return
      */
     @RequestMapping(value = "/post/delete", method = RequestMethod.GET)
     public String deleteFull(@RequestParam String id,
                              @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
-        /**
-         * Security
-         */
+        // Security
         Administrator security = new Administrator();
         if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
@@ -232,8 +232,11 @@ public class ContentController {
     }
 
     /**
+     * Add new post
      *
-     * @return String
+     * @param baleroAdmin
+     * @param locale
+     * @return
      */
     @RequestMapping(value = "/post/add", method = RequestMethod.GET)
     public String add(@CookieValue(value = "baleroAdmin") String baleroAdmin,
@@ -269,14 +272,15 @@ public class ContentController {
     }
 
     /**
+     * Save post content
      *
-     * @param id
-     * @param file
-     * @param dataContainer
-     * @param code
-     * @param baleroAdmin
+     * @param id int Post ID
+     * @param file MultipartFile[] file content
+     * @param dataContainer String post content
+     * @param code System locale
+     * @param baleroAdmin Cookie administrato
      * @return
-     * @throws IOException
+     * @throws IOException Stop Loop and show message log
      */
     @RequestMapping(value = "/post/save/{id}", method = RequestMethod.POST)
     public String save(@PathVariable("id") int id,
@@ -406,11 +410,12 @@ public class ContentController {
     }
 
     /**
+     * Add comment
      *
      * @param id
      * @param name
      * @param comment
-     * @return String
+     * @return
      */
     @RequestMapping(value = "/comments/{id}", method = RequestMethod.POST)
     public String addComment(@PathVariable String id,
@@ -427,10 +432,12 @@ public class ContentController {
     }
 
     /**
+     * Delete post
      *
      * @param id
      * @param postId
-     * @return String
+     * @param baleroAdmin
+     * @return
      */
     @RequestMapping(value = "/comments/delete/{id}", method = RequestMethod.GET)
     public String deleteComment(@PathVariable String id,
