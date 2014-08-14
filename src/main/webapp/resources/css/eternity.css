@@ -24,6 +24,7 @@
 }
 .bxslider {
     border: 0;
+    margin-bottom: 0;
 }
 body {
     margin: 0;
@@ -130,7 +131,7 @@ body {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 4%;
+    margin-top: 0;
     margin-bottom: 5%;
 }
 .comments {
