@@ -160,13 +160,11 @@
 
     <!-- Loop -->
     <c:forEach var="p" items="${content}">
-    <form method="post" action="/post/edit">
+    <form method="post" action="/post/edit/${p.id}">
 
-        <div id="editableContent" contenteditable="${admin}">
+        <div id="editableContent" contenteditable="${admin}" class="hidden">
                 ${p.content}
         </div>
-
-        <hr contenteditable="false">
 
         <div id="editableFull" contenteditable="${admin}">
                 ${p.full}
@@ -219,8 +217,10 @@
 
         </c:if>
 
-        <!-- Comments -->
+        <hr contenteditable="false">
+
         <c:forEach var="q" items="${comments}">
+            <!-- Comments -->
                 <div class="bubble">
                     <c:if test="${admin == true}">
                         <div class="pull-right">
@@ -238,7 +238,6 @@
         </c:forEach>
 
         <!-- Data Container -->
-        <input type="hidden" name="id" id="id" value="${p.id}">
         <input type="hidden" name="content" id="content" value="init">
         <input type="hidden" name="full" id="full" value="">
 

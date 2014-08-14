@@ -174,8 +174,8 @@ public class ContentController {
      * @param baleroAdmin
      * @return
      */
-    @RequestMapping(value = "/post/edit", method = RequestMethod.POST)
-    public String editFull(@RequestParam String id,
+    @RequestMapping(value = "/post/edit/{id}", method = RequestMethod.POST)
+    public String editFull(@PathVariable int id,
                            @RequestParam String content,
                            @RequestParam String full,
                            @RequestParam String code,
@@ -189,12 +189,19 @@ public class ContentController {
             return "hacking";
         }
 
+        // DB Settings
+        List<Content> dbcontent = ContentDAO.findContent(id);
+        String fileSettings = null;
+        for(Content obj: dbcontent) {
+            // file setting from database
+            fileSettings = obj.getFile();
+        }
+
         if(full.isEmpty()) {
             full = "";
         }
 
-        int intId = Integer.parseInt(id);
-        ContentDAO.updatePost(intId, content, full, "welcome-test-post-slug", code, null);
+        ContentDAO.updatePost(id, content, full, "welcome-test-post-slug", code, fileSettings);
 
         return "redirect:/post/" + id;
 
@@ -286,9 +293,11 @@ public class ContentController {
         // DB Settings
         List<Content> content = ContentDAO.findContent(id);
         String fileSettings = null;
+        String full = null;
         for(Content obj: content) {
             // file setting from database
             fileSettings = obj.getFile();
+            full = obj.getFull();
         }
 
         //int intId = Integer.parseInt(id);
@@ -320,7 +329,7 @@ public class ContentController {
                         file[j].getOriginalFilename() == null) {
                     logger.debug("file name is empty");
                     // Model
-                    ContentDAO.updatePost(id, dataContainer, "fullpost",
+                    ContentDAO.updatePost(id, dataContainer, full,
                             "welcome-test-post", code[j], fileSettings);
                     throw new Exception("Saved without image");
                 }
@@ -373,7 +382,7 @@ public class ContentController {
                             stream.close();
 
                             // Model
-                            ContentDAO.updatePost(id, dataContainer, "fullpost",
+                            ContentDAO.updatePost(id, dataContainer, full,
                                     "welcome-test-post", code[j], inputFileName);
 
                             throw new Exception("Loop: " + j + ":" + i +

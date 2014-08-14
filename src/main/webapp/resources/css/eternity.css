@@ -183,6 +183,9 @@ body {
     border-left: 0;
     border-right: 0;
 }
+.hidden {
+    visibility: hidden;
+}
 .inverse {
     margin-top: -40px;
     background-color: #222222;
