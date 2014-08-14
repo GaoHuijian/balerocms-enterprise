@@ -162,11 +162,11 @@
     <c:forEach var="p" items="${content}">
     <form method="post" action="/post/edit/${p.id}">
 
-        <div id="editableContent" contenteditable="${admin}" class="hidden">
+        <div id="editor1" contenteditable="${admin}" class="hidden">
                 ${p.content}
         </div>
 
-        <div id="editableFull" contenteditable="${admin}">
+        <div id="editor2" contenteditable="${admin}">
                 ${p.full}
             <c:if test="${more == 1}">
                 (Full Post...)
@@ -207,7 +207,7 @@
             <p></p>
 
             <!-- Toolbox -->
-            <button type="submit" class="btn btn-default btn-lg" onclick="Full_Click()">
+            <button type="submit" class="btn btn-default btn-lg" id="submit">
                 <span class="glyphicon glyphicon-floppy-disk"></span>
             </button>
 
@@ -238,8 +238,22 @@
         </c:forEach>
 
         <!-- Data Container -->
-        <input type="hidden" name="content" id="content" value="init">
-        <input type="hidden" name="full" id="full" value="">
+        <input type="hidden" name="content" class="content" value="init">
+        <input type="hidden" name="full" class="full" value="">
+        <script>
+            $( "#submit" ).click(function() {
+                <c:if test="${mobile == false}">
+                var datacontent = CKEDITOR.instances.editor1.getData();
+                var datafull = CKEDITOR.instances.editor2.getData();
+                </c:if>
+                <c:if test="${mobile == true}">
+                var datacontent =  $("#editor1").html();
+                var datafull =  $("#editor2").html();
+                </c:if>
+                $(".content").val(datacontent);
+                $(".full").val(datafull);
+            });
+        </script>
 
     </form>
 

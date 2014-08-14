@@ -16,17 +16,6 @@ function Content_Click() {
     document.getElementById("name").value = dataTitle;
     document.getElementById("content").value = dataContent;
 }
-function Full_Click() {
-    // Save Div Content into Hidden Field
-    var editorContent = CKEDITOR.instances["editableContent"];
-    // CKE Editor Method
-    var dataContent = editorContent.getData();
-    var editorFull = CKEDITOR.instances["editableFull"];
-    // CKE Editor Method
-    var dataFull = editorFull.getData();
-    document.getElementById("content").value = dataContent;
-    document.getElementById("full").value = dataFull;
-}
 // Footer container
 function footer(fid) {
     // Save Div Content into Hidden Field
