@@ -158,15 +158,16 @@
 
 <div class="container">
 
-    <!-- Loop -->
-    <form method="post" action="/page/edit">
         <c:forEach var="p" items="${page}">
 
-            <h1 id="editableTitle" contenteditable="${admin}">
+            <!-- Loop -->
+            <form method="post" action="/page/edit/${p.id}">
+
+            <h1 id="editor1" contenteditable="${admin}">
                     ${p.name}
             </h1>
 
-            <div id="editableContent" contenteditable="${admin}">
+            <div id="editor2" contenteditable="${admin}">
                     ${p.content}
             </div>
 
@@ -204,7 +205,7 @@
                 <p></p>
 
                 <!-- Toolbox -->
-                <button type="submit" class="btn btn-default btn-lg" onclick="Content_Click()">
+                <button type="submit" class="btn btn-default btn-lg" id="submit">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
 
@@ -215,9 +216,22 @@
             </c:if>
 
             <!-- Data Container -->
-            <input type="hidden" name="id" id="id" value="${p.id}">
-            <input type="hidden" name="name" id="name" value="init">
-            <input type="hidden" name="content" id="content" value="init">
+            <input type="hidden" name="name" class="name" value="init">
+            <input type="hidden" name="content" class="content" value="init">
+                <script>
+                    $( "#submit" ).click(function() {
+                        <c:if test="${mobile == false}">
+                        var datatitle = CKEDITOR.instances.editor1.getData();
+                        var datacontent = CKEDITOR.instances.editor2.getData();
+                        </c:if>
+                        <c:if test="${mobile == true}">
+                        var datatitle =  $("#editor1").html();
+                        var datacontent =  $("#editor2").html();
+                        </c:if>
+                        $(".name").val(datatitle);
+                        $(".content").val(datacontent);
+                    });
+                </script>
 
         </c:forEach>
     </form>

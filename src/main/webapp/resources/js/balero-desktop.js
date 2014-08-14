@@ -5,17 +5,6 @@
  * http://www.balerocms.com
  * @author Anibal Gomez <anibalgomez@icloud.com>
  */
-function Content_Click() {
-    // Save Div Content into Hidden Field
-    var editorTitle = CKEDITOR.instances["editableTitle"];
-    // CKE Editor Method
-    var dataTitle = editorTitle.getData();
-    var editorContent = CKEDITOR.instances["editableContent"];
-    // CKE Editor Method
-    var dataContent = editorContent.getData();
-    document.getElementById("name").value = dataTitle;
-    document.getElementById("content").value = dataContent;
-}
 // Footer container
 function footer(fid) {
     // Save Div Content into Hidden Field

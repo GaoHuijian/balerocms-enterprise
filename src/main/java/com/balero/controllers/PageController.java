@@ -153,8 +153,8 @@ public class PageController {
 
     }
 
-    @RequestMapping(value = "/page/edit", method = RequestMethod.POST)
-    public String editPage(@RequestParam String id,
+    @RequestMapping(value = "/page/edit/{id}", method = RequestMethod.POST)
+    public String editPage(@PathVariable int id,
                            @RequestParam String name,
                            @RequestParam String content,
                            @RequestParam String code,
@@ -174,19 +174,22 @@ public class PageController {
             name = "(No Title)";
         }
 
-        int intId = Integer.parseInt(id);
+        // Slugify
         String slug = InitSlugifyTag.getSlugify().slugify(name);
 
         ResourceBundle messages =
                 ResourceBundle.getBundle("messages", locale);
 
+        String view = null;
         try {
-            PagesDAO.updatePage(intId, name, content, slug, code);
+            PagesDAO.updatePage(id, name, content, slug, code);
+            view = "redirect:/page/" + slug;
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", messages.getString("label.page.slugerror"));
+            view = "redirect:/";
         }
 
-        return "redirect:/";
+        return view;
 
     }
 
