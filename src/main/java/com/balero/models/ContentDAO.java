@@ -178,7 +178,7 @@ public class ContentDAO {
 
         title = StringUtils.substringBetween(postitle, "<h3>", "</h3>");
 
-        while(title == null) {
+        if(title == null) {
             title = StringUtils.substringBetween(postitle, "<p>", "</p>");
         }
 
