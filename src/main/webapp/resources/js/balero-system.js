@@ -1,10 +1,20 @@
 /**
  * Balero CMS JavaScript
- * Desktop System File
+ * Application System File
  *
  * http://www.balerocms.com
  * @author Anibal Gomez <anibalgomez@icloud.com>
  */
+// Getting Slider Algorithm
+function getSlider() {
+    var current = slider.getCurrentSlide();
+    document.getElementById("sliderContainer").value = current;
+}
+// Getting Default Slider Algorithm
+function getDefaultSlider() {
+    var current = slider.getCurrentSlide();
+    document.getElementById("defaultSliderContainer").value = current;
+}
 // Footer container
 function footer(fid) {
     // Save Div Content into Hidden Field
@@ -15,14 +25,10 @@ function footer(fid) {
     document.getElementById("fContainer").value = data;
     document.getElementById("fid").value = fid;
 }
-function getSlider() {
-    var current = slider.getCurrentSlide();
-    document.getElementById("sliderContainer").value = current;
-}
-function getDefaultSlider() {
-    var current = slider.getCurrentSlide();
-    document.getElementById("defaultSliderContainer").value = current;
-}
+/*
+ * JAVASCRIPT LOGIC SYSTEM
+ * DOT NOT EDIT THIS LINES
+ */
 // Hide and show Site Name because slider
 // divs are disabled When menu's show,
 // so it will fix the issue

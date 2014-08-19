@@ -131,7 +131,7 @@
                     <span class="glyphicon glyphicon-upload"></span>
                 </button>
                 <!-- Submit -->
-                <button type="submit" class="btn btn-default btn-lg inverse" onclick="javascript:getSlider()">
+                <button type="submit" class="btn btn-default btn-lg inverse" onclick="getSlider()">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
                 <!-- Data Container -->
@@ -141,7 +141,7 @@
             <!-- Save Cover -->
             <form method="post" action="/upload/save" class="pull-right">
                 <!-- Edit header background (Modal) -->
-                <button type="submit" class="btn btn-default btn-lg inverse" onclick="javascript:getDefaultSlider()">
+                <button type="submit" class="btn btn-default btn-lg inverse" onclick="getDefaultSlider()">
                     <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
                 <!--Container -->
@@ -247,7 +247,7 @@
             <c:if test="${admin == true}">
                 <form method="post" action="/footer">
                     <div class="pull-right">
-                        <button type="submit" class="btn btn-default btn-sm" onclick="javascript:footer('${p.id}')">
+                        <button type="submit" class="btn btn-default btn-sm" onclick="footer('${p.id}')">
                             <span class="glyphicon glyphicon-floppy-disk"></span>
                         </button>
                         <!-- Footer Hidden Container -->
@@ -402,12 +402,7 @@
     </div>
 </div>
 
-<c:if test="${mobile == false}">
-    <script src="<c:url value="/resources/js/balero-desktop.js" />"></script>
-</c:if>
-<c:if test="${mobile == true}">
-    <script src="<c:url value="/resources/js/balero-mobile.js" />"></script>
-</c:if>
+<script src="<c:url value="/resources/js/balero-system.js" />"></script>
 <script>
     // Bxslider
     // Load Slider and settiings

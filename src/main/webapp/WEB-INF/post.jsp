@@ -444,12 +444,7 @@
     </div>
 </div>
 
-<c:if test="${mobile == false}">
-    <script src="<c:url value="/resources/js/balero-desktop.js" />"></script>
-</c:if>
-<c:if test="${mobile == true}">
-    <script src="<c:url value="/resources/js/balero-mobile.js" />"></script>
-</c:if>
+<script src="<c:url value="/resources/js/balero-system.js" />"></script>
 <script>
     // Bxslider
     // Load Slider and settiings
