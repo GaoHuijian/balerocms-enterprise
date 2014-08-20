@@ -35,6 +35,11 @@ Under development
 
 * balerocms.com
 
+DEMO
+=====
+
+[DEMO VIDEO](https://www.youtube.com/watch?v=1HBgYNz5QXI)
+
 Under development with ntelliJ IDE Ultimate
 ===========================================
 
