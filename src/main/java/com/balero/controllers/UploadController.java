@@ -289,6 +289,13 @@ public class UploadController {
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         File[] fList = listFilesUtil.listFilesInArray();
 
+        if(sliderContainerToInt == 0) {
+            // Delete Default File
+            File fileDefault = new File("../webapps/media/"
+                    + File.separator + "default.jpg");
+            fileDefault.delete();
+        }
+
         for (File file : fList){
             i++;
             if (sliderContainerToInt == i) {

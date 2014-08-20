@@ -127,11 +127,11 @@
 
             <form method="post" action="/upload/remove" class="pull-right">
                 <!-- Edit header background (Modal) -->
-                <button type="button" class="btn btn-default btn-lg inverse" data-toggle="modal" data-target="#UploadModal">
+                <button type="button" class="btn btn-primary btn-lg inverse" data-toggle="modal" data-target="#UploadModal">
                     <span class="glyphicon glyphicon-upload"></span>
                 </button>
-                <!-- Submit -->
-                <button type="submit" class="btn btn-default btn-lg inverse" onclick="getSlider()">
+                <!-- Remove -->
+                <button type="submit" class="btn btn-danger btn-lg inverse" onclick="getSlider()">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
                 <!-- Data Container -->
