@@ -284,26 +284,36 @@
 <!-- Footer -->
 <div id="footer">
 
-        <c:forEach var="p" items="${footer}">
+    <c:forEach var="p" items="${footer}">
 
-            <c:if test="${admin == true}">
-                <form method="post" action="/footer">
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-default btn-sm" onclick="javascript:footer('${p.id}')">
-                            <span class="glyphicon glyphicon-floppy-disk"></span>
-                        </button>
-                        <!-- Footer Hidden Container -->
-                        <input type="hidden" name="fContainer" id="fContainer">
-                        <input type="hidden" name="fid" id="fid">
-                    </div>
-                </form>
-            </c:if>
+        <c:if test="${admin == true}">
+            <form method="post" action="/footer">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-default btn-sm" id="savefooter">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                    <!-- Footer Hidden Container -->
+                    <input type="hidden" name="fContainer" id="fContainer">
+                    <script>
+                        $( "#savefooter" ).click(function() {
+                            <c:if test="${mobile == false}">
+                            var footerdata = CKEDITOR.instances.editorfooter.getData();
+                            </c:if>
+                            <c:if test="${mobile == true}">
+                            var footerdata =  $("#editorfooter").html();
+                            </c:if>
+                            $("#fContainer").val(footerdata);
+                        });
+                    </script>
+                </div>
+            </form>
+        </c:if>
 
-            <div id="editable-footer" contenteditable="${admin}">
+        <div id="editorfooter" contenteditable="${admin}">
                 ${p.content}
-            </div>
+        </div>
 
-        </c:forEach>
+    </c:forEach>
 
 </div>
 <!-- /Footer -->

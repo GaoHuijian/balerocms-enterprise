@@ -267,17 +267,27 @@
             <c:if test="${admin == true}">
                 <form method="post" action="/footer">
                     <div class="pull-right">
-                        <button type="submit" class="btn btn-default btn-sm" onclick="footer('${p.id}')">
+                        <button type="submit" class="btn btn-default btn-sm" id="savefooter">
                             <span class="glyphicon glyphicon-floppy-disk"></span>
                         </button>
                         <!-- Footer Hidden Container -->
                         <input type="hidden" name="fContainer" id="fContainer">
-                        <input type="hidden" name="fid" id="fid">
+                        <script>
+                            $( "#savefooter" ).click(function() {
+                                <c:if test="${mobile == false}">
+                                var footerdata = CKEDITOR.instances.editorfooter.getData();
+                                </c:if>
+                                <c:if test="${mobile == true}">
+                                var footerdata =  $("#editorfooter").html();
+                                </c:if>
+                                $("#fContainer").val(footerdata);
+                            });
+                        </script>
                     </div>
                 </form>
             </c:if>
 
-            <div id="editable-footer" contenteditable="${admin}">
+            <div id="editorfooter" contenteditable="${admin}">
                 ${p.content}
             </div>
 
@@ -424,19 +434,6 @@
 
 <script src="<c:url value="/resources/js/balero-system.js" />"></script>
 <script>
-
-    $("#editable-1").blur(function(){
-
-        alert("editable-1 lost focus");
-
-    });
-
-    function content(divName) {
-        // Load desktop data
-        var editor = CKEDITOR.instances[divName];
-        return editor.getData();
-    }
-
     // Bxslider
     // Load Slider and settiings
     slider = $('.bxslider').bxSlider({

@@ -63,7 +63,7 @@ public class FooterDAO {
     }
 
     @Transactional
-    public void updateFooter(int fid, String fContainer, String lang) {
+    public void updateFooter(int fid, String fContainer) {
         Session session = sessionFactory.openSession();
         Footer footer = new Footer();
         footer.setId(fid);

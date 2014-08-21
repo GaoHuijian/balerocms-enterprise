@@ -56,9 +56,7 @@ public class FooterController {
     private com.balero.models.FooterDAO FooterDAO;
 
     @RequestMapping(method = RequestMethod.POST)
-    public String save(HttpServletRequest request,
-            @RequestParam("fid") String id,
-            @RequestParam("fContainer") String dataContainer,
+    public String save(@RequestParam("fContainer") String dataContainer,
             @CookieValue(value = "baleroAdmin") String baleroAdmin)  {
 
         /**
@@ -69,8 +67,7 @@ public class FooterController {
             return "hacking";
         }
 
-        int intId = Integer.parseInt(id);
-        FooterDAO.updateFooter(intId, dataContainer, "en");
+        FooterDAO.updateFooter(1, dataContainer);
 
         return "redirect:/";
 
