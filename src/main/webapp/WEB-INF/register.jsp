@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${sitename} - <spring:message code="label.title" /></title>
+    <title>${title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="author" content="Anibal Gomez">
     <!-- Bootstrap core CSS -->
@@ -35,17 +35,15 @@
 <!-- Slider Headers -->
 <ul class="bxslider">
 
-    <li><img src="<c:url value="/" />${defaultCover}" border="0"></li>
+    <li><img src="<c:url value="/" />${defaultCover}"></li>
 
     <c:if test="${auth == true}">
         <!-- /media/uploads/ -->
         ${files}
     </c:if>
-
 </ul>
 <!-- /Slider Headers -->
 
-<!-- Menu -->
 <div class="menu">
 
     <nav class="navbar navbar-inverse" role="navigation">
@@ -71,7 +69,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <div class="modal-body">
                                 <p class="message-center">
-                                ${message}
+                                        ${message}
                                 </p>
                             </div>
                             <div class="modal-footer">
@@ -103,7 +101,7 @@
                                 <li class="divider"></li>
                                 <li><a href="#" id="settings" data-toggle="modal" data-target="#SettingsModal"><spring:message code="label.settings" /></a></li>
                                 <li class="divider"></li>
-                                <li><a href="/logout" id="logout"><spring:message code="label.logout" /> (${username})</a></li>
+                                <li><a href="/logout" id="logout"><spring:message code="label.logout" /></a></li>
                             </ul>
                         </li>
 
@@ -143,7 +141,7 @@
             <!-- Save Cover -->
             <form method="post" action="/upload/save" class="pull-right">
                 <!-- Edit header background (Modal) -->
-                <button type="submit" class="btn btn-default btn-lg inverse" onclick="getDefaultSlider()">
+                <button type="submit" class="btn btn-default btn-lg inverse" onclick="javascript:getDefaultSlider()">
                     <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
                 <!--Container -->
@@ -158,141 +156,83 @@
 
 </div>
 
-<!-- Container -->
-<div class="container-box">
+<div class="container">
 
-    <% int j = 0; %>
-        <c:forEach var="p" items="${rows}">
-    <% j++; %>
-
-            <!-- Loop -->
-            <form method="post" action="/post/save/${p.id}" enctype="multipart/form-data">
-
-            <% int i = 0; %>
-            <div id="editor${p.id}" contenteditable="${auth}" class="box" style="background-image: url('/media/backgrounds/${p.file}') ">
-
-                ${p.content}
-
-                <c:if test="${not empty p.full && auth != true}">
-                    <!-- Read More -->
-                    <a href="/post/${p.id}" class="badge badge-info">More...</a>
-                </c:if>
-
-                <c:forEach var="q" items="${comments}">
-                    <c:if test="${q.postId == p.id}">
-                        <%
-                            // Total comments
-                            i++;
-                            application.setAttribute("i", i);
-                        %>
-                    </c:if>
-                </c:forEach>
-
+    <!-- Register Form -->
+    <form method="post" class="form-horizontal" role="form" action="/users/register">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="username">
             </div>
-
-            <div class="box">
-
-            <!-- Code Lang -->
-            <a href="/post/${p.id}" class="pull-right">
-                <span class="badge badge-info">
-                    ${p.locale}
-                 </span>
-            </a>
-
-            <!-- Comments -->
-            <a href="/post/${p.id}" class="pull-right">
-                <span class="badge badge-info glyphicon glyphicon-comment">
-                    <%= i%>
-                </span>
-            </a>
-
-            <c:if test="${auth == true}">
-
-                <c:if test="${empty p.full}">
-                    <a href="/post/${p.id}?more=1" class="badge badge-info pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-                </c:if>
-                <c:if test="${not empty p.full}">
-                        <a href="/post/${p.id}?more=0" class="badge badge-info pull-right">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                </c:if>
-
-                <!-- Toolbox -->
-                <button type="submit" class="btn btn-default btn-lg" id="submit${p.id}">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                </button>
-
-                <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-
-                <div class="fileUpload btn btn-primary">
-                    <span class="glyphicon glyphicon-upload"></span>
-                    <input type="file" name="file" class="upload" />
-                </div>
-
-            </c:if>
-
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" name="password">
             </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="lastname" name="lastname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Register</button>
+            </div>
+        </div>
+    </form>
+    <!-- /Register Form -->
 
-                <input type="hidden" name="dataContainer" class="dataContainer">
-                <script>
-                    $( "#submit${p.id}" ).click(function() {
-                        <c:if test="${mobile == false}">
-                        var data = CKEDITOR.instances.editor${p.id}.getData();
-                        </c:if>
-                        <c:if test="${mobile == true}">
-                        var data =  $("#editor${p.id}").html();
-                        </c:if>
-                        $(".dataContainer").val(data);
-                    });
-                </script>
-
-                <input type="hidden" name="code" value="${pageContext.response.locale}">
-
-            </form>
-            <!-- /Loop -->
-
-            </c:forEach>
-
-
-</div>
+</div><!-- Container -->
 
 <!-- Footer -->
 <div id="footer">
 
-        <c:forEach var="p" items="${footer}">
+    <c:forEach var="p" items="${footer}">
 
-            <c:if test="${auth == true}">
-                <form method="post" action="/footer">
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-default btn-sm" id="savefooter">
-                            <span class="glyphicon glyphicon-floppy-disk"></span>
-                        </button>
-                        <!-- Footer Hidden Container -->
-                        <input type="hidden" name="fContainer" id="fContainer">
-                        <script>
-                            $( "#savefooter" ).click(function() {
-                                <c:if test="${mobile == false}">
-                                var footerdata = CKEDITOR.instances.editorfooter.getData();
-                                </c:if>
-                                <c:if test="${mobile == true}">
-                                var footerdata =  $("#editorfooter").html();
-                                </c:if>
-                                $("#fContainer").val(footerdata);
-                            });
-                        </script>
-                    </div>
-                </form>
-            </c:if>
+        <c:if test="${auth == true}">
+            <form method="post" action="/footer">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-default btn-sm" id="savefooter">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                    <!-- Footer Hidden Container -->
+                    <input type="hidden" name="fContainer" id="fContainer">
+                    <script>
+                        $( "#savefooter" ).click(function() {
+                            <c:if test="${mobile == false}">
+                            var footerdata = CKEDITOR.instances.editorfooter.getData();
+                            </c:if>
+                            <c:if test="${mobile == true}">
+                            var footerdata =  $("#editorfooter").html();
+                            </c:if>
+                            $("#fContainer").val(footerdata);
+                        });
+                    </script>
+                </div>
+            </form>
+        </c:if>
 
-            <div id="editorfooter" contenteditable="${auth}">
+        <div id="editorfooter" contenteditable="${auth}">
                 ${p.content}
-            </div>
+        </div>
 
-        </c:forEach>
+    </c:forEach>
 
 </div>
 <!-- /Footer -->
@@ -304,26 +244,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" action="/login">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <a href="/users/register" class="pull-right"><spring:message code="label.login.register" /></a>
-                <br>
-                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.login.title" /></h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="inputUsername"><spring:message code="label.login.user" /></label>
-                    <input type="text" name="inputUsername" class="form-control" id="inputUsername">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><spring:message code="label.login.title" /></h4>
                 </div>
-                <div class="form-group">
-                    <label for="inputPassword"><spring:message code="label.login.pass" /></label>
-                    <input type="password" name="inputPassword" class="form-control" id="inputPassword">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputUsername"><spring:message code="label.login.user" /></label>
+                        <input type="text" name="inputUsername" class="form-control" id="inputUsername">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword"><spring:message code="label.login.pass" /></label>
+                        <input type="password" name="inputPassword" class="form-control" id="inputPassword">
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
-                <button type="submit" class="btn btn-primary"><spring:message code="label.login" /></button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
+                    <button type="submit" class="btn btn-primary"><spring:message code="label.login" /></button>
+                </div>
             </form>
         </div>
     </div>
@@ -333,29 +271,29 @@
 <div class="modal fade" id="UploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form method="post" action="/upload" enctype="multipart/form-data">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.upload.title" /></h4>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><spring:message code="label.upload.title" /></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="file" name="file">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
+                    <button type="input" class="btn btn-primary"><spring:message code="label.upload.btn" /></button>
+                </div>
             </div>
-            <div class="modal-body">
-                <input type="file" name="file">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="show-site-name" data-dismiss="modal"><spring:message code="label.btn.close" /></button>
-                <button type="input" class="btn btn-primary"><spring:message code="label.upload.btn" /></button>
-            </div>
-            </div>
-         </form>
-        </div>
+        </form>
     </div>
+</div>
 </div>
 
 <!-- Add Page Modal -->
 <div class="modal fade" id="NewPageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/page/new" accept-charset="ISO-8859-1">
+            <form method="post" action="/page/new">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel"><spring:message code="label.page.new" /></h4>

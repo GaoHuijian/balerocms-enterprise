@@ -38,16 +38,16 @@ package com.balero.services;
 /**
  * Created by lastprophet on 25/06/14.
  */
-public class Administrator {
-
-    private boolean admin = false;
+public class UsersAuth {
 
     private String localUsername = null;
     private String localPassword = null;
     private String remoteUsername = null;
     private String remotePassword = null;
 
-    public boolean isAdmin(String baleroAdmin, String usr, String pwd) {
+    public boolean auth(String baleroAdmin, String usr, String pwd) {
+
+        boolean result = false;
 
         if(!baleroAdmin.equals("init")) {
             // Extract credentials
@@ -64,43 +64,17 @@ public class Administrator {
             setRemoteUsername(usr);
             setRemotePassword(pwd);
 
-            // compare
-            allowAccess();
-        } else {
-            denyAccess();
+            if(getLocalUsername().equals(getRemoteUsername())
+                    && getLocalPassword().equals(getRemotePassword())) {
+                result = true;
+            } else {
+                result = false;
+            }
+
         }
 
-        if(this.admin == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return result;
 
-    }
-
-    /**
-     * Allow access
-     *
-     * @return boolean
-     */
-    public void allowAccess() {
-        if(getLocalUsername().equals(getRemoteUsername())
-                && getLocalPassword().equals(getRemotePassword())) {
-            this.admin = true;
-        }
-    }
-
-    /**
-     * Deny access
-     *
-     * @return boolean
-     */
-    public void denyAccess() {
-       this.admin = false;
-    }
-
-    public boolean getAccess() {
-        return this.admin;
     }
 
     public String getLocalUsername() {

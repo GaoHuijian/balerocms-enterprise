@@ -36,8 +36,7 @@ package com.balero.controllers;
 
 import com.balero.models.Footer;
 import com.balero.models.Pages;
-import com.balero.models.Users;
-import com.balero.services.Administrator;
+import com.balero.services.UsersAuth;
 import com.balero.services.ListFilesUtil;
 import com.balero.services.UAgentInfo;
 import com.github.slugify.InitSlugifyTag;
@@ -95,15 +94,22 @@ public class PageController {
         model.addAttribute("background", background);
 
         /**
-         * Admin rendering
+         * Credentials
          */
-        Administrator  security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == true) {
-            security.allowAccess();
-        } else {
-            security.denyAccess();
+        UsersAuth auth = new UsersAuth();
+        List<com.balero.models.Users> users = UsersDAO.administrator();
+        String username = null;
+        String password = null;
+        for(com.balero.models.Users obj: users) {
+            username = obj.getUsername();
+            password = obj.getPassword();
         }
-        model.addAttribute("admin", security.getAccess());
+        /**
+         * Enable or Disable and
+         * Check if Admin Elements will
+         * be displayed
+         */
+        model.addAttribute("auth", auth.auth(baleroAdmin, username, password));
 
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
@@ -165,8 +171,8 @@ public class PageController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -201,8 +207,8 @@ public class PageController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -223,8 +229,8 @@ public class PageController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 

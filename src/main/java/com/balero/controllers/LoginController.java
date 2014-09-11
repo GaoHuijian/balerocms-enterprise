@@ -59,7 +59,7 @@ import java.util.List;
 @RequestMapping("/login")
 public class LoginController {
 
-    private Boolean admin = false;
+    // Inputs
     private String username = null;
     private String password = null;
 
@@ -96,27 +96,52 @@ public class LoginController {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
 
+        // Inputs
         String inputUsername = request.getParameter("inputUsername");
         String inputPassword = request.getParameter("inputPassword");
 
+        // Debug
         logger.debug("param user: " + request.getParameter("inputUsername"));
         logger.debug("param pwd: " + request.getParameter("inputPassword"));
         logger.debug("cookie: " + baleroAdmin);
 
-       List<Users> users = UsersDAO.administrator();
+        // Init 'Users'
+        List<Users> users;
+        // Case
+        switch (inputUsername) {
+            // Admin
+            case "admin":
+                users = UsersDAO.administrator();
+                break;
+
+            // Users
+                default:
+                    users = UsersDAO.user();
+        }
+
+        // Catch unregistered user
+        try {
+            if(users.isEmpty()) {
+                throw new Exception("User do not exists!.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+            return "redirect:/";
+        }
 
        for(Users obj: users) {
+           // Remote
            username = obj.getUsername();
            password = obj.getPassword();
        }
 
-        if((username.equals(inputUsername) && (password.equals(inputPassword)))) {
+        if((username.equals(inputUsername) &&
+                (password.equals(inputPassword)))) {
             // create cookie and set it in response
             Cookie cookie = new Cookie("baleroAdmin", inputUsername + ":" + inputPassword);
             response.addCookie(cookie);
-            admin = true;
+            logger.debug("Cookie Value: " + baleroAdmin);
         } else {
-            admin = false;
             redirectAttributes.addFlashAttribute("message", "Login failed! Wrong credentials.");
         }
 

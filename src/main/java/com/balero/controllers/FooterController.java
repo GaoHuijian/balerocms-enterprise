@@ -34,15 +34,13 @@
 
 package com.balero.controllers;
 
-import com.balero.services.Administrator;
+import com.balero.services.UsersAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -62,8 +60,8 @@ public class FooterController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 

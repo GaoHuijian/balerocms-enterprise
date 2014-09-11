@@ -34,7 +34,7 @@
 
 package com.balero.controllers;
 
-import com.balero.services.Administrator;
+import com.balero.services.UsersAuth;
 import com.balero.services.FileManager;
 import com.balero.services.ListFilesUtil;
 import org.apache.log4j.Logger;
@@ -89,8 +89,8 @@ public class UploadController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -161,8 +161,8 @@ public class UploadController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -236,8 +236,8 @@ public class UploadController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -276,8 +276,8 @@ public class UploadController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -320,8 +320,8 @@ public class UploadController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -352,8 +352,8 @@ public class UploadController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 

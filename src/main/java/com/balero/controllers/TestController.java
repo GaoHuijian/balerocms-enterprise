@@ -35,7 +35,7 @@
 package com.balero.controllers;
 
 import com.balero.models.Test;
-import com.balero.services.Administrator;
+import com.balero.services.UsersAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,8 +77,8 @@ public class TestController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -93,8 +93,8 @@ public class TestController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 

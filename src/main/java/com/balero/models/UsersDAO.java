@@ -101,6 +101,13 @@ public class UsersDAO {
     }
 
     @Transactional
+    public List<Users> user() {
+        Session session = sessionFactory.getCurrentSession();
+        List users = session.createQuery("from Users where auth = 'user'").list();
+        return users;
+    }
+
+    @Transactional
     public void administratorCredentials(String password) {
         Session session = sessionFactory.getCurrentSession();
         Users users = new Users();
@@ -109,6 +116,22 @@ public class UsersDAO {
         users.setPassword(password);
         users.setAuth("god");
         session.update(users);
+        session.flush();
+    }
+
+    @Transactional
+    public void register(String username, String password,
+                         String name, String lastname,
+                         String email) {
+        Session session = sessionFactory.getCurrentSession();
+        Users users = new Users();
+        users.setUsername(username);
+        users.setPassword(password);
+        users.setName(name);
+        users.setLastname(lastname);
+        users.setEmail(email);
+        users.setAuth("user");
+        session.save(users);
         session.flush();
     }
 

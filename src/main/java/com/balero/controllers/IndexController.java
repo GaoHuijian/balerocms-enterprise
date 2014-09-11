@@ -35,9 +35,7 @@
 package com.balero.controllers;
 
 import com.balero.models.*;
-import com.balero.services.Administrator;
-import com.balero.services.ListFilesUtil;
-import com.balero.services.UAgentInfo;
+import com.balero.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,6 +73,9 @@ public class IndexController {
 
     private static final Logger logger = Logger.getLogger(LoginController.class);
 
+    private String username = "Anonymous";
+    private String password = null;
+
     /**
      * Front-end Main Controller
      *
@@ -97,22 +98,57 @@ public class IndexController {
         String background = "eternity.png";
 		model.addAttribute("background", background);
 
-        Administrator admin = new Administrator();
-        List<Users> users = UsersDAO.administrator();
+        /**
+         * Credentials
+         */
+        UsersAuth auth = new UsersAuth();
+        String localUsername = null;
+        String localPassword = null;
+        if(!baleroAdmin.equals("init")) {
+            String[] credentials = baleroAdmin.split(":");
+            localUsername = credentials[0];
+            localPassword = credentials[1];
+        }
+        /**
+         * User Levels
+         */
+        List<com.balero.models.Users> users;
 
-        String username = null;
-        String password = null;
+        try {
+            if(localUsername.equals("") || localUsername.equals("init")) {
+                throw new Exception();
+            }
+            switch (localUsername) {
+                case "admin":
+                    // Administrator Level
+                    users = UsersDAO.administrator();
+                    break;
 
-        for(Users obj: users) {
-            username = obj.getUsername();
-            password = obj.getPassword();
+                // User Level
+                default:
+                    users = UsersDAO.user();
+            }
+            for(com.balero.models.Users obj: users) {
+                username = obj.getUsername();
+                password = obj.getPassword();
+            }
+            model.addAttribute("auth", auth.auth(baleroAdmin, localUsername, localPassword));
+        } catch (Exception e) {
+            /**
+             * Enable or Disable and
+             * Check if Admin Elements will
+             * be displayed
+             */
+            model.addAttribute("auth", false);
         }
 
+        /**
+         * Rows
+         */
         List<Content> rows;
-        if(admin.isAdmin(baleroAdmin, username, password)) {
+        rows = ContentDAO.findAll(locale);
+        if(auth.auth(baleroAdmin, username, password)) {
             rows = ContentDAO.findAllAdmin();
-        } else {
-            rows = ContentDAO.findAll(locale);
         }
 
         ListFilesUtil listFilesUtil = new ListFilesUtil();
@@ -133,12 +169,6 @@ public class IndexController {
             view = "setup";
         }
 
-        /**
-         * Enable or Disable and
-         * Check if Admin Elements will
-         * be displayed
-         */
-        model.addAttribute("admin", admin.getAccess());
 
         /**
          * System variables
@@ -163,6 +193,7 @@ public class IndexController {
             model.addAttribute("mobile", true);
         }
 
+        model.addAttribute("username", username);
         model.addAttribute("settingsId", SettingsDAO.settingsId());
         model.addAttribute("sitename", SettingsDAO.siteName());
         model.addAttribute("slogan", SettingsDAO.siteSlogan());

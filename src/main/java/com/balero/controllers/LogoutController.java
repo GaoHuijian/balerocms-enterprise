@@ -42,6 +42,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ResourceBundle;
 
 
 /**
@@ -62,7 +63,6 @@ public class LogoutController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String logout(HttpServletResponse response,
-                         Model model,
                          RedirectAttributes redirectAttributes) {
 
         // create cookie and set it in response
@@ -75,7 +75,10 @@ public class LogoutController {
          * how-to-pass-parameters-
          * to-redirect-page-in-spring-mvc
          */
-        redirectAttributes.addFlashAttribute("message", "Success Logout");
+        ResourceBundle bundle = ResourceBundle.getBundle("messages");
+        redirectAttributes.addFlashAttribute("message",
+                bundle.getString("label.login.logout"));
+
         return "redirect:/";
 
     }

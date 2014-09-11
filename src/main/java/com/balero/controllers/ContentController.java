@@ -35,9 +35,8 @@
 package com.balero.controllers;
 
 import com.balero.models.*;
-import com.balero.services.Administrator;
-import com.balero.services.ListFilesUtil;
-import com.balero.services.UAgentInfo;
+import com.balero.services.*;
+import com.balero.services.UsersAuth;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,7 +79,7 @@ public class ContentController {
     /**
      * Show post content
      *
-     * @param baleroAdmin Administrator cookie
+     * @param baleroAdmin Admmin cookie
      * @param id Post ID
      * @param model MVC Model
      * @param more bool active or disable link
@@ -101,15 +100,22 @@ public class ContentController {
         model.addAttribute("background", background);
 
         /**
-         * Admin rendering
+         * Credentials
          */
-        Administrator  security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == true) {
-            security.allowAccess();
-        } else {
-            security.denyAccess();
+        UsersAuth auth = new UsersAuth();
+        List<com.balero.models.Users> users = UsersDAO.administrator();
+        String username = null;
+        String password = null;
+        for(com.balero.models.Users obj: users) {
+            username = obj.getUsername();
+            password = obj.getPassword();
         }
-        model.addAttribute("admin", security.getAccess());
+        /**
+         * Enable or Disable and
+         * Check if Admin Elements will
+         * be displayed
+         */
+        model.addAttribute("auth", auth.auth(baleroAdmin, username, password));
 
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
@@ -184,8 +190,8 @@ public class ContentController {
                            @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
         // Security
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -219,8 +225,8 @@ public class ContentController {
                              @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
         // Security
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -245,8 +251,8 @@ public class ContentController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -309,8 +315,8 @@ public class ContentController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
@@ -447,8 +453,8 @@ public class ContentController {
         /**
          * Security
          */
-        Administrator security = new Administrator();
-        if(security.isAdmin(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        UsersAuth security = new UsersAuth();
+        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
             return "hacking";
         }
 
