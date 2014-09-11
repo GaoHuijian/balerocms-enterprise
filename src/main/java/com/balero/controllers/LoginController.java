@@ -129,20 +129,21 @@ public class LoginController {
             return "redirect:/";
         }
 
-       for(Users obj: users) {
-           // Remote
-           username = obj.getUsername();
-           password = obj.getPassword();
-       }
-
-        if((username.equals(inputUsername) &&
-                (password.equals(inputPassword)))) {
-            // create cookie and set it in response
-            Cookie cookie = new Cookie("baleroAdmin", inputUsername + ":" + inputPassword);
-            response.addCookie(cookie);
-            logger.debug("Cookie Value: " + baleroAdmin);
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Login failed! Wrong credentials.");
+        for (Users obj : users) {
+            // Remote
+            username = obj.getUsername();
+            password = obj.getPassword();
+            // Find register
+            if(username.equals(inputUsername)) {
+                if (password.equals(inputPassword)) {
+                    // create cookie and set it in response
+                    Cookie cookie = new Cookie("baleroAdmin", inputUsername + ":" + inputPassword);
+                    response.addCookie(cookie);
+                    logger.debug("Cookie Value: " + baleroAdmin);
+                } else {
+                    redirectAttributes.addFlashAttribute("message", "Login failed! Wrong password.");
+                }
+            }
         }
 
         return "redirect:/";
