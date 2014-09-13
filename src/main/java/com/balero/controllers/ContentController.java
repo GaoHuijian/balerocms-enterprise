@@ -254,9 +254,10 @@ public class ContentController {
          * Security
          */
         UsersAuth security = new UsersAuth();
-        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        security.setCredentials(baleroAdmin, UsersDAO);
+        if(security.auth(baleroAdmin, security.getLocalUsername(),
+                security.getLocalPassword()) == false)
             return "hacking";
-        }
 
         String html;
 
@@ -273,20 +274,16 @@ public class ContentController {
                 "whose words have been removed them syllables or letters." +
                 "The meaning of the text does not matter, since it is just a test demostracióno,</p>\n";
 
-        UsersAuth auth = new UsersAuth();
-        //auth.init(baleroAdmin); // Sets usr and pwd
+            // ERRROR HTTP 500 NULL (check if error exists)
+            String status = "pending";
+            switch (security.getLocalUsername()) {
+                case "admin":
+                    status = "published";
+                    break;
+            }
 
-        logger.debug("username: " + auth.getLocalUsername());
-
-        String status = "pending";
-        switch (auth.getLocalUsername()) {
-            case "admin":
-                status = "published";
-                break;
-        }
-
-        ContentDAO.addPost(html, null, "welcome-test-post",
-                locale, status);
+            ContentDAO.addPost(html, null, "welcome-test-post",
+                    locale, security.getLocalUsername(), status);
 
         return "redirect:/";
 
@@ -308,10 +305,12 @@ public class ContentController {
                        @RequestParam(value = "file", required = false) MultipartFile[] file,
                        @RequestParam("dataContainer") String dataContainer,
                        @RequestParam("code") String [] code,
-                       @RequestParam("status") String status,
+                       @RequestParam(value = "status", required = false) String status,
                        @CookieValue(value = "baleroAdmin") String baleroAdmin) throws IOException {
 
-
+        if(status == null) {
+            status = "pending";
+        }
 
         logger.debug("First data container: " + dataContainer);
 

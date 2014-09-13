@@ -99,27 +99,28 @@ public class IndexController {
 		model.addAttribute("background", background);
 
         /**
+         * Get Post Rows
+         */
+        List<Content> rows;
+
+        /**
          * Credentials
          */
         UsersAuth auth = new UsersAuth();
         auth.setCredentials(baleroAdmin, UsersDAO);
         if(auth.auth(baleroAdmin, auth.getLocalUsername(), auth.getLocalPassword())) {
+            // Get Post Rows By Author
+            rows = ContentDAO.findAllAuthor(auth.getLocalUsername());
+            // Admin Elements
             model.addAttribute("auth", true);
         } else {
+            // Get Post Rows
+            rows = ContentDAO.findAllUser(locale);
             model.addAttribute("auth", false);
         }
 
         logger.debug("Hierarchy Test: " + auth.getHierarchy());
         model.addAttribute("hierarchy", auth.getHierarchy());
-
-        /**
-         * Rows
-         */
-        List<Content> rows;
-        rows = ContentDAO.findAllUser(locale);
-        if(auth.auth(baleroAdmin, auth.getLocalUsername(), auth.getLocalPassword())) {
-            rows = ContentDAO.findAllAdmin();
-        }
 
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         String files = listFilesUtil.listFiles();
