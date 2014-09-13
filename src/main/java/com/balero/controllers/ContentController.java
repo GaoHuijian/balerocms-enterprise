@@ -187,6 +187,7 @@ public class ContentController {
                            @RequestParam String content,
                            @RequestParam String full,
                            @RequestParam String code,
+                           @RequestParam String author,
                            @RequestParam String status,
                            @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
@@ -209,7 +210,7 @@ public class ContentController {
         }
 
         ContentDAO.updatePost(id, content, full, "welcome-test-post-slug",
-                code, fileSettings, status);
+                code, fileSettings, author, status);
 
         return "redirect:/post/" + id;
 
@@ -305,6 +306,7 @@ public class ContentController {
                        @RequestParam(value = "file", required = false) MultipartFile[] file,
                        @RequestParam("dataContainer") String dataContainer,
                        @RequestParam("code") String [] code,
+                       @RequestParam("author") String author,
                        @RequestParam(value = "status", required = false) String status,
                        @CookieValue(value = "baleroAdmin") String baleroAdmin) throws IOException {
 
@@ -356,7 +358,8 @@ public class ContentController {
                     logger.debug("file name is empty");
                     // Model
                     ContentDAO.updatePost(id, dataContainer, full,
-                            "welcome-test-post", code[j], fileSettings, status);
+                            "welcome-test-post", code[j],
+                            fileSettings, author, status);
                     throw new Exception("Saved without image");
                 }
 
@@ -409,7 +412,8 @@ public class ContentController {
 
                             // Model
                             ContentDAO.updatePost(id, dataContainer, full,
-                                    "welcome-test-post", code[j], inputFileName, status);
+                                    "welcome-test-post", code[j],
+                                    inputFileName, author, status);
 
                             throw new Exception("Loop: " + j + ":" + i +
                                     " - Data saved And Upload Sucess!");

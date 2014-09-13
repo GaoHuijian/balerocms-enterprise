@@ -109,8 +109,16 @@ public class IndexController {
         UsersAuth auth = new UsersAuth();
         auth.setCredentials(baleroAdmin, UsersDAO);
         if(auth.auth(baleroAdmin, auth.getLocalUsername(), auth.getLocalPassword())) {
-            // Get Post Rows By Author
-            rows = ContentDAO.findAllAuthor(auth.getLocalUsername());
+            switch (auth.getLocalUsername()) {
+                case "admin":
+                    // Get Post Rows By All
+                    rows = ContentDAO.findAllAdmin();
+                    break;
+
+                default:
+                    // Get Post Rows By Author
+                    rows = ContentDAO.findAllAuthor(auth.getLocalUsername());
+            }
             // Admin Elements
             model.addAttribute("auth", true);
         } else {

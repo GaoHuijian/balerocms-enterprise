@@ -59,7 +59,6 @@ public class ContentDAO {
      * SELECT * FROM 'content'
      *
      * @return rows
-     * @deprecated findAllAdmin()
      */
     @Transactional
     public List<Content> findAllAdmin() {
@@ -135,7 +134,7 @@ public class ContentDAO {
     @Transactional
     public void updatePost(int id, String postContainer, String fullcontent,
                            String slug, String code, String file,
-                           String status) {
+                           String auhtor, String status) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setId(id);
@@ -144,6 +143,7 @@ public class ContentDAO {
         content.setSlug(slug);
         content.setLocale(code);
         content.setFile(file);
+        content.setAuthor(auhtor);
         content.setStatus(status);
         session.update(content);
         session.flush();

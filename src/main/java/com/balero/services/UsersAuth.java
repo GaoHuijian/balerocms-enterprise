@@ -101,15 +101,9 @@ public class UsersAuth {
                     setHierarchy("admin");
                     break;
 
-                // User Level
-                case "user":
+                default:
                     users = UsersDAO.user();
                     setHierarchy("user");
-                    break;
-
-
-                default:
-                    setHierarchy("anonymous");
             }
 
             /**

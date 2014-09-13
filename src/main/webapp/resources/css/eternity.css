@@ -38,6 +38,14 @@ body {
     padding-bottom: 5%;
     margin-bottom: 10px;
 }
+.box-small {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    height: auto;
+    margin-bottom: 10px;
+    display: inline-block;
+}
 /**
 * Badges
 **/
@@ -204,6 +212,9 @@ img {
 }
 .logo-btn {
     padding-top: 10px;
+}
+.light {
+    color: #b5b5b5;
 }
 .menu {
     padding-top: 10px;

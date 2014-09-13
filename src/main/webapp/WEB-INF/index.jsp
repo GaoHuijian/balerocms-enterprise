@@ -195,6 +195,20 @@
 
             </div>
 
+                <!-- Status -->
+                <c:if test="${hierarchy == 'user'}">
+                    <div class="box-small">
+                        <span class="pull-right label label-danger">${p.status}</span>
+                    </div>
+                </c:if>
+
+                <div class="box-small">
+                    <p class="light pull-right">
+                        Posted by ${p.author}
+                        <input type="hidden" name="author" value="${p.author}">
+                    </p>
+                </div>
+
             <div class="box">
 
             <!-- Code Lang -->
