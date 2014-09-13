@@ -56,7 +56,7 @@ public class UsersAuth {
     private String remoteUsername = null;
     private String remotePassword = null;
 
-    private String hierarchy = "Anonymous";
+    private String hierarchy = "anonymous";
 
     /**
      * Sets username and password (local)

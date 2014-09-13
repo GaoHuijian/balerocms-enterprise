@@ -332,11 +332,10 @@ public class ContentController {
          * Security
          */
         UsersAuth security = new UsersAuth();
-        //security.init(baleroAdmin);
+        security.setCredentials(baleroAdmin, UsersDAO);
         if(security.auth(baleroAdmin, security.getLocalUsername(),
-                security.getLocalPassword()) == false) {
-            return "hacking";
-        }
+                security.getLocalPassword()) == false)
+                    return "hacking";
 
         /**
          * File upload
