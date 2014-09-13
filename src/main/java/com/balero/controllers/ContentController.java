@@ -187,6 +187,7 @@ public class ContentController {
                            @RequestParam String content,
                            @RequestParam String full,
                            @RequestParam String code,
+                           @RequestParam String status,
                            @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
         // Security
@@ -207,7 +208,8 @@ public class ContentController {
             full = "";
         }
 
-        ContentDAO.updatePost(id, content, full, "welcome-test-post-slug", code, fileSettings);
+        ContentDAO.updatePost(id, content, full, "welcome-test-post-slug",
+                code, fileSettings, status);
 
         return "redirect:/post/" + id;
 
@@ -271,7 +273,20 @@ public class ContentController {
                 "whose words have been removed them syllables or letters." +
                 "The meaning of the text does not matter, since it is just a test demostracióno,</p>\n";
 
-        ContentDAO.addPost(html, null, "welcome-test-post", locale);
+        UsersAuth auth = new UsersAuth();
+        //auth.init(baleroAdmin); // Sets usr and pwd
+
+        logger.debug("username: " + auth.getLocalUsername());
+
+        String status = "pending";
+        switch (auth.getLocalUsername()) {
+            case "admin":
+                status = "published";
+                break;
+        }
+
+        ContentDAO.addPost(html, null, "welcome-test-post",
+                locale, status);
 
         return "redirect:/";
 
@@ -292,7 +307,8 @@ public class ContentController {
     public String save(@PathVariable("id") int id,
                        @RequestParam(value = "file", required = false) MultipartFile[] file,
                        @RequestParam("dataContainer") String dataContainer,
-                       @RequestParam("code") String[] code,
+                       @RequestParam("code") String [] code,
+                       @RequestParam("status") String status,
                        @CookieValue(value = "baleroAdmin") String baleroAdmin) throws IOException {
 
 
@@ -316,7 +332,9 @@ public class ContentController {
          * Security
          */
         UsersAuth security = new UsersAuth();
-        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        //security.init(baleroAdmin);
+        if(security.auth(baleroAdmin, security.getLocalUsername(),
+                security.getLocalPassword()) == false) {
             return "hacking";
         }
 
@@ -340,7 +358,7 @@ public class ContentController {
                     logger.debug("file name is empty");
                     // Model
                     ContentDAO.updatePost(id, dataContainer, full,
-                            "welcome-test-post", code[j], fileSettings);
+                            "welcome-test-post", code[j], fileSettings, status);
                     throw new Exception("Saved without image");
                 }
 
@@ -393,7 +411,7 @@ public class ContentController {
 
                             // Model
                             ContentDAO.updatePost(id, dataContainer, full,
-                                    "welcome-test-post", code[j], inputFileName);
+                                    "welcome-test-post", code[j], inputFileName, status);
 
                             throw new Exception("Loop: " + j + ":" + i +
                                     " - Data saved And Upload Sucess!");
@@ -454,7 +472,9 @@ public class ContentController {
          * Security
          */
         UsersAuth security = new UsersAuth();
-        if(security.auth(baleroAdmin, UsersDAO.usrAdmin(), UsersDAO.pwdAdmin()) == false) {
+        //security.init(baleroAdmin);
+        if(security.auth(baleroAdmin, security.getLocalUsername(),
+                security.getLocalPassword()) == false) {
             return "hacking";
         }
 

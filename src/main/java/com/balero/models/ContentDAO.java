@@ -74,12 +74,19 @@ public class ContentDAO {
      * @return rows
      */
     @Transactional
-    public List<Content> findAll(Locale locale) {
+    public List<Content> findAllUser(Locale locale) {
         Session session = sessionFactory.getCurrentSession();
-        List rows = session.createQuery("from Content where locale = '"+ locale.toString() + "'").list();
+        List rows = session.createQuery("from Content where locale = '" +
+                locale.toString() + "' and status = 'published'").list();
         return rows;
     }
 
+    /**
+     * Find by id (More)
+     *
+     * @param id
+     * @return
+     */
     @Transactional
     public List<Content> findContent(int id) {
         Session session = sessionFactory.getCurrentSession();
@@ -94,13 +101,16 @@ public class ContentDAO {
      * @param fullcontent
      */
     @Transactional
-    public void addPost(String postContainer, String fullcontent, String slug, Locale locale) {
+    public void addPost(String postContainer, String fullcontent,
+                        String slug, Locale locale,
+                        String status) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setContent(postContainer);
         content.setFull(fullcontent);
         content.setSlug(slug);
         content.setLocale(locale.toString());
+        content.setStatus(status);
         session.save(content);
         session.flush();
         session.close();
@@ -113,7 +123,9 @@ public class ContentDAO {
      * @param fullcontent
      */
     @Transactional
-    public void updatePost(int id, String postContainer, String fullcontent, String slug, String code, String file) {
+    public void updatePost(int id, String postContainer, String fullcontent,
+                           String slug, String code, String file,
+                           String status) {
         Session session = sessionFactory.openSession();
         Content content = new Content();
         content.setId(id);
@@ -122,6 +134,7 @@ public class ContentDAO {
         content.setSlug(slug);
         content.setLocale(code);
         content.setFile(file);
+        content.setStatus(status);
         session.update(content);
         session.flush();
         session.close();

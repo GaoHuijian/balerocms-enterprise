@@ -94,14 +94,17 @@
                     <c:if test="${auth == true}">
 
                         <li><a href="/post/add" id="add"><span class="glyphicon glyphicon-pencil"></span></a></li>
-                        <li><a href="#" id="new" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
-
+                        <c:if test="${hierarchy == 'admin'}">
+                            <li><a href="#" id="new" data-toggle="modal" data-target="#NewPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
+                        </c:if>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-cog"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#" id="pwdsetup" data-toggle="modal" data-target="#PwdSetupModal"><spring:message code="label.pwd" /></a></li>
                                 <li class="divider"></li>
+                                <c:if test="${hierarchy == 'admin'}">
                                 <li><a href="#" id="settings" data-toggle="modal" data-target="#SettingsModal"><spring:message code="label.settings" /></a></li>
+                                </c:if>
                                 <li class="divider"></li>
                                 <li><a href="/logout" id="logout"><spring:message code="label.logout" /> (${username})</a></li>
                             </ul>
@@ -124,6 +127,7 @@
 <div id="site-name">
 
     <c:if test="${auth == true}">
+        <c:if test="${hierarchy == 'admin'}">
         <!-- Upload And Delete Headers -->
         <div class="pull-right">
 
@@ -151,6 +155,7 @@
             </form>
 
         </div>
+        </c:if>
     </c:if>
 
     <h1><a href="${url}">${sitename}</a></h1>
@@ -220,6 +225,13 @@
                 </c:if>
 
                 <!-- Toolbox -->
+
+                <select class="form-control" name="status">
+                    <option selected value="${p.status}">Status (${p.status})</option>
+                    <option value="published">Published</option>
+                    <option value="pending">Pending</option>
+                </select>
+
                 <button type="submit" class="btn btn-default btn-lg" id="submit${p.id}">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>

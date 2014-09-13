@@ -35,15 +35,99 @@
 package com.balero.services;
 
 
+import com.balero.controllers.LoginController;
+import com.balero.models.Users;
+import com.balero.models.UsersDAO;
+import org.apache.log4j.Logger;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 /**
  * Created by lastprophet on 25/06/14.
  */
 public class UsersAuth {
 
+    private static final Logger logger = Logger.getLogger(LoginController.class);
+
     private String localUsername = null;
     private String localPassword = null;
     private String remoteUsername = null;
     private String remotePassword = null;
+
+    private String hierarchy = "Anonymous";
+
+    /**
+     * Sets username and password (local)
+     *
+     * @param baleroAdmin
+     * @param UsersDAO UsersDAO Object from models. Cant call directly.
+     */
+    public void setCredentials(String baleroAdmin, UsersDAO UsersDAO) {
+        logger.debug("baleroAdmin: " + baleroAdmin);
+        /**
+         * Sets local credentials
+         */
+        if(!baleroAdmin.equals("init")) {
+            String[] credentials = baleroAdmin.split(":");
+            setLocalUsername(credentials[0]);
+            setLocalPassword(credentials[1]);
+        } else {
+            logger.debug("baleroAdmin: empty " + baleroAdmin);
+        }
+
+        logger.debug("local username" + getLocalUsername());
+
+        /**
+         * User Levels
+         */
+        List<Users> users = null;
+
+        logger.debug("Hierarchy: " + getHierarchy());
+        try {
+
+            if(baleroAdmin.equals("init") ||
+                    baleroAdmin.equals("")) {
+                throw new Exception("Empty cookie credentials");
+            }
+
+            // Caution: This part can cause
+            // a null error return
+            switch (getLocalUsername()) {
+                case "admin":
+                    // Administrator Level
+                    users = UsersDAO.administrator();
+                    setHierarchy("admin");
+                    break;
+
+                // User Level
+                case "user":
+                    users = UsersDAO.user();
+                    setHierarchy("user");
+                    break;
+
+
+                default:
+                    setHierarchy("anonymous");
+            }
+
+            /**
+             * Sets remote credentials
+             */
+            for(com.balero.models.Users obj: users) {
+                setRemoteUsername(obj.getUsername());
+                setRemotePassword(obj.getPassword());
+            }
+            logger.debug("remote username: "+ getRemoteUsername());
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage() + baleroAdmin);
+        }
+
+        logger.debug("Hierarchy:" + getHierarchy());
+
+    }
 
     public boolean auth(String baleroAdmin, String usr, String pwd) {
 
@@ -113,4 +197,11 @@ public class UsersAuth {
         this.remotePassword = remotePassword;
     }
 
+    public String getHierarchy() {
+        return hierarchy;
+    }
+
+    public void setHierarchy(String hierarchy) {
+        this.hierarchy = hierarchy;
+    }
 }

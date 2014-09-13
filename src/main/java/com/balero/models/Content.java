@@ -58,6 +58,8 @@ public class Content {
     private String slug;
     private String locale;
     private String file;
+    private String author;
+    private String status;
 
     public long getId() {
         return id;
@@ -99,5 +101,21 @@ public class Content {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -73,7 +73,7 @@ public class IndexController {
 
     private static final Logger logger = Logger.getLogger(LoginController.class);
 
-    private String username = "Anonymous";
+    private String username = null;
     private String password = null;
 
     /**
@@ -102,52 +102,22 @@ public class IndexController {
          * Credentials
          */
         UsersAuth auth = new UsersAuth();
-        String localUsername = null;
-        String localPassword = null;
-        if(!baleroAdmin.equals("init")) {
-            String[] credentials = baleroAdmin.split(":");
-            localUsername = credentials[0];
-            localPassword = credentials[1];
-        }
-        /**
-         * User Levels
-         */
-        List<com.balero.models.Users> users;
-
-        try {
-            if(localUsername.equals("") || localUsername.equals("init")) {
-                throw new Exception();
-            }
-            switch (localUsername) {
-                case "admin":
-                    // Administrator Level
-                    users = UsersDAO.administrator();
-                    break;
-
-                // User Level
-                default:
-                    users = UsersDAO.user();
-            }
-            for(com.balero.models.Users obj: users) {
-                username = obj.getUsername();
-                password = obj.getPassword();
-            }
-            model.addAttribute("auth", auth.auth(baleroAdmin, localUsername, localPassword));
-        } catch (Exception e) {
-            /**
-             * Enable or Disable and
-             * Check if Admin Elements will
-             * be displayed
-             */
+        auth.setCredentials(baleroAdmin, UsersDAO);
+        if(auth.auth(baleroAdmin, auth.getLocalUsername(), auth.getLocalPassword())) {
+            model.addAttribute("auth", true);
+        } else {
             model.addAttribute("auth", false);
         }
+
+        logger.debug("Hierarchy Test: " + auth.getHierarchy());
+        model.addAttribute("hierarchy", auth.getHierarchy());
 
         /**
          * Rows
          */
         List<Content> rows;
-        rows = ContentDAO.findAll(locale);
-        if(auth.auth(baleroAdmin, username, password)) {
+        rows = ContentDAO.findAllUser(locale);
+        if(auth.auth(baleroAdmin, auth.getLocalUsername(), auth.getLocalPassword())) {
             rows = ContentDAO.findAllAdmin();
         }
 
@@ -193,7 +163,7 @@ public class IndexController {
             model.addAttribute("mobile", true);
         }
 
-        model.addAttribute("username", username);
+        model.addAttribute("username", auth.getLocalUsername());
         model.addAttribute("settingsId", SettingsDAO.settingsId());
         model.addAttribute("sitename", SettingsDAO.siteName());
         model.addAttribute("slogan", SettingsDAO.siteSlogan());
