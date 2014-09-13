@@ -226,11 +226,13 @@
 
                 <!-- Toolbox -->
 
+                <c:if test="${hierarchy == 'admin'}">
                 <select class="form-control" name="status">
                     <option selected value="${p.status}">Status (${p.status})</option>
                     <option value="published">Published</option>
                     <option value="pending">Pending</option>
                 </select>
+                </c:if>
 
                 <button type="submit" class="btn btn-default btn-lg" id="submit${p.id}">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
@@ -278,6 +280,7 @@
         <c:forEach var="p" items="${footer}">
 
             <c:if test="${auth == true}">
+                <c:if test="${hierarchy == 'admin'}">
                 <form method="post" action="/footer">
                     <div class="pull-right">
                         <button type="submit" class="btn btn-default btn-sm" id="savefooter">
@@ -298,11 +301,20 @@
                         </script>
                     </div>
                 </form>
+                </c:if>
             </c:if>
 
-            <div id="editorfooter" contenteditable="${auth}">
+            <c:if test="${hierarchy == 'admin'}">
+            <div id="editorfooter" contenteditable="true">
                 ${p.content}
             </div>
+            </c:if>
+
+            <c:if test="${hierarchy == 'user' || hierarchy == 'anonymous'}">
+                <div id="editorfooter" contenteditable="false">
+                        ${p.content}
+                </div>
+            </c:if>
 
         </c:forEach>
 
