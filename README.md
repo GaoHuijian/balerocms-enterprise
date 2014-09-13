@@ -1,7 +1,8 @@
 ![Balero CMS](http://demo.balerocms.com/site/apps/admin/panel/images/logo.png)
 
 
-The first Java CMS fully optimized for mobiles and tablets and desktops.
+Balero CMS Enterprise is a mobile native look Java-CMS fully manageable
+from mobiles, tablets and desktops.
 
 Introduction
 =============
@@ -17,12 +18,13 @@ Requirements
 Technologies under Balero CMS
 =============================
 
-Balero CMS is an Enterprise Application developed
+Balero CMS is an Enterprise Web Application developed
 under technologies:
 
 * Spring MVC
 * Hibernate
 * Bootstrap
+* Intel's App Framework
 
 Upcoming Technologies
 
