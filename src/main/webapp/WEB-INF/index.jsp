@@ -212,24 +212,20 @@
             <div class="box">
 
             <!-- Code Lang -->
-            <a href="/post/${p.id}" class="pull-right">
-                <span class="badge badge-info">
-                    ${p.locale}
-                 </span>
+            <a href="/post/${p.id}" class="badge badge-info pull-right">
+                ${p.locale}
             </a>
 
             <!-- Comments -->
-            <a href="/post/${p.id}" class="pull-right">
-                <span class="badge badge-info glyphicon glyphicon-comment">
-                    <%= i%>
-                </span>
+            <a href="/post/${p.id}" class="badge badge-info pull-right">
+                <span class="glyphicon glyphicon-comment"><%= i%></span>  Comments
             </a>
 
             <c:if test="${auth == true}">
 
                 <c:if test="${empty p.full}">
                     <a href="/post/${p.id}?more=1" class="badge badge-info pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-plus"></span> More...
                     </a>
                 </c:if>
                 <c:if test="${not empty p.full}">
@@ -239,27 +235,30 @@
                 </c:if>
 
                 <!-- Toolbox -->
+                <div class="box-toolbox">
+                    <button type="submit" class="btn btn-default btn-lg" id="submit${p.id}">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+
+                    <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+
+                    <div class="fileUpload btn btn-primary">
+                        <span class="glyphicon glyphicon-upload"></span>
+                        <input type="file" name="file" class="upload" />
+                    </div>
+                </div>
 
                 <c:if test="${hierarchy == 'admin'}">
-                <select class="form-control" name="status">
-                    <option selected value="${p.status}">Status (${p.status})</option>
-                    <option value="published">Published</option>
-                    <option value="pending">Pending</option>
-                </select>
-                </c:if>
-
-                <button type="submit" class="btn btn-default btn-lg" id="submit${p.id}">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                </button>
-
-                <a href="/post/delete?id=${p.id}" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-
-                <div class="fileUpload btn btn-primary">
-                    <span class="glyphicon glyphicon-upload"></span>
-                    <input type="file" name="file" class="upload" />
+                <div class="box-toolbox">
+                    <select class="form-control" name="status">
+                        <option selected value="${p.status}">Status (${p.status})</option>
+                        <option value="published">Published</option>
+                        <option value="pending">Pending</option>
+                    </select>
                 </div>
+                </c:if>
 
             </c:if>
 
