@@ -36,23 +36,25 @@ body {
     padding-right: 10%;
     padding-top: 3%;
     padding-bottom: 5%;
-    margin-bottom: 10px;
+    margin-top: -10px;
 }
 .box-small {
     width: 100%;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: -10px;
     display: inline-block;
 }
 .box-toolbox {
     width: 100%;
     height: auto;
-    margin-bottom: 10px;
     display: inline-block;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: -10px;
 }
 /**
 * Badges
@@ -196,7 +198,7 @@ body {
     padding-right: 2%;
     padding-top: 4%;
     padding-bottom: 1%;
-    margin-top: 0;
+    margin-top: 50px;
     text-align: center;
     color: #000000;
     background-color: #f9f9f9;
@@ -291,8 +293,8 @@ img {
 }
 
 /* Small */
-@media(min-width:768px) and (max-width:991px) {
+@media(min-width:768px) and (max-width:1080px) {
     #footer {
-        margin-top: 0;
+        margin-top: 10px;
     }
 }

@@ -209,7 +209,7 @@
                     </p>
                 </div>
 
-            <div class="box">
+            <div class="box-toolbox">
 
             <!-- Code Lang -->
             <a href="/post/${p.id}" class="badge badge-info pull-right">
