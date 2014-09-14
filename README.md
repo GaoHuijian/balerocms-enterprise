@@ -35,7 +35,7 @@ Upcoming Technologies
 
 Under development
 
-* balerocms.com
+* (balerocms.com)[http://balerocms.com]
 
 DEMO
 =====
@@ -57,4 +57,3 @@ About and comments
 
 * Website: balerocms.com
 * Contact: anibalgomez@icloud.com
-
