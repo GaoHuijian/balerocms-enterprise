@@ -87,8 +87,8 @@ public class TestController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") int id,
-                             @CookieValue(value = "baleroAdmin") String baleroAdmin) {
+         public String deleteUser(@PathVariable("id") int id,
+                                  @CookieValue(value = "baleroAdmin") String baleroAdmin) {
 
         /**
          * Security
@@ -100,6 +100,14 @@ public class TestController {
 
         TestDAO.delete(id);
         return "redirect:/test";
+    }
+
+    @RequestMapping(value = "test/include", method = RequestMethod.GET)
+    public String includeTest(Model model) {
+
+        model.addAttribute("varTest", "funciona!!!");
+        return "body";
+
     }
 
 }
